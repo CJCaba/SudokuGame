@@ -4,7 +4,10 @@ set(SOURCE_FILES
         MainFrame.h
         MainFrame.cpp
         pch.h
-        )
+        Item.h
+        Item.cpp
+        Item.h
+)
 
 set(wxBUILD_PRECOMP OFF)
 find_package(wxWidgets COMPONENTS core base xrc html xml REQUIRED)
