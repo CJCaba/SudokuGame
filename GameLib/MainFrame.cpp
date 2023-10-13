@@ -42,6 +42,30 @@ void MainFrame::Initialize()
 //    levelMenu->Append(IDM_LEVEL2, L"&Level 2", L"Start Level 2");
 //    levelMenu->Append(IDM_LEVEL3, L"&Level 2", L"Start Level 2");
 
+    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
+    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
+
+
     SetMenuBar(menuBar);
 
+}
+
+/**
+ * Exit menu option handlers
+ * @param event
+ */
+void MainFrame::OnExit(wxCommandEvent& event)
+{
+    Close(true);
+}
+
+/**
+ * Application about box menu handler
+ */
+void MainFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
+{
+    wxMessageBox(L"Welcome to Sparty Action Sudoku!",
+                 L"About the Game",
+                 wxOK | wxCENTRE,
+                 this);
 }
