@@ -38,9 +38,9 @@ void MainFrame::Initialize()
 
     fileMenu->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit this program");
     helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
-//    levelMenu->Append(IDM_LEVEL1, L"&Level 1", L"Start Level 1");
-//    levelMenu->Append(IDM_LEVEL2, L"&Level 2", L"Start Level 2");
-//    levelMenu->Append(IDM_LEVEL3, L"&Level 2", L"Start Level 2");
+    levelMenu->Append(IDM_LEVELONE, L"&Level 1", L"Start Level 1");
+    levelMenu->Append(IDM_LEVELTWO, L"&Level 2", L"Start Level 2");
+    levelMenu->Append(IDM_LEVELTHREE, L"&Level 2", L"Start Level 2");
 
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
