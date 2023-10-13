@@ -18,6 +18,7 @@ private:
 public:
     int GetMinutes(){return mMinute;}
     int GetSeconds(){return mSecond;}
+    static void Update(std::shared_ptr<wxGraphicsContext> gc);
 };
 
 #endif //ARES_GAMELIB_TIMER_H
