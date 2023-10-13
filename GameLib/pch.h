@@ -11,6 +11,7 @@
 #include <wx/wxprec.h>
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
+#include <wx/graphics.h>
 #endif
 
 #endif //ARES_GAMELIB_PCH_H
