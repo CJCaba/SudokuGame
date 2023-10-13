@@ -16,6 +16,9 @@ class GameView;
 class MainFrame : public wxFrame
 {
 private:
+    void OnExit(wxCommandEvent &event);
+
+    void OnHelp(wxCommandEvent &event);
 public:
     void Initialize();
 };

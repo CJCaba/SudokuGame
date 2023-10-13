@@ -6,7 +6,7 @@
 #include "pch.h"
 #include "MainFrame.h"
 #include "GameView.h"
-// #include "ids.h"
+#include "ids.h"
 
 void MainFrame::Initialize()
 {

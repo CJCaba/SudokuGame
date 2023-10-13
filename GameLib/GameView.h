@@ -9,7 +9,7 @@
 #define ARES_GAMELIB_GAMEVIEW_H
 
 
-//#include "Game.h"
+#include "Game.h"
 
 
 /**
@@ -27,7 +27,7 @@ private:
 
 
     /// An object that describes our game
-    // Game mGame;
+    Game mGame;
 
     /// Timer allowing for animation
     wxTimer mTimer;
