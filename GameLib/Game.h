@@ -1,6 +1,6 @@
 /**
  * @file Game.h
- * @author Daniel Flanagan
+ * @authors Daniel Flanagan and Tyler Przybylo
  *
  * Class that implements the game
  */
@@ -22,7 +22,7 @@ private:
     /// Collection of items within the game
     std::vector<std::shared_ptr<Item>> mItems;
 
-    std::unique_ptr<wxImage> mBackgroundImage;  ///< Background image to use
+    std::shared_ptr<wxImage> mBackgroundImage;  ///< Background image to use
 
     wxGraphicsBitmap mBackgroundBitmap; ///< The background bitmap
 
@@ -36,6 +36,8 @@ private:
     double mYOffset;
 
 public:
+    Game();
+
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
 
     void Add(std::shared_ptr<Item> item);

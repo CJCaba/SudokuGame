@@ -1,12 +1,20 @@
 /**
  * @file Game.cpp
- * @author Daniel Flanagan
+ * @author Daniel Flanagan and Tyler Przybylo
  */
 
 #include "pch.h"
 #include "Game.h"
 
 using namespace std;
+
+/**
+ * Constructor for the game object
+ */
+ Game::Game()
+{
+     // mBackgroundImage = std::make_shared<wxImage>(L"images/background.png");
+}
 
 /**
  * Add an item to the game
@@ -55,6 +63,16 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // Draw in virtual pixels on the graphics context
     //
     // INSERT YOUR DRAWING CODE HERE
+
+    // Broken background code
+//     if (mBackgroundBitmap.IsNull())
+//    {
+//        mBackgroundBitmap = graphics->CreateBitmapFromImage(*mBackgroundImage);
+//    }
+//    int backgroundWidth = mBackgroundImage->GetWidth();
+//    int backgroundHeight = mBackgroundImage->GetHeight();
+//    graphics->DrawBitmap(mBackgroundBitmap, 0, 0, backgroundWidth, backgroundHeight);
+
     //
     // Drawing a rectangle that is the playing area size
     // Draw a rectangle
