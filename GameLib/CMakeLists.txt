@@ -7,6 +7,8 @@ set(SOURCE_FILES
         Item.h
         Item.cpp
         Item.h
+        GameView.cpp
+        GameView.h
 )
 
 set(wxBUILD_PRECOMP OFF)
