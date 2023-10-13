@@ -10,7 +10,9 @@
 
 enum IDs
 {
-    //IDM_EXAMPLE = wxID_HIGHEST + 1, // Example ID
+    IDM_LEVELONE = wxID_HIGHEST + 1,
+    IDM_LEVELTWO = wxID_HIGHEST + 2,
+    IDM_LEVELTHREE = wxID_HIGHEST + 3
 };
 
 #endif //ARES_GAMELIB_IDS_H
