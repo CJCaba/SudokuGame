@@ -25,4 +25,23 @@ void MainFrame::Initialize()
     SetSizer(sizer);
     // Layout (place) the child windows
     Layout();
+
+    auto menuBar = new wxMenuBar( );
+
+    auto fileMenu = new wxMenu();
+    auto helpMenu = new wxMenu();
+    auto levelMenu = new wxMenu();
+
+    menuBar->Append(fileMenu, L"&File" );
+    menuBar->Append(levelMenu, L"&Choose level");
+    menuBar->Append(helpMenu, L"&Help");
+
+    fileMenu->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit this program");
+    helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
+//    levelMenu->Append(IDM_LEVEL1, L"&Level 1", L"Start Level 1");
+//    levelMenu->Append(IDM_LEVEL2, L"&Level 2", L"Start Level 2");
+//    levelMenu->Append(IDM_LEVEL3, L"&Level 2", L"Start Level 2");
+
+    SetMenuBar(menuBar);
+
 }
