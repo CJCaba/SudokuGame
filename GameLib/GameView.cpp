@@ -7,10 +7,9 @@
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include "GameView.h"
-//#include "ids.h"
+#include "ids.h"
 
 using namespace std;
-
 
 /**
  * Initialize the game view class.
@@ -33,7 +32,7 @@ void GameView::OnPaint(wxPaintEvent &event) {
     wxAutoBufferedPaintDC dc(this);
 
     // Clear the image to black
-    wxBrush background(*wxBLACK);
+    wxBrush background(*wxWHITE);
     dc.SetBackground(background);
     dc.Clear();
 

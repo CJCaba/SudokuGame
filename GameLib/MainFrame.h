@@ -8,6 +8,8 @@
 #ifndef ARES_GAMELIB_MAINFRAME_H
 #define ARES_GAMELIB_MAINFRAME_H
 
+class GameView;
+
 /**
  * Top Level Mainframe Class
  */

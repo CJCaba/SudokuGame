@@ -11,6 +11,9 @@ set(SOURCE_FILES
         GameView.h
         Game.cpp
         Game.h
+        ids.h
+        Timer.cpp
+        Timer.h
 )
 
 set(wxBUILD_PRECOMP OFF)
