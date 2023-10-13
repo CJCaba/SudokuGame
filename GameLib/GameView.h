@@ -8,11 +8,10 @@
 #ifndef ARES_GAMELIB_GAMEVIEW_H
 #define ARES_GAMELIB_GAMEVIEW_H
 
-<<<<<<< HEAD
+
 //#include "Game.h"
 
-=======
->>>>>>> origin/main
+
 /**
  * View class for our game
  */
@@ -26,7 +25,7 @@ private:
     // void OnTimer(wxTimerEvent &event);
     void OnPaint(wxPaintEvent &event);
 
-<<<<<<< HEAD
+
     /// An object that describes our game
     // Game mGame;
 
@@ -39,8 +38,7 @@ private:
     /// The last stopwatch time
     long mTime = 0;
 
-=======
->>>>>>> origin/main
+
 public:
     void Initialize(wxFrame* parent);
 
