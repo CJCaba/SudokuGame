@@ -9,9 +9,10 @@
 #define ARES_GAMELIB_ITEM_H
 
 #include <memory>
+#include <wx/graphics.h>
 
 // Uncomment this once Game class is made
-// class Game;
+ class Game;
 
 /**
  * Base class for items in the game
@@ -30,10 +31,13 @@ private:
     std::unique_ptr<wxImage> mItemImage;
 
     /// The bitmap for this tile
-    std::unique_ptr<wxBitmap> mItemBitmap;
+    wxGraphicsBitmap mItemBitmap;
 
     /// The file for this item
     std::wstring mFile;
+
+    /// The game this item is contained in
+    Game *mGame;
 public:
     /// Default constructor (disabled)
     Item() = delete;
@@ -43,6 +47,55 @@ public:
 
     /// Assignment operator
     void operator=(const Item &) = delete;
+
+    /// Destructor
+    virtual ~Item();
+
+    /// Constructor
+    Item(Game *game, const std::wstring &filename);
+
+    /**
+     * The X location of the item
+     * @return X location in pixels
+     */
+     double GetX() const { return mX; }
+
+     /**
+      * The Y location of the item
+      * @return Y location in pixels
+      */
+     double GetY() const { return mY; }
+
+     /**
+      * Set the item location
+      * @param x X location in pixels
+      * @param y Y location in pixels
+      */
+     virtual void SetLocation(double x, double y) { mX = x; mY = y; }
+
+     /**
+       * Get Width of an image in pixels
+       * @return double representing width of the item
+       */
+//        double GetWidth() { return mItemBitmap->GetWidth(); }
+
+     /**
+       * Get height of an image in pixels
+       * @return double representing the height of the item
+       */
+//        double GetHeight() { return mItemBitmap->GetHeight(); }
+
+     /**
+       * Draw this item
+       * @param gc Device context to draw on
+       */
+     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
+
+     /**
+      * Get the Game class that this item is a part of
+      * @return Pointer to the Game class
+      */
+      Game* GetGame() { return mGame; }
 };
 
 #endif //ARES_GAMELIB_ITEM_H
