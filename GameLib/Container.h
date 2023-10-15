@@ -16,26 +16,45 @@
  */
 class Container
 {
+protected:
+    Container(Game *game, const std::wstring &backImageFilename, const std::wstring &frontImageFilename);
 private:
+    /// The game this container is a part of
+    Game *mGame;
+
     /// Items within the container
     std::vector<std::shared_ptr<Item>> mItems;
 
-    /// The bottom image of the container
-    std::unique_ptr<wxImage> mBottomImage;
+    /// The back image of the container
+    std::unique_ptr<wxImage> mBackImage;
 
-    /// The bottom bitmap of the container
-    wxGraphicsBitmap mBottomBitmap;
+    /// The back bitmap of the container
+    wxGraphicsBitmap mBackBitmap;
 
-    /// The top image of the container
-    std::unique_ptr<wxImage> mTopImage;
+    /// The front image of the container
+    std::unique_ptr<wxImage> mFrontImage;
 
-    /// The top bitmap of the container
-    wxGraphicsBitmap mTopBitmap;
+    /// The front bitmap of the container
+    wxGraphicsBitmap mFrontBitmap;
 
     double mX = 0;  ///< X position of the item
     double mY = 0;  ///< Y position of the item
 
 public:
+    /// Default constructor (disabled)
+    Container() = delete;
+
+    /// Copy constructor (disabled)
+    Container(const Container &) = delete;
+
+    /// Assignment operator
+    void operator=(const Container &) = delete;
+
+    /**
+     * Destructor
+     */
+    virtual ~Container();
+
     /**
      * The X location of the item
      * @return X location in pixels
@@ -52,24 +71,25 @@ public:
        * Get Width of an image in pixels
        * @return double representing width of the item
        */
-    double GetWidth() { return mBottomImage->GetWidth(); }
+    double GetWidth() { return mBackImage->GetWidth(); }
 
     /**
       * Get height of an image in pixels
       * @return double representing the height of the item
       */
-    double GetHeight() { return mBottomImage->GetHeight(); }
+    double GetHeight() { return mBackImage->GetHeight(); }
 
-    void add(std::shared_ptr<Item> item);
+    void add(const std::shared_ptr<Item>& item);
     void release();
 
     /**
      * Is the item in the container?
+     * @param item The item in question.
      * @return bool representing yes/no.
      */
-    bool contains(std::shared_ptr<Item> item) { return std::find(mItems.begin(), mItems.end(), item) != mItems.end(); };
+    bool contains(const std::shared_ptr<Item>& item) { return std::find(mItems.begin(), mItems.end(), item) != mItems.end(); };
 
-    void Draw(std::shared_ptr<wxGraphicsContext> graphics);
+    void Draw(const std::shared_ptr<wxGraphicsContext>& graphics);
 };
 
 #endif //ARES_GAMELIB_CONTAINER_H

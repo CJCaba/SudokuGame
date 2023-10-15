@@ -10,13 +10,36 @@
 #include "Container.h"
 #include "Game.h"
 
+using namespace std;
+
+/**
+ * Constructor
+ * @param game The game this container is a member of
+ * @param backImageFilename The name of the file that contains the back of the container
+ * @param frontImageFilename The name of the file that contains the front of the container
+ */
+Container::Container(Game *game, const std::wstring &backImageFilename, const std::wstring &frontImageFilename) : mGame(game)
+{
+    mBackImage = make_unique<wxImage>(backImageFilename, wxBITMAP_TYPE_ANY);
+    mFrontImage = make_unique<wxImage>(frontImageFilename, wxBITMAP_TYPE_ANY);
+}
+
+/**
+ * Destructor
+ */
+Container::~Container()
+{
+
+}
+
 /**
  * Adds an item to the container
  * @param item to add
  */
-void Container::add(std::shared_ptr<Item> item)
+void Container::add(const shared_ptr<Item>& item)
 {
     mItems.push_back(item);
+    // [Change location of the item here]
 }
 
 /**
@@ -26,13 +49,13 @@ void Container::add(std::shared_ptr<Item> item)
  */
 void Container::release()
 {
+    auto randomSeed = mGame->GetRandom();
+
     // Distribute contained items across the screen
-    for (auto item : mItems)
+    for (const auto& item : mItems)
     {
-        auto game = item->GetGame();
-        auto randomSeed = game->GetRandom();
-        std::uniform_real_distribution<> distributionX(0, 100);//game->GetBackgroundImage()->GetWidth());
-        std::uniform_real_distribution<> distributionY(0, 100);//game->GetBackgroundImage()->GetHeight());
+        uniform_real_distribution<> distributionX(0, 100);//mGame->GetBackgroundImage()->GetWidth());
+        uniform_real_distribution<> distributionY(0, 100);//mGame->GetBackgroundImage()->GetHeight());
         item->SetLocation(distributionX(randomSeed), distributionY(randomSeed));
     }
 
@@ -40,28 +63,28 @@ void Container::release()
     mItems.clear();
 }
 
-void Container::Draw(std::shared_ptr<wxGraphicsContext> graphics)
+void Container::Draw(const shared_ptr<wxGraphicsContext>& graphics)
 {
-    if(mBottomBitmap.IsNull())
+    if(mBackBitmap.IsNull())
     {
-        mBottomBitmap = graphics->CreateBitmapFromImage(*mBottomImage);
+        mBackBitmap = graphics->CreateBitmapFromImage(*mBackImage);
     }
-    if (mTopBitmap.IsNull())
-        mTopBitmap = graphics->CreateBitmapFromImage(*mTopImage);
+    if (mFrontBitmap.IsNull())
+        mFrontBitmap = graphics->CreateBitmapFromImage(*mFrontImage);
 
     // Draw the bottom bitmap
-    int bottomImageWidth = mBottomImage->GetWidth();
-    int bottomImageHeight = mBottomImage->GetHeight();
-    graphics->DrawBitmap(mBottomBitmap, GetX(), GetY(), bottomImageWidth, bottomImageHeight);
+    int bottomImageWidth = mBackImage->GetWidth();
+    int bottomImageHeight = mBackImage->GetHeight();
+    graphics->DrawBitmap(mBackBitmap, GetX(), GetY(), bottomImageWidth, bottomImageHeight);
 
     // Draw contained items
-    for (auto item : mItems)
+    for (const auto& item : mItems)
     {
         item->Draw(graphics);
     }
 
     // Draw the top bitmap
-    int topImageWidth = mTopImage->GetWidth();
-    int topImageHeight = mTopImage->GetHeight();
-    graphics->DrawBitmap(mBottomBitmap, GetX(), GetY(), topImageWidth, topImageHeight);
+    int topImageWidth = mFrontImage->GetWidth();
+    int topImageHeight = mFrontImage->GetHeight();
+    graphics->DrawBitmap(mBackBitmap, GetX(), GetY(), topImageWidth, topImageHeight);
 }
