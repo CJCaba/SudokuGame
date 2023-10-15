@@ -2,21 +2,23 @@
  * @file GivenNumber.h
  * @author Jaden Cabansag
  *
- * Derived class for numbers already set in play area
+ * Base Class for a number
  */
 
 #ifndef ARES_GAMELIB_GIVENNUMBER_H
 #define ARES_GAMELIB_GIVENNUMBER_H
 
-#include "Number.h"
+#include "Item.h"
 
 /**
- * Base Class for Given Number
+ * Base class for a Given Number
  */
-class GivenNumber : public Number
+class GivenNumber : public Item
 {
+protected:
+    GivenNumber(Game *game, const std::wstring &filename);
 private:
-
+    int value;
 public:
     /// Default constructor (disabled)
     GivenNumber() = delete;
@@ -26,7 +28,12 @@ public:
     
     /// Assignment operator
     void operator=(const GivenNumber &) = delete;
-    
+
+    /**
+     * Return value of this number
+     * @return value
+     */
+    int GetValue() { return value; }
     
 };
 

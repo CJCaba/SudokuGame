@@ -8,15 +8,15 @@
 #ifndef ARES_GAMELIB_INTERACTNUMBER_H
 #define ARES_GAMELIB_INTERACTNUMBER_H
 
-#include "Number.h"
+#include "Item.h"
 
 /**
  * Base class for Interactable Number
  */
-class InteractNumber : public Number
+class InteractNumber : public Item
 {
 private:
-
+    int value;
 public:
     /// Default constructor (disabled)
     InteractNumber() = delete;
@@ -26,8 +26,12 @@ public:
     
     /// Assignment operator
     void operator=(const InteractNumber &) = delete;
-    
-    
+
+    /**
+    * Return value of this number
+    * @return value
+    */
+    int GetValue() { return value; }
 };
 
 #endif //ARES_GAMELIB_INTERACTNUMBER_H
