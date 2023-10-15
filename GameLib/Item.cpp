@@ -1,6 +1,7 @@
 /**
  * @file Item.cpp
- * @author Tyler Przybylo
+ * @author Tyler Przybylo,
+ * @author Jaden Cabansag
  */
 
 #include "pch.h"

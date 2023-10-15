@@ -1,6 +1,7 @@
 /**
  * @file Item.h
  * @author Tyler Przybylo
+ * @author Jaden Cabansag
  *
  * Base class for items in the game
  */
@@ -77,13 +78,13 @@ public:
        * Get Width of an image in pixels
        * @return double representing width of the item
        */
-//        double GetWidth() { return mItemBitmap->GetWidth(); }
+        double GetWidth() { return mItemImage->GetWidth(); }
 
      /**
        * Get height of an image in pixels
        * @return double representing the height of the item
        */
-//        double GetHeight() { return mItemBitmap->GetHeight(); }
+        double GetHeight() { return mItemImage->GetHeight(); }
 
      /**
        * Draw this item
