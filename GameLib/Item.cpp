@@ -18,7 +18,6 @@ using namespace std;
 Item::Item(Game *game, const wstring &filename) : mGame(game)
 {
     mItemImage = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
-
 };
 
 /**

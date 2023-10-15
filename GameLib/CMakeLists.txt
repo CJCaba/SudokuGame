@@ -16,6 +16,12 @@ set(SOURCE_FILES
         Clock.h
         Container.cpp
         Container.h
+        Number.cpp
+        Number.h
+        GivenNumber.cpp
+        GivenNumber.h
+        InteractNumber.cpp
+        InteractNumber.h
 )
 
 set(wxBUILD_PRECOMP OFF)
