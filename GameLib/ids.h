@@ -8,6 +8,9 @@
 #ifndef ARES_GAMELIB_IDS_H
 #define ARES_GAMELIB_IDS_H
 
+/**
+ * Unique ID Values for Game Menu
+ */
 enum IDs
 {
     IDM_LEVELONE = wxID_HIGHEST + 1,

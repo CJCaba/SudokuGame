@@ -7,10 +7,16 @@
 #include "GameApp.h"
 #include <MainFrame.h>
 
+/**
+ * Initiates the Game Application
+ * @return True if value, else False
+ */
 bool GameApp::OnInit()
 {
     if (!wxApp::OnInit())
         return false;
+
+    wxInitAllImageHandlers();
 
     auto frame = new MainFrame();
     frame->Initialize();

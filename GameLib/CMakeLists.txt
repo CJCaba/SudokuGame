@@ -12,8 +12,10 @@ set(SOURCE_FILES
         Game.cpp
         Game.h
         ids.h
-        Timer.cpp
-        Timer.h
+        Clock.cpp
+        Clock.h
+        Container.cpp
+        Container.h
 )
 
 set(wxBUILD_PRECOMP OFF)

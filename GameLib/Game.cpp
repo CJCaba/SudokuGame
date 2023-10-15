@@ -5,15 +5,19 @@
 
 #include "pch.h"
 #include "Game.h"
+#include "Clock.h"
 
 using namespace std;
+
+/// Path to Background Image
+std::string fileName = "images/background.png";
 
 /**
  * Constructor for the game object
  */
- Game::Game()
+Game::Game()
 {
-     // mBackgroundImage = std::make_shared<wxImage>(L"images/background.png");
+    mBackgroundImage = std::make_shared<wxImage>(fileName);
 }
 
 /**
@@ -32,13 +36,24 @@ void Game::Add(std::shared_ptr<Item> item)
  * @param graphics Graphics device to draw on
  * @param width Width of the window
  * @param height Height of the window
+ * @param clock Reference to Analog Clock object
  */
-void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height)
+void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, double height, Clock &clock)
 {
+    //
+    // Take Background Bitmap and Load Width & Height
+    //
+    if (mBackgroundBitmap.IsNull())
+    {
+        mBackgroundBitmap = graphics->CreateBitmapFromImage(*mBackgroundImage);
+    }
+    int backgroundWidth = mBackgroundImage->GetWidth();
+    int backgroundHeight = mBackgroundImage->GetHeight();
+
     // Determine the size of the playing area in pixels
     // This is up to you...
-    int pixelWidth = 48;
-    int pixelHeight = 48;
+    int pixelWidth = backgroundWidth;
+    int pixelHeight = backgroundHeight;
 
     //
     // Automatic Scaling
@@ -55,33 +70,54 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     }
 
     graphics->PushState();
-
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
+    graphics->PopState();
 
     //
     // Draw in virtual pixels on the graphics context
     //
     // INSERT YOUR DRAWING CODE HERE
 
-    // Broken background code
-//     if (mBackgroundBitmap.IsNull())
-//    {
-//        mBackgroundBitmap = graphics->CreateBitmapFromImage(*mBackgroundImage);
-//    }
-//    int backgroundWidth = mBackgroundImage->GetWidth();
-//    int backgroundHeight = mBackgroundImage->GetHeight();
-//    graphics->DrawBitmap(mBackgroundBitmap, 0, 0, backgroundWidth, backgroundHeight);
+    //
+    // Draws Background
+    //
+    graphics->DrawBitmap(mBackgroundBitmap,
+                         mXOffset, mYOffset,
+                         backgroundWidth * mScale,
+                         backgroundHeight * mScale);
 
     //
     // Drawing a rectangle that is the playing area size
     // Draw a rectangle
-    wxBrush background(*wxRED);
-
-    graphics->SetBrush(background);
+    //
+    graphics->PushState();
     graphics->DrawRectangle(0, 0, pixelWidth, pixelHeight);
-
     graphics->PopState();
+
+    //
+    // Drawing Clock on Screen
+    // Draws text in corner of Game Rectangle
+    //
+    wxFont font(wxSize(50 * mScale, 50 * mScale),
+                wxFONTFAMILY_SWISS,
+                wxFONTSTYLE_NORMAL,
+                wxFONTWEIGHT_BOLD);
+    graphics->SetFont(font, wxColour(*wxWHITE));
+
+    std::string analog = clock.GetMinutes() + ":" + clock.GetSeconds();
+
+    graphics->DrawText(analog,
+                       mXOffset + (50 * mScale),
+                       mYOffset + (20 * mScale));
+}
+
+/**
+ * Updates and refreshes Game
+ * @param elapsed Time passed since last refresh
+ */
+void Game::OnUpdate(double elapsed) // <- Disabled in GameView Currently
+{
 
 }
 

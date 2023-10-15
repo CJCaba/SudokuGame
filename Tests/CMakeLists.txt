@@ -1,6 +1,10 @@
 project(Tests)
 
-set(TEST_FILES)
+set(TEST_FILES
+        gtest_main.cpp
+        EmptyTest.cpp
+        ClockTest.cpp
+)
 
 # Get Google Tests
 include(FetchContent)

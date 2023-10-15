@@ -10,6 +10,7 @@
 
 
 #include "Game.h"
+#include "Clock.h"
 
 
 /**
@@ -22,14 +23,17 @@ private:
     // void OnSaveAs(wxCommandEvent &event);
     // void OnLeftDown(wxMouseEvent &event);
     // void OnLeftUp(wxMouseEvent &event);
-    // void OnTimer(wxTimerEvent &event);
     void OnPaint(wxPaintEvent &event);
+    void OnTimer(wxTimerEvent &event);
 
 
     /// An object that describes our game
     Game mGame;
 
-    /// Timer allowing for animation
+    /// An object that stores hour and minute values
+    Clock mClock;
+
+    /// Clock allowing for animation
     wxTimer mTimer;
 
     /// Stopwatch used to measure elapsed time
@@ -37,7 +41,6 @@ private:
 
     /// The last stopwatch time
     long mTime = 0;
-
 
 public:
     void Initialize(wxFrame* parent);
