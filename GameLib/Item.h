@@ -16,7 +16,7 @@
  class Game;
 
 /**
- * Base class for items in the game
+ * Base class for Numbers in the game
  */
 class Item
 {

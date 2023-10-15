@@ -16,8 +16,6 @@ set(SOURCE_FILES
         Clock.h
         Container.cpp
         Container.h
-        Number.cpp
-        Number.h
         GivenNumber.cpp
         GivenNumber.h
         InteractNumber.cpp
