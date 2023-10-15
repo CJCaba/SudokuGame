@@ -8,11 +8,13 @@
 #ifndef ARES_GAMELIB_GAME_H
 #define ARES_GAMELIB_GAME_H
 
+#include <random>
 #include <vector>
 #include <wx/graphics.h>
 
 #include "Clock.h"
 #include "Item.h"
+#include "Container.h"
 
 
 class Clock;
@@ -25,6 +27,9 @@ class Game
 private:
     /// Collection of items within the game
     std::vector<std::shared_ptr<Item>> mItems;
+
+    /// Collection of containers within the game
+    std::vector<std::shared_ptr<Container>> mContainers;
 
     std::shared_ptr<wxImage> mBackgroundImage;  ///< Background image to use
 
@@ -39,6 +44,9 @@ private:
     /// The amount to shift the graphics object in the y direction
     double mYOffset = 0;
 
+    /// Random number generator
+    std::mt19937 mRandom;
+
 public:
     Game();
 
@@ -47,6 +55,12 @@ public:
     void OnUpdate(double elapsed);
 
     void Add(std::shared_ptr<Item> item);
+
+    /**
+     * Get the random number generator
+     * @return Pointer to the random number generator
+     */
+    std::mt19937 &GetRandom() { return mRandom; }
 };
 
 #endif //ARES_GAMELIB_GAME_H

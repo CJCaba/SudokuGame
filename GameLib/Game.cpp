@@ -110,6 +110,13 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     graphics->DrawText(analog,
                        mXOffset + (50 * mScale),
                        mYOffset + (20 * mScale));
+
+    // loop through items
+        // if item is not in any containers
+            // draw item
+
+    // loop through containers
+        // draw container (also draws contained items)
 }
 
 /**
