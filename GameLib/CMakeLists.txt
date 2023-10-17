@@ -22,6 +22,8 @@ set(SOURCE_FILES
         InteractNumber.h
         Sparty.cpp
         Sparty.h
+        Number.cpp
+        Number.h
 )
 
 set(wxBUILD_PRECOMP OFF)

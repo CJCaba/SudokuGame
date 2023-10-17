@@ -4,13 +4,15 @@
  */
 #include "gtest/gtest.h"
 #include <Clock.h>
+#include <Game.h>
 
 /**
  * Test if Clock Object constructs
  */
 TEST(ClockTest, Construct)
 {
-    Clock clock;
+    Game *mGame;
+    Clock clock(mGame);
 }
 
 /**
@@ -18,7 +20,8 @@ TEST(ClockTest, Construct)
  */
 TEST(ClockTest, TestTimes)
 {
-    Clock clock;
+    Game *mGame;
+    Clock clock(mGame);
 
     // Time at 0 milliseconds
     clock.SetTime(0);
