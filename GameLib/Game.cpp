@@ -129,13 +129,24 @@ void Game::OnUpdate(double elapsed) // <- Disabled in GameView Currently
 }
 
 /**
+ * Save the game as a .game XML file.
+ *
+ * Open an XML file and stream the game data to it.
+ *
+ * @param filename The filename of the file to save the game to
+ */
+void Game::Save(const wxString &filename)
+{
+
+}
+
+/**
  * Load the game from a .game XML file.
  *
  * Opens the XML file and reads the nodes, creating items as appropriate.
  *
  * @param filename The filename of the file to load the game from.
  */
-
 void Game::Load(const wxString &filename)
 {
 //    wxXmlDocument xmlDoc;

@@ -63,6 +63,7 @@ public:
      * @return Pointer to the random number generator
      */
     std::mt19937 &GetRandom() { return mRandom; }
+    void Save(const wxString &filename);
 };
 
 #endif //ARES_GAMELIB_GAME_H
