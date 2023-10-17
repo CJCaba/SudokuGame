@@ -39,7 +39,12 @@ Container::~Container()
 void Container::add(const shared_ptr<Item>& item)
 {
     mItems.push_back(item);
-    // [Change location of the item here]
+
+    // Move location to be within container boundaries
+    auto randomSeed = mGame->GetRandom();
+    uniform_real_distribution<> distributionX(mX, mX + mBackImage->GetWidth());
+    uniform_real_distribution<> distributionY(mY, mY + mBackImage->GetHeight());
+    item->SetLocation(distributionX(randomSeed), distributionY(randomSeed));
 }
 
 /**
@@ -66,9 +71,7 @@ void Container::release()
 void Container::Draw(const shared_ptr<wxGraphicsContext>& graphics)
 {
     if(mBackBitmap.IsNull())
-    {
         mBackBitmap = graphics->CreateBitmapFromImage(*mBackImage);
-    }
     if (mFrontBitmap.IsNull())
         mFrontBitmap = graphics->CreateBitmapFromImage(*mFrontImage);
 
