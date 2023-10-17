@@ -9,7 +9,7 @@
 
 Sparty::Sparty(Game *game, const std::wstring &filename1, const std::wstring &filename2) : Item(game, filename1)
 {
-    mMouthImage = make_unique<wxImage>(filename2, wxBITMAP_TYPE_ANY);
+    mMouthImage = std::make_unique<wxImage>(filename2, wxBITMAP_TYPE_ANY);
 }
 
 /**
