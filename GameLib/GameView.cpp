@@ -29,7 +29,7 @@ void GameView::Initialize(wxFrame *parent) {
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
 
     mTimer.SetOwner(this);
-    mTimer.Start();
+    mTimer.Start(1);
     mStopWatch.Start();
 }
 
