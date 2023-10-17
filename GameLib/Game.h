@@ -56,6 +56,8 @@ public:
 
     void Add(std::shared_ptr<Item> item);
 
+    void Load(const wxString &filename);
+
     /**
      * Get the random number generator
      * @return Pointer to the random number generator

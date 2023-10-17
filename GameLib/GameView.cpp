@@ -1,6 +1,6 @@
 /**
  * @file GameView.cpp
- * @author jadec
+ * @author jadec, Daniel Flanagan
  */
 
 #include "pch.h"
@@ -84,4 +84,21 @@ void GameView::OnPaint(wxPaintEvent &event) {
 void GameView::OnTimer(wxTimerEvent& event)
 {
     Refresh();
+}
+
+/**
+ * File>Open menu handler
+ * @param event Menu event
+ */
+void GameView::OnFileOpen(wxCommandEvent& event)
+{
+    wxFileDialog loadFileDialog(this, L"Load Game file", L"", L"",
+                                L"Game Files (*.game)|*.game", wxFD_OPEN);
+    if (loadFileDialog.ShowModal() == wxID_CANCEL)
+    {
+        return;
+    }
+
+    auto filename = loadFileDialog.GetPath();
+
 }
