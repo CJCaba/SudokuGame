@@ -1,6 +1,6 @@
 /**
  * @file GameView.cpp
- * @author jadec
+ * @author jadec, Daniel Flanagan
  */
 
 #include "pch.h"
@@ -20,6 +20,10 @@ void GameView::Initialize(wxFrame *parent) {
     Create(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE);
 
     SetBackgroundStyle(wxBG_STYLE_PAINT);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnFileSaveAs, this,
+                 wxID_SAVEAS);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnFileOpen, this,
+                 wxID_OPEN);
 
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
@@ -78,5 +82,40 @@ void GameView::OnPaint(wxPaintEvent &event) {
  */
 void GameView::OnTimer(wxTimerEvent& event)
 {
+    Refresh();
+}
+
+/**
+ * Handle the File>Save As menu option
+ * @param event The menu event
+ */
+void GameView::OnFileSaveAs(wxCommandEvent& event)
+{
+    wxFileDialog saveFileDialog(this, L"Save Game file", L"", L"",
+                                L"Game Files (*.game)|*.game", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+    if (saveFileDialog.ShowModal() == wxID_CANCEL)
+    {
+        return;
+    }
+
+    auto filename = saveFileDialog.GetPath();
+    mGame.Save(filename);
+}
+
+/**
+ * File>Open menu handler
+ * @param event Menu event
+ */
+void GameView::OnFileOpen(wxCommandEvent& event)
+{
+    wxFileDialog loadFileDialog(this, L"Load Game file", L"", L"",
+                                L"Game Files (*.game)|*.game", wxFD_OPEN);
+    if (loadFileDialog.ShowModal() == wxID_CANCEL)
+    {
+        return;
+    }
+
+    auto filename = loadFileDialog.GetPath();
+    mGame.Load(filename);
     Refresh();
 }

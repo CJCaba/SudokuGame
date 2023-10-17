@@ -17,6 +17,7 @@
 #include "Container.h"
 
 class Clock;
+#include "Sparty.h"
 
 /**
  * Implements a game class with necessary items
@@ -29,6 +30,8 @@ private:
 
     /// Collection of containers within the game
     std::vector<std::shared_ptr<Container>> mContainers;
+
+    std::shared_ptr<Sparty> mSparty;
 
     std::shared_ptr<wxImage> mBackgroundImage;  ///< Background image to use
 
@@ -64,11 +67,14 @@ public:
 
     void Add(std::shared_ptr<Item> item);
 
+    void Load(const wxString &filename);
+
     /**
      * Get the random number generator
      * @return Pointer to the random number generator
      */
     std::mt19937 &GetRandom() { return mRandom; }
+    void Save(const wxString &filename);
 };
 
 #endif //ARES_GAMELIB_GAME_H

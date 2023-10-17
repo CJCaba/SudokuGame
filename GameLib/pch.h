@@ -1,6 +1,6 @@
 /**
  * @file pch.h
- * @author linja
+ * @authors linja, Daniel Flanagan
  *
  *
  */
@@ -13,5 +13,5 @@
 #include <wx/wx.h>
 #include <wx/graphics.h>
 #endif
-
+#include <wx/xml/xml.h>
 #endif //ARES_GAMELIB_PCH_H

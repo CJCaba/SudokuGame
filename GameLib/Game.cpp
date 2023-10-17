@@ -15,12 +15,17 @@ std::string backgroundFileName = "images/background.png";
 /// Path to X-Ray Image (Hard Coded)
 std::string xRayFileName = "images/xray.png";
 
+// Delete this later, hardcoded until xml loading is figured out
+std::wstring spartyHead = L"images/sparty-1.png";
+std::wstring spartyMouth = L"images/sparty-2.png";
+
 /**
  * Constructor for the game object
  */
 Game::Game()
 {
     mBackgroundImage = std::make_shared<wxImage>(backgroundFileName);
+    mSparty = std::make_shared<Sparty>(this, spartyHead, spartyMouth);
     mXRayImage = std::make_shared<wxImage>(xRayFileName);
 
     auto clock = std::make_shared<Clock>(this);
@@ -115,9 +120,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // Drawing a rectangle that is the playing area size
     // Draw a rectangle
     //
-    //graphics->PushState();
-    //graphics->DrawRectangle(0, 0, pixelWidth, pixelHeight);
-    //graphics->PopState();
+    graphics->PushState();
+    graphics->DrawRectangle(0, 0, pixelWidth, pixelHeight);
+    graphics->PopState();
 
     //
     // Drawing Clock on Screen
@@ -131,6 +136,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
 
     std::string analog = mClock->GetMinutes() + ":" + mClock->GetSeconds();
     graphics->DrawText(analog, mXOffset + (50 * mScale), mYOffset + (20 * mScale));
+
+    //
+    // Hard coded drawing sparty until the add items function is implemented
+    //
+    mSparty->Draw(graphics);
 
     // loop through items
         // if item is not in any containers
@@ -149,3 +159,48 @@ void Game::OnUpdate(double elapsed, long time)
     mClock->SetTime(time);
 }
 
+/**
+ * Save the game as a .game XML file.
+ *
+ * Open an XML file and stream the game data to it.
+ *
+ * @param filename The filename of the file to save the game to
+ */
+void Game::Save(const wxString &filename)
+{
+
+}
+
+/**
+ * Load the game from a .game XML file.
+ *
+ * Opens the XML file and reads the nodes, creating items as appropriate.
+ *
+ * @param filename The filename of the file to load the game from.
+ */
+void Game::Load(const wxString &filename)
+{
+//    wxXmlDocument xmlDoc;
+//    if(!xmlDoc.Load(filename))
+//    {
+//        wxMessageBox(L"Unable to load Game file");
+//        return;
+//    }
+//    Clear();
+//    // Get the XML document root node
+//    auto root = xmlDoc.GetRoot();
+//
+//    //
+//    // Traverse the children of the root
+//    // node of the XML document in memory!!!!
+//    //
+//    auto child = root->GetChildren();
+//    for( ; child; child=child->GetNext())
+//    {
+//        auto name = child->GetName();
+//        if(name == L"item")
+//        {
+//            XmlItem(child);
+//        }
+//    }
+}

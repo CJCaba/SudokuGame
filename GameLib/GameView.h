@@ -1,6 +1,6 @@
 /**
  * @file GameView.h
- * @author jadec and Jason Lin
+ * @author jadec, Daniel Flanagan, and Jason Lin
  *
  * View class for our game
  */
@@ -9,12 +9,9 @@
 #define ARES_GAMELIB_GAMEVIEW_H
 
 
-#include <utility>
-
 #include "Game.h"
 #include "Clock.h"
 
-class Clock;
 
 /**
  * View class for our game
@@ -22,8 +19,6 @@ class Clock;
 class GameView : public wxWindow
 {
 private:
-    // void OnFileOpen(wxCommandEvent &event);
-    // void OnSaveAs(wxCommandEvent &event);
     // void OnLeftDown(wxMouseEvent &event);
     // void OnLeftUp(wxMouseEvent &event);
     void OnPaint(wxPaintEvent &event);
@@ -44,6 +39,9 @@ private:
 
 public:
     void Initialize(wxFrame* parent);
+
+    void OnFileOpen(wxCommandEvent &event);
+    void OnFileSaveAs(wxCommandEvent &event);
 
     /**
      * Stop the timer so the window can close

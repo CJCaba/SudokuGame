@@ -1,6 +1,6 @@
 /**
  * @file MainFrame.cpp
- * @authors Jason Lin
+ * @authors Jason Lin, Daniel Flanagan
  */
 
 #include "pch.h"
@@ -40,6 +40,8 @@ void MainFrame::Initialize()
     menuBar->Append(helpMenu, L"&Help");
 
     fileMenu->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit this program");
+    fileMenu->Append(wxID_SAVEAS, "Save &As...\tCtrl-S", L"Save game as...");
+    fileMenu->Append(wxID_OPEN, "Open &File...\tCtrl-F", L"Open game file...");
     helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
     levelMenu->Append(IDM_LEVELONE, L"&Level 1", L"Start Level 1");
     levelMenu->Append(IDM_LEVELTWO, L"&Level 2", L"Start Level 2");
