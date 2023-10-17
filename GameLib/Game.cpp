@@ -12,12 +12,17 @@ using namespace std;
 /// Path to Background Image
 std::string fileName = "images/background.png";
 
+// Delete this later, hardcoded until xml loading is figured out
+std::wstring spartyHead = L"images/sparty-1.png";
+std::wstring spartyMouth = L"images/sparty-2.png";
+
 /**
  * Constructor for the game object
  */
 Game::Game()
 {
     mBackgroundImage = std::make_shared<wxImage>(fileName);
+    mSparty = std::make_shared<Sparty>(this, spartyHead, spartyMouth);
 }
 
 /**
@@ -110,6 +115,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     graphics->DrawText(analog,
                        mXOffset + (50 * mScale),
                        mYOffset + (20 * mScale));
+
+    //
+    // Hard coded drawing sparty until the add items function is implemented
+    //
+    mSparty->Draw(graphics);
 
     // loop through items
         // if item is not in any containers

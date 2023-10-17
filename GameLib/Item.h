@@ -90,7 +90,7 @@ public:
        * Draw this item
        * @param gc Device context to draw on
        */
-     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
+     virtual void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
      /**
       * Get the Game class that this item is a part of

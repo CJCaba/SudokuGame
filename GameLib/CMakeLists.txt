@@ -20,6 +20,8 @@ set(SOURCE_FILES
         GivenNumber.h
         InteractNumber.cpp
         InteractNumber.h
+        Sparty.cpp
+        Sparty.h
 )
 
 set(wxBUILD_PRECOMP OFF)

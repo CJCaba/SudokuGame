@@ -18,6 +18,7 @@
 
 
 class Clock;
+#include "Sparty.h"
 
 /**
  * Implements a game class with necessary items
@@ -30,6 +31,8 @@ private:
 
     /// Collection of containers within the game
     std::vector<std::shared_ptr<Container>> mContainers;
+
+    std::shared_ptr<Sparty> mSparty;
 
     std::shared_ptr<wxImage> mBackgroundImage;  ///< Background image to use
 
