@@ -136,8 +136,8 @@ void Game::OnUpdate(double elapsed) // <- Disabled in GameView Currently
  * @param filename The filename of the file to load the game from.
  */
 
-//void Game::Load(const wxString &filename)
-//{
+void Game::Load(const wxString &filename)
+{
 //    wxXmlDocument xmlDoc;
 //    if(!xmlDoc.Load(filename))
 //    {
@@ -161,4 +161,4 @@ void Game::OnUpdate(double elapsed) // <- Disabled in GameView Currently
 //            XmlItem(child);
 //        }
 //    }
-//}
+}

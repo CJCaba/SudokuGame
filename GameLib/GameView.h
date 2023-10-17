@@ -19,7 +19,6 @@
 class GameView : public wxWindow
 {
 private:
-    // void OnSaveAs(wxCommandEvent &event);
     // void OnLeftDown(wxMouseEvent &event);
     // void OnLeftUp(wxMouseEvent &event);
     void OnPaint(wxPaintEvent &event);
@@ -45,6 +44,7 @@ public:
     void Initialize(wxFrame* parent);
 
     void OnFileOpen(wxCommandEvent &event);
+    void OnFileSaveAs(wxCommandEvent &event);
 };
 
 #endif //ARES_GAMELIB_GAMEVIEW_H

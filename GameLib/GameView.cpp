@@ -20,6 +20,10 @@ void GameView::Initialize(wxFrame *parent) {
     Create(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE);
 
     SetBackgroundStyle(wxBG_STYLE_PAINT);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnFileSaveAs, this,
+                 wxID_SAVEAS);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnFileOpen, this,
+                 wxID_OPEN);
 
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
@@ -87,6 +91,14 @@ void GameView::OnTimer(wxTimerEvent& event)
 }
 
 /**
+ * Handle the File>Save As menu option
+ * @param event The menu event
+ */
+void GameView::OnFileSaveAs(wxCommandEvent& event)
+{
+
+}
+/**
  * File>Open menu handler
  * @param event Menu event
  */
@@ -100,5 +112,6 @@ void GameView::OnFileOpen(wxCommandEvent& event)
     }
 
     auto filename = loadFileDialog.GetPath();
-
+    mGame.Load(filename);
+    Refresh();
 }
