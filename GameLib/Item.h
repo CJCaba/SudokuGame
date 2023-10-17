@@ -21,9 +21,6 @@
 class Item
 {
 private:
-    /// The game that the item is currently in
-    // Uncomment this once Game class is made
-    // Game *mGame;
 
     double mX = 0; ///< X position of the item
     double mY = 0; ///< Y position of the item

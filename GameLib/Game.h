@@ -11,10 +11,12 @@
 #include <random>
 #include <vector>
 #include <memory>
+#include <map>
 #include <wx/graphics.h>
 
 #include "Item.h"
 #include "Container.h"
+#include "Declaration.h"
 
 class Clock;
 #include "Sparty.h"
@@ -57,6 +59,9 @@ private:
 
     /// Object containing the runtime of the game
     std::shared_ptr<Clock> mClock;
+
+    /// Map of Declarations, with IDs as keys
+    map<string, Declaration> mDeclarations;
 
 public:
     Game();
