@@ -50,9 +50,6 @@ public:
     /// Assignment operator
     void operator=(const Container &) = delete;
 
-    /**
-     * Destructor
-     */
     virtual ~Container();
 
     /**

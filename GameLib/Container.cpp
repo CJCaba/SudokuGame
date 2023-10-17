@@ -48,9 +48,8 @@ void Container::add(const shared_ptr<Item>& item)
 }
 
 /**
- * Pops the item out of the container. This will return nullptr if not found.
- * @param item Item to
- * @return
+ * Moves contained items to random locations
+ * across the screen, then clears the container.
  */
 void Container::release()
 {
@@ -68,6 +67,10 @@ void Container::release()
     mItems.clear();
 }
 
+/**
+ * Draw the container.
+ * @param graphics Graphics context to draw the container on.
+ */
 void Container::Draw(const shared_ptr<wxGraphicsContext>& graphics)
 {
     if(mBackBitmap.IsNull())

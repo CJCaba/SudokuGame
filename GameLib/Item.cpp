@@ -27,6 +27,11 @@ Item::~Item()
 {
 
 }
+
+/**
+ * Draws the item.
+ * @param graphics Graphics context to draw the item on.
+ */
 void Item::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     if(mItemBitmap.IsNull()){
