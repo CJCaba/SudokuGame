@@ -1,6 +1,6 @@
 /**
  * @file Game.cpp
- * @author Daniel Flanagan and Tyler Przybylo
+ * @author Daniel Flanagan, Tyler Przybylo, and Jason Lin
  */
 
 #include "pch.h"
@@ -9,15 +9,22 @@
 
 using namespace std;
 
-/// Path to Background Image
-std::string fileName = "images/background.png";
+/// Path to Background Image (Hard Coded)
+std::string backgroundFileName = "images/background.png";
+
+/// Path to X-Ray Image (Hard Coded)
+std::string xRayFileName = "images/xray.png";
 
 /**
  * Constructor for the game object
  */
 Game::Game()
 {
-    mBackgroundImage = std::make_shared<wxImage>(fileName);
+    mBackgroundImage = std::make_shared<wxImage>(backgroundFileName);
+    mXRayImage = std::make_shared<wxImage>(xRayFileName);
+
+    auto clock = std::make_shared<Clock>(this);
+    mClock = clock;
 }
 
 /**
@@ -38,7 +45,7 @@ void Game::Add(std::shared_ptr<Item> item)
  * @param height Height of the window
  * @param clock Reference to Analog Clock object
  */
-void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, double height, Clock &clock)
+void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, double height)
 {
     //
     // Take Background Bitmap and Load Width & Height
@@ -88,12 +95,29 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                          backgroundHeight * mScale);
 
     //
+    // Take X-Ray Image and BitMap
+    // Draw X-Ray
+    //
+    if (mXRayBitmap.IsNull())
+    {
+        mXRayBitmap = graphics->CreateBitmapFromImage(*mXRayImage);
+    }
+    int xRayWidth = mXRayImage->GetWidth();
+    int xRayHeight = mXRayImage->GetHeight();
+
+    graphics->DrawBitmap(mXRayBitmap,
+                         mXOffset + (30 * mScale),
+                         mYOffset + ((backgroundHeight - xRayHeight) * mScale),
+                         xRayWidth * mScale,
+                         xRayHeight * mScale);
+
+    //
     // Drawing a rectangle that is the playing area size
     // Draw a rectangle
     //
-    graphics->PushState();
-    graphics->DrawRectangle(0, 0, pixelWidth, pixelHeight);
-    graphics->PopState();
+    //graphics->PushState();
+    //graphics->DrawRectangle(0, 0, pixelWidth, pixelHeight);
+    //graphics->PopState();
 
     //
     // Drawing Clock on Screen
@@ -105,11 +129,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                 wxFONTWEIGHT_BOLD);
     graphics->SetFont(font, wxColour(*wxWHITE));
 
-    std::string analog = clock.GetMinutes() + ":" + clock.GetSeconds();
-
-    graphics->DrawText(analog,
-                       mXOffset + (50 * mScale),
-                       mYOffset + (20 * mScale));
+    std::string analog = mClock->GetMinutes() + ":" + mClock->GetSeconds();
+    graphics->DrawText(analog, mXOffset + (50 * mScale), mYOffset + (20 * mScale));
 
     // loop through items
         // if item is not in any containers
@@ -123,8 +144,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
  * Updates and refreshes Game
  * @param elapsed Time passed since last refresh
  */
-void Game::OnUpdate(double elapsed) // <- Disabled in GameView Currently
+void Game::OnUpdate(double elapsed, long time)
 {
-
+    mClock->SetTime(time);
 }
 

@@ -8,12 +8,18 @@
 #ifndef ARES_GAMELIB_CLOCK_H
 #define ARES_GAMELIB_CLOCK_H
 
+class Game;
+
 /**
  * Class for Analog Clock, converting ticks to hours and minutes
  */
 class Clock
 {
 private:
+
+/// The window clock is contained in
+    Game *mGame;
+
     /// Minutes that have past since level start
     long mMinutes = 0;
 
@@ -21,7 +27,8 @@ private:
     long mSeconds = 0;
 
 public:
-    Clock();
+    Clock(Game *game);
+
     ~Clock();
 
     std::string GetMinutes();

@@ -5,22 +5,30 @@
 
 #include "pch.h"
 #include "Clock.h"
+#include "Game.h"
 
 /**
  * Constructor
+ * @param gameView The window this clock is a member of
  */
-Clock::Clock()
+Clock::Clock(Game *game)
 {
+}
 
+/**
+ * Destructor
+ */
+Clock::~Clock()
+{
 }
 
 /**
  * Set the analog time based on current stopwatch elapse
  * @param elapsed time since stopwatch started
  */
-void Clock::SetTime(long elapsed)
+void Clock::SetTime(long time)
 {
-    mSeconds = elapsed / 1000;
+    mSeconds = time / 1000;
     mMinutes = mSeconds / 60;
 
     if(mSeconds >= 60)
@@ -66,13 +74,4 @@ void Clock::Reset()
 {
     mMinutes = 0;
     mSeconds = 0;
-}
-
-
-/**
- * Destructor
- */
-Clock::~Clock()
-{
-
 }

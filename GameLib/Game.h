@@ -10,12 +10,11 @@
 
 #include <random>
 #include <vector>
+#include <memory>
 #include <wx/graphics.h>
 
-#include "Clock.h"
 #include "Item.h"
 #include "Container.h"
-
 
 class Clock;
 
@@ -35,6 +34,12 @@ private:
 
     wxGraphicsBitmap mBackgroundBitmap; ///< The background bitmap
 
+    /// X-Ray Image to use
+    std::shared_ptr<wxImage> mXRayImage;
+
+    /// X-Ray Image as Bitmap for wx
+    wxGraphicsBitmap mXRayBitmap;
+
     /// The current scale of our game made in comparison to our window
     double mScale = 0;
 
@@ -47,12 +52,15 @@ private:
     /// Random number generator
     std::mt19937 mRandom;
 
+    /// Object containing the runtime of the game
+    std::shared_ptr<Clock> mClock;
+
 public:
     Game();
 
-    void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, double height, Clock &clock);
+    void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, double height);
 
-    void OnUpdate(double elapsed);
+    void OnUpdate(double elapsed, long time);
 
     void Add(std::shared_ptr<Item> item);
 

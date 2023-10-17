@@ -1,6 +1,6 @@
 /**
  * @file GameView.h
- * @author jadec
+ * @author jadec and Jason Lin
  *
  * View class for our game
  */
@@ -9,9 +9,12 @@
 #define ARES_GAMELIB_GAMEVIEW_H
 
 
+#include <utility>
+
 #include "Game.h"
 #include "Clock.h"
 
+class Clock;
 
 /**
  * View class for our game
@@ -30,9 +33,6 @@ private:
     /// An object that describes our game
     Game mGame;
 
-    /// An object that stores hour and minute values
-    Clock mClock;
-
     /// Clock allowing for animation
     wxTimer mTimer;
 
@@ -45,6 +45,10 @@ private:
 public:
     void Initialize(wxFrame* parent);
 
+    /**
+     * Stop the timer so the window can close
+     */
+    void Stop() {mTimer.Stop();}
 };
 
 #endif //ARES_GAMELIB_GAMEVIEW_H

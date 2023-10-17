@@ -20,11 +20,11 @@ void MainFrame::Initialize()
     auto sizer = new wxBoxSizer(wxVERTICAL);
 
     // Create the view class object as a child of MainFrame
-    auto gameView = new GameView();
-    gameView->Initialize(this);
+    mGameView = new GameView();
+    mGameView->Initialize(this);
 
     // Add it to the sizer and set for this frame
-    sizer->Add(gameView, 1, wxEXPAND | wxALL);
+    sizer->Add(mGameView, 1, wxEXPAND | wxALL);
     SetSizer(sizer);
     // Layout (place) the child windows
     Layout();
@@ -43,7 +43,7 @@ void MainFrame::Initialize()
     helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
     levelMenu->Append(IDM_LEVELONE, L"&Level 1", L"Start Level 1");
     levelMenu->Append(IDM_LEVELTWO, L"&Level 2", L"Start Level 2");
-    levelMenu->Append(IDM_LEVELTHREE, L"&Level 3", L"Start Level 2");
+    levelMenu->Append(IDM_LEVELTHREE, L"&Level 3", L"Start Level 3");
 
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
@@ -59,7 +59,8 @@ void MainFrame::Initialize()
  */
 void MainFrame::OnExit(wxCommandEvent& event)
 {
-    Close(true);
+    mGameView->Stop();
+    Destroy();
 }
 
 /**

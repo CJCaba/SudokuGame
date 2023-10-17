@@ -49,14 +49,9 @@ void GameView::OnPaint(wxPaintEvent &event) {
     mTime = newTime;
 
     //
-    // Convert wxStopwatch time to Analog
-    //
-    mClock.SetTime(mTime);
-
-    //
     // Update
     //
-    // mGame.OnUpdate(elapsed);
+    mGame.OnUpdate(elapsed, newTime);
 
 
     // Create a graphics context
@@ -74,7 +69,7 @@ void GameView::OnPaint(wxPaintEvent &event) {
         return;
     }
 
-    mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight(), mClock);
+    mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
 }
 
 /**
