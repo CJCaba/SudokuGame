@@ -24,6 +24,10 @@ set(SOURCE_FILES
         Sparty.h
         Number.cpp
         Number.h
+        Declaration.cpp
+        Declaration.h
+        DeclarationNumber.cpp
+        DeclarationNumber.h
 )
 
 set(wxBUILD_PRECOMP OFF)

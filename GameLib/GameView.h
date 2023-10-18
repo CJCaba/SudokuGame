@@ -10,8 +10,6 @@
 
 
 #include "Game.h"
-#include "Clock.h"
-
 
 /**
  * View class for our game

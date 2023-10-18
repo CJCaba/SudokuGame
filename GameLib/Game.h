@@ -11,8 +11,10 @@
 #include <random>
 #include <vector>
 #include <memory>
+#include <map>
 #include <wx/graphics.h>
 
+class Declaration;
 class Clock;
 class Item;
 class Container;
@@ -57,6 +59,9 @@ private:
     /// Object containing the runtime of the game
     std::shared_ptr<Clock> mClock;
 
+    /// Map of Declarations, with IDs as keys
+    map<string, std::shared_ptr<Declaration>> mDeclarations;
+
 public:
     Game();
 
@@ -75,6 +80,7 @@ public:
      * @return Pointer to the random number generator
      */
     std::mt19937 &GetRandom() { return mRandom; }
+
     void Save(const wxString &filename);
 
     /**

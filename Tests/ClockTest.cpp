@@ -11,8 +11,7 @@
  */
 TEST(ClockTest, Construct)
 {
-    Game *mGame;
-    Clock clock(mGame);
+    Clock clock(nullptr);
 }
 
 /**
@@ -20,8 +19,7 @@ TEST(ClockTest, Construct)
  */
 TEST(ClockTest, TestTimes)
 {
-    Game *mGame;
-    Clock clock(mGame);
+    Clock clock(nullptr);
 
     // Time at 0 milliseconds
     clock.SetTime(0);
@@ -37,4 +35,17 @@ TEST(ClockTest, TestTimes)
     clock.SetTime(360000);
     ASSERT_EQ(clock.GetMinutes(), "6");
     ASSERT_EQ(clock.GetSeconds(), "00");
+
+    // Test reset method
+    clock.Reset();
+    ASSERT_EQ(clock.GetMinutes(), "0");
+    ASSERT_EQ(clock.GetSeconds(), "00");
+
+    clock.AddTime(1);
+    ASSERT_EQ(clock.GetMinutes(), "0");
+    ASSERT_EQ(clock.GetSeconds(), "01");
+
+    clock.AddTime(60);
+    ASSERT_EQ(clock.GetMinutes(), "1");
+    ASSERT_EQ(clock.GetSeconds(), "01");
 }

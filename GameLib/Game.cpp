@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "Clock.h"
 #include "Sparty.h"
+#include "Declaration.h"
 
 using namespace std;
 
@@ -31,6 +32,7 @@ Game::Game()
 
     auto clock = std::make_shared<Clock>(this);
     mClock = clock;
+    mClock->Reset();
 }
 
 /**
@@ -126,6 +128,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     graphics->PopState();
 
     //
+    // Hard coded drawing sparty until the add items function is implemented
+    //
+    mSparty->Draw(graphics);
+
+    //
     // Drawing Clock on Screen
     // Draws text in corner of Game Rectangle
     //
@@ -157,7 +164,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
  */
 void Game::OnUpdate(double elapsed, long time)
 {
-    mClock->SetTime(time);
+    mClock->AddTime(elapsed);
     mSparty->Update(elapsed);
 }
 
