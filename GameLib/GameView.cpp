@@ -52,12 +52,6 @@ void GameView::OnPaint(wxPaintEvent &event) {
     auto elapsed = (double)(newTime - mTime) * 0.001;
     mTime = newTime;
 
-    //
-    // Update
-    //
-    mGame.OnUpdate(elapsed, newTime);
-
-
     // Create a graphics context
     auto gc =
         std::shared_ptr<wxGraphicsContext>(wxGraphicsContext::Create(dc));
@@ -74,6 +68,11 @@ void GameView::OnPaint(wxPaintEvent &event) {
     }
 
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
+
+    //
+    // Update
+    //
+    mGame.OnUpdate(elapsed);
 }
 
 /**

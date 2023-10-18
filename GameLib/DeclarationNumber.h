@@ -13,10 +13,18 @@
 class DeclarationNumber : public Declaration
 {
 private:
-    int value;
+    int mValue;
 public:
-    DeclarationNumber(double width, double height, const wstring &fileName, int value);
+    DeclarationNumber(Game *game);
 
+    /// Default constructor (disabled)
+    DeclarationNumber() = delete;
+
+    /// Copy constructor (disabled)
+    DeclarationNumber(const DeclarationNumber &) = delete;
+
+    /// Assignment operator
+    void operator=(const DeclarationNumber &) = delete;
 };
 
 #endif //ARES_GAMELIB_DECLARATIONNUMBER_H

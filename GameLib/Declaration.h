@@ -8,8 +8,10 @@
 #ifndef ARES_GAMELIB_DECLARATION_H
 #define ARES_GAMELIB_DECLARATION_H
 
-class Game;
+
 using namespace std;
+
+class Game;
 
 class Declaration
 {
@@ -18,13 +20,18 @@ private:
     string mID;
 
     /// The width of the Item Image
-    double width;
+    double mWidth;
 
     /// The height of the Item Image
-    double height;
+    double mHeight;
 
     /// The Image Filename
-    wstring imageFile;
+    wstring mImageFile;
+
+    Game *mGame;
+
+protected:
+    Declaration(Game *game);
 
 public:
     /// Default constructor (disabled)

@@ -5,3 +5,8 @@
 
 #include "pch.h"
 #include "Declaration.h"
+
+Declaration::Declaration(Game *game) : mGame(game)
+{
+
+}

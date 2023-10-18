@@ -17,8 +17,7 @@
 #include "Item.h"
 #include "Container.h"
 #include "Declaration.h"
-
-class Clock;
+#include "Clock.h"
 #include "Sparty.h"
 
 /**
@@ -61,14 +60,14 @@ private:
     std::shared_ptr<Clock> mClock;
 
     /// Map of Declarations, with IDs as keys
-    map<string, Declaration> mDeclarations;
+    map<string, std::shared_ptr<Declaration>> mDeclarations;
 
 public:
     Game();
 
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, double height);
 
-    void OnUpdate(double elapsed, long time);
+    void OnUpdate(double elapsed);
 
     void Add(std::shared_ptr<Item> item);
 
@@ -79,6 +78,7 @@ public:
      * @return Pointer to the random number generator
      */
     std::mt19937 &GetRandom() { return mRandom; }
+
     void Save(const wxString &filename);
 };
 

@@ -30,6 +30,7 @@ Game::Game()
 
     auto clock = std::make_shared<Clock>(this);
     mClock = clock;
+    mClock->Reset();
 }
 
 /**
@@ -125,22 +126,15 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     graphics->PopState();
 
     //
-    // Drawing Clock on Screen
-    // Draws text in corner of Game Rectangle
-    //
-    wxFont font(wxSize(50 * mScale, 50 * mScale),
-                wxFONTFAMILY_SWISS,
-                wxFONTSTYLE_NORMAL,
-                wxFONTWEIGHT_BOLD);
-    graphics->SetFont(font, wxColour(*wxWHITE));
-
-    std::string analog = mClock->GetMinutes() + ":" + mClock->GetSeconds();
-    graphics->DrawText(analog, mXOffset + (50 * mScale), mYOffset + (20 * mScale));
-
-    //
     // Hard coded drawing sparty until the add items function is implemented
     //
     mSparty->Draw(graphics);
+
+    //
+    // Drawing Clock on Screen
+    // Draws text in corner of Game Rectangle
+    //
+    mClock->Draw(graphics, mXOffset, mYOffset, mScale);
 
     // loop through items
         // if item is not in any containers
@@ -154,9 +148,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
  * Updates and refreshes Game
  * @param elapsed Time passed since last refresh
  */
-void Game::OnUpdate(double elapsed, long time)
+void Game::OnUpdate(double elapsed)
 {
-    mClock->SetTime(time);
+    mClock->AddTime(elapsed);
 }
 
 /**
