@@ -28,6 +28,12 @@ set(SOURCE_FILES
         Declaration.h
         DeclarationNumber.cpp
         DeclarationNumber.h
+        DeclarationGiven.cpp
+        DeclarationGiven.h
+        DeclarationInteract.cpp
+        DeclarationInteract.h
+        DeclarationSparty.cpp
+        DeclarationSparty.h
 )
 
 set(wxBUILD_PRECOMP OFF)

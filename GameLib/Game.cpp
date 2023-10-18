@@ -201,7 +201,9 @@ void Game::Load(const wxString &filename)
 //        wxMessageBox(L"Unable to load Game file");
 //        return;
 //    }
+//
 //    Clear();
+//
 //    // Get the XML document root node
 //    auto root = xmlDoc.GetRoot();
 //
@@ -218,4 +220,14 @@ void Game::Load(const wxString &filename)
 //            XmlItem(child);
 //        }
 //    }
+}
+
+/**
+ * Clear the Game data.
+ *
+ * Deletes all known items in the Game.
+ */
+void Game::Clear()
+{
+    mItems.clear();
 }

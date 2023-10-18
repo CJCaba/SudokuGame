@@ -75,6 +75,8 @@ public:
 
     void Load(const wxString &filename);
 
+    void Clear();
+
     /**
      * Get the random number generator
      * @return Pointer to the random number generator

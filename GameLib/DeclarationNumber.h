@@ -25,6 +25,10 @@ public:
 
     /// Assignment operator
     void operator=(const DeclarationNumber &) = delete;
+
+    void SetValue(int i) { mValue = i; }
+    int GetValue() const { return mValue; }
+
 };
 
 #endif //ARES_GAMELIB_DECLARATIONNUMBER_H

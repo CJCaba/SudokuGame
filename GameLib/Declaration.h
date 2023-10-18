@@ -16,9 +16,6 @@ class Game;
 class Declaration
 {
 private:
-    /// The ID for each specific Item
-    string mID;
-
     /// The width of the Item Image
     double mWidth;
 
@@ -43,10 +40,14 @@ public:
     /// Assignment operator
     void operator=(const Declaration &) = delete;
 
-    /**
-     * Get the ID
-     */
-     string GetID() { return mID; }
+    void SetSize(double width, double height) { mWidth = width; mHeight = height; }
+
+    void SetImage(wstring fileName) { mImageFile = fileName; }
+
+    double GetWidth() const { return mWidth; }
+    double GetHeight() const { return mHeight; }
+    wstring GetImage() const { return mImageFile; }
+
 };
 
 #endif //ARES_GAMELIB_DECLARATION_H
