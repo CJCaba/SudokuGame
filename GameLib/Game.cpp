@@ -54,7 +54,6 @@ void Game::Add(std::shared_ptr<Item> item)
  * @param graphics Graphics device to draw on
  * @param width Width of the window
  * @param height Height of the window
- * @param clock Reference to Analog Clock object
  */
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, double height)
 {
@@ -92,6 +91,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     graphics->Scale(mScale, mScale);
     graphics->PopState();
 
+    pixelWidth *= mScale;
+    pixelHeight *= mScale;
+
     //
     // Draw in virtual pixels on the graphics context
     //
@@ -102,8 +104,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     //
     graphics->DrawBitmap(mBackgroundBitmap,
                          mXOffset, mYOffset,
-                         backgroundWidth * mScale,
-                         backgroundHeight * mScale);
+                         pixelWidth,
+                         pixelHeight);
 
     //
     // Take X-Ray Image and BitMap
@@ -123,42 +125,99 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                          xRayHeight * mScale);
 
     //
+    // Hard coded drawing sparty until the add items function is implemented
+    //
+    mSparty->Draw(graphics);
+
+
+    //
     // Drawing a rectangle that is the playing area size
     // Draw a rectangle
     //
-    graphics->PushState();
-    graphics->DrawRectangle(0, 0, pixelWidth, pixelHeight);
-    graphics->PopState();
+
 
     //
-    // Hard coded drawing sparty until the add items function is implemented
+    // Checks if level is booting up
     //
-    mSparty->Draw(graphics);
+    if(mStartUp)
+    {
+        //
+        // Draws brief tutorial screen
+        //
 
-    //
-    // Drawing Clock on Screen
-    // Draws text in corner of Game Rectangle
-    //
-    wxFont font(wxSize(50 * mScale, 50 * mScale),
-                wxFONTFAMILY_SWISS,
-                wxFONTSTYLE_NORMAL,
-                wxFONTWEIGHT_BOLD);
-    graphics->SetFont(font, wxColour(*wxWHITE));
+        // Draw tutorial box
+        graphics->PushState();
+        wxBrush rectBrush(*wxWHITE);
+        graphics->SetBrush(rectBrush);
+        graphics->SetPen(*wxBLACK);
 
-    std::string analog = mClock->GetMinutes() + ":" + mClock->GetSeconds();
-    graphics->DrawText(analog, mXOffset + (50 * mScale), mYOffset + (20 * mScale));
+        double rectWidth = pixelWidth / 1.5;
+        double rectHeight = pixelHeight / 2.5;
 
-    //
-    // Hard coded drawing sparty until the add items function is implemented
-    //
-    mSparty->Draw(graphics);
+        double rectX = mXOffset + (pixelWidth / 2) - (rectWidth / 2);
+        double rectY = mYOffset + (pixelHeight / 2) - (rectHeight / 2);
+
+        graphics->DrawRectangle(rectX, rectY,rectWidth, rectHeight);
+
+        wxFont bigFont(wxSize(75 * mScale, 75 * mScale),
+                       wxFONTFAMILY_SWISS,
+                       wxFONTSTYLE_NORMAL,
+                       wxFONTWEIGHT_BOLD);
+        graphics->SetFont(bigFont, wxColour(78,91,49));
+
+        // Draw Title
+        double titleWidth, titleHeight;
+        graphics->GetTextExtent(L"Level 1 Begin", &titleWidth, &titleHeight);
+        graphics->DrawText(L"Level 1 Begin",
+                           rectX + (rectWidth/2) - (titleWidth/2),
+                           rectY);
+
+        // Draw guide for inputs
+        double textWidth, textHeight;
+        wxFont subFont(wxSize(50 * mScale, 50 * mScale),
+                       wxFONTFAMILY_SWISS,
+                       wxFONTSTYLE_NORMAL,
+                       wxFONTWEIGHT_BOLD);
+        graphics->SetFont(subFont, wxColour(0,0,0));
+
+        graphics->GetTextExtent(L"Space = Eat", &textWidth, &textHeight);
+        graphics->DrawText(L"Space = Eat",
+                           rectX + (rectWidth/2) - (textWidth/2),
+                           rectY + titleHeight);
+
+        graphics->GetTextExtent(L"0-8 = Regurgitate", &textWidth, nullptr);
+        graphics->DrawText(L"0-8 = Regurgitate",
+                           rectX + (rectWidth/2) - (textWidth/2),
+                           rectY + titleHeight + textHeight);
+
+        graphics->GetTextExtent(L"B = Headbutt", &textWidth, nullptr);
+        graphics->DrawText(L"B = Headbutt",
+                           rectX + (rectWidth/2) - (textWidth/2),
+                           rectY + titleHeight + (textHeight * 2));
+
+        graphics->PopState();
+
+        // After 3 seconds, remove tutorial and start game
+        if(mClock->GetSeconds() == "03")
+        {
+            mStartUp = false;
+            mClock->Reset();
+        }
+    }
+    else
+    {
+        // Drawing Clock on Screen, should be Top Layer Drawing
+        mClock->Draw(graphics);
+    }
+
 
     // loop through items
-        // if item is not in any containers
-            // draw item
+    // if item is not in any containers
+    // draw item
 
     // loop through containers
-        // draw container (also draws contained items)
+    // draw container (also draws contained items)
+
 }
 
 /**

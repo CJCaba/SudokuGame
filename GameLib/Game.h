@@ -62,6 +62,8 @@ private:
     /// Map of Declarations, with IDs as keys
     std::map<std::string, std::shared_ptr<Declaration>> mDeclarations;
 
+    bool mStartUp = true;
+
 public:
     Game();
 

@@ -49,7 +49,7 @@ public:
     void AddTime(double elapsed);
     void Reset();
 
-    void Draw(std::shared_ptr<wxGraphicsContext> graphics, double xOffset, double yOffset, double scale);
+    void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 };
 
 #endif //ARES_GAMELIB_CLOCK_H
