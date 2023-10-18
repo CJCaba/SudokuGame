@@ -13,11 +13,10 @@
 #include <memory>
 #include <wx/graphics.h>
 
-#include "Item.h"
-#include "Container.h"
-
 class Clock;
-#include "Sparty.h"
+class Item;
+class Container;
+class Sparty;
 
 /**
  * Implements a game class with necessary items
@@ -44,7 +43,7 @@ private:
     wxGraphicsBitmap mXRayBitmap;
 
     /// The current scale of our game made in comparison to our window
-    double mScale = 0;
+    double mScale = 1;
 
     /// The amount to shift the graphics object in the x direction
     double mXOffset = 0;
@@ -65,6 +64,8 @@ public:
 
     void OnUpdate(double elapsed, long time);
 
+    void OnLeftDown(wxMouseEvent &event);
+
     void Add(std::shared_ptr<Item> item);
 
     void Load(const wxString &filename);
@@ -75,6 +76,24 @@ public:
      */
     std::mt19937 &GetRandom() { return mRandom; }
     void Save(const wxString &filename);
+
+    /**
+     * Getter for scale.
+     * @return scale.
+     */
+    double GetScale() { return mScale; }
+
+    /**
+     * Getter for x-offset.
+     * @return x-offset
+     */
+    double GetXOffset() { return mXOffset; }
+
+    /**
+     * Getter for y-offset.
+     * @return y-offset
+     */
+    double GetYOffset() { return mYOffset; }
 };
 
 #endif //ARES_GAMELIB_GAME_H

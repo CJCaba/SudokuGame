@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "Game.h"
 #include "Clock.h"
+#include "Sparty.h"
 
 using namespace std;
 
@@ -157,8 +158,15 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
 void Game::OnUpdate(double elapsed, long time)
 {
     mClock->SetTime(time);
+    mSparty->Update(elapsed);
 }
 
+void Game::OnLeftDown(wxMouseEvent &event)
+{
+    double virtualX = ( event.GetX() - mXOffset ) / mScale;
+    double virtualY = ( event.GetY() - mYOffset ) / mScale;
+    mSparty->SetTarget( wxPoint(virtualX, virtualY) );
+}
 /**
  * Save the game as a .game XML file.
  *
