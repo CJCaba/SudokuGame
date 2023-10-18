@@ -101,7 +101,7 @@ void GameView::OnLeftDown(wxMouseEvent &event)
 void GameView::OnFileSaveAs(wxCommandEvent& event)
 {
     wxFileDialog saveFileDialog(this, L"Save Game file", L"", L"",
-                                L"Game Files (*.game)|*.game", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+                                L"Game Files (*.xml)|*.xml", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
     if (saveFileDialog.ShowModal() == wxID_CANCEL)
     {
         return;
@@ -118,7 +118,7 @@ void GameView::OnFileSaveAs(wxCommandEvent& event)
 void GameView::OnFileOpen(wxCommandEvent& event)
 {
     wxFileDialog loadFileDialog(this, L"Load Game file", L"", L"",
-                                L"Game Files (*.game)|*.game", wxFD_OPEN);
+                                L"Game Files (*.xml)|*.xml", wxFD_OPEN);
     if (loadFileDialog.ShowModal() == wxID_CANCEL)
     {
         return;
