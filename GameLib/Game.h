@@ -53,6 +53,10 @@ private:
     /// The amount to shift the graphics object in the y direction
     double mYOffset = 0;
 
+    double mPixelWidth = 0;
+
+    double mPixelHeight = 0;
+
     /// Random number generator
     std::mt19937 mRandom;
 
@@ -91,19 +95,24 @@ public:
      * Getter for scale.
      * @return scale.
      */
-    double GetScale() { return mScale; }
+    double GetScale() const { return mScale; }
 
     /**
      * Getter for x-offset.
      * @return x-offset
      */
-    double GetXOffset() { return mXOffset; }
+    double GetXOffset() const { return mXOffset; }
 
     /**
      * Getter for y-offset.
      * @return y-offset
      */
-    double GetYOffset() { return mYOffset; }
+    double GetYOffset() const { return mYOffset; }
+
+    bool WithinWidth(double x);
+
+    bool WithinHeight(double y);
+
 
     void XmlDeclare(wxXmlNode *node);
 };

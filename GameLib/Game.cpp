@@ -69,21 +69,21 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
 
     // Determine the size of the playing area in pixels
     // This is up to you...
-    int pixelWidth = backgroundWidth;
-    int pixelHeight = backgroundHeight;
+    mPixelWidth = backgroundWidth;
+    mPixelHeight = backgroundHeight;
 
     //
     // Automatic Scaling
     //
-    auto scaleX = double(width) / double(pixelWidth);
-    auto scaleY = double(height) / double(pixelHeight);
+    auto scaleX = double(width) / double(mPixelWidth);
+    auto scaleY = double(height) / double(mPixelHeight);
     mScale = std::min(scaleX, scaleY);
 
-    mXOffset = (width - pixelWidth * mScale) / 2.0;
+    mXOffset = (width - mPixelWidth * mScale) / 2.0;
     mYOffset = 0;
-    if (height > pixelHeight * mScale)
+    if (height > mPixelHeight * mScale)
     {
-        mYOffset = (double)((height - pixelHeight * mScale) / 2.0);
+        mYOffset = (double)((height - mPixelHeight * mScale) / 2.0);
     }
 
     graphics->PushState();
@@ -91,8 +91,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     graphics->Scale(mScale, mScale);
     graphics->PopState();
 
-    pixelWidth *= mScale;
-    pixelHeight *= mScale;
+    mPixelWidth *= mScale;
+    mPixelHeight *= mScale;
 
     //
     // Draw in virtual pixels on the graphics context
@@ -104,8 +104,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     //
     graphics->DrawBitmap(mBackgroundBitmap,
                          mXOffset, mYOffset,
-                         pixelWidth,
-                         pixelHeight);
+                         mPixelWidth,
+                         mPixelHeight);
 
     //
     // Take X-Ray Image and BitMap
@@ -151,11 +151,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         graphics->SetBrush(rectBrush);
         graphics->SetPen(*wxBLACK);
 
-        double rectWidth = pixelWidth / 1.5;
-        double rectHeight = pixelHeight / 2.5;
+        double rectWidth = mPixelWidth / 1.5;
+        double rectHeight = mPixelHeight / 2.5;
 
-        double rectX = mXOffset + (pixelWidth / 2) - (rectWidth / 2);
-        double rectY = mYOffset + (pixelHeight / 2) - (rectHeight / 2);
+        double rectX = mXOffset + (mPixelWidth / 2) - (rectWidth / 2);
+        double rectY = mYOffset + (mPixelHeight / 2) - (rectHeight / 2);
 
         graphics->DrawRectangle(rectX, rectY,rectWidth, rectHeight);
 
@@ -234,6 +234,13 @@ void Game::OnLeftDown(wxMouseEvent &event)
 {
     double virtualX = ( event.GetX() - mXOffset ) / mScale;
     double virtualY = ( event.GetY() - mYOffset ) / mScale;
+
+    if (!WithinWidth(virtualX))
+        return;
+
+    if (!WithinHeight(virtualY))
+        return;
+
     mSparty->SetTarget( wxPoint(virtualX, virtualY) );
 }
 /**
@@ -323,5 +330,28 @@ void Game::XmlDeclare(wxXmlNode *node){
     {
         id = node->GetAttribute(L"id", L'0').ToStdString();
         mDeclarations[id] = dec;
+    }
+}
+
+bool Game::WithinWidth(double x)
+{
+    if (x > mPixelWidth || x < 0)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+bool Game::WithinHeight(double y)
+{
+    if (y > mPixelHeight || y < 0)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
     }
 }

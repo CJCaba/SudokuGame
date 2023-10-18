@@ -53,7 +53,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 }
 
 /**
- * Handle updates in time of our fish.
+ * Handle updates in time of Sparty.
  * @param elapsed The time since the last update.
 */
 void Sparty::Update(double elapsed)
