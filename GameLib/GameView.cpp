@@ -7,7 +7,7 @@
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include "GameView.h"
-// #include "ids.h"
+ #include "ids.h"
 
 using namespace std;
 

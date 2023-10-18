@@ -102,6 +102,8 @@ public:
      * @return y-offset
      */
     double GetYOffset() { return mYOffset; }
+
+    void XmlDeclare(wxXmlNode *node);
 };
 
 #endif //ARES_GAMELIB_GAME_H

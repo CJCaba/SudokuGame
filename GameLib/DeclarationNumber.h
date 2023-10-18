@@ -9,6 +9,7 @@
 #define ARES_GAMELIB_DECLARATIONNUMBER_H
 
 #include "Declaration.h"
+#include "Number.h"
 
 class DeclarationNumber : public Declaration
 {
@@ -28,6 +29,7 @@ public:
 
     void SetValue(int i) { mValue = i; }
     int GetValue() const { return mValue; }
+
 
 };
 

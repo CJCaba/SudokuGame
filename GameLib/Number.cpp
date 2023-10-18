@@ -15,3 +15,4 @@ Number::Number(Game *game, const std::wstring &filename) :
     Item(game, filename)
 {
 }
+

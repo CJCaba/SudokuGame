@@ -12,6 +12,7 @@
 using namespace std;
 
 class Game;
+#include "Item.h"
 
 class Declaration
 {
@@ -47,6 +48,7 @@ public:
     double GetWidth() const { return mWidth; }
     double GetHeight() const { return mHeight; }
     wstring GetImage() const { return mImageFile; }
+    Game * GetGame() const { return mGame; }
 
 };
 

@@ -8,6 +8,9 @@
 #include "Clock.h"
 #include "Sparty.h"
 #include "Declaration.h"
+#include "DeclarationGiven.h"
+#include "DeclarationInteract.h"
+#include "DeclarationSparty.h"
 
 using namespace std;
 
@@ -215,9 +218,13 @@ void Game::Load(const wxString &filename)
     for( ; child; child=child->GetNext())
     {
         auto name = child->GetName();
-        if(name == L"item")
+        if(name == L"declarations")
         {
-//            XmlItem(child);
+            auto decChild = child->GetChildren();
+            for ( ; decChild; decChild = decChild->GetNext())
+            {
+                XmlDeclare(decChild);
+            }
         }
     }
 }
@@ -230,4 +237,32 @@ void Game::Load(const wxString &filename)
 void Game::Clear()
 {
     mItems.clear();
+}
+
+void Game::XmlDeclare(wxXmlNode *node){
+    shared_ptr<Declaration> dec;
+    string id;
+
+    auto name = node->GetName();
+
+    if (name == L"given")
+    {
+        dec = make_shared<DeclarationGiven>(this);
+    }
+
+    if (name == L"digit")
+    {
+        dec = make_shared<DeclarationInteract>(this);
+    }
+
+    if (name == L"sparty")
+    {
+        dec = make_shared<DeclarationSparty>(this);
+    }
+
+    if (dec != nullptr)
+    {
+        id = node->GetAttribute(L"id", L'0').ToStdString();
+        mDeclarations[id] = dec;
+    }
 }
