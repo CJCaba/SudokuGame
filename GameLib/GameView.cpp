@@ -27,6 +27,7 @@ void GameView::Initialize(wxFrame *parent) {
 
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
+    Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
 
     mTimer.SetOwner(this);
     mTimer.Start(1);
@@ -82,6 +83,15 @@ void GameView::OnPaint(wxPaintEvent &event) {
 void GameView::OnTimer(wxTimerEvent& event)
 {
     Refresh();
+}
+
+/**
+ * Handle the left mouse button down event
+ * @param event The mouse event
+ */
+void GameView::OnLeftDown(wxMouseEvent &event)
+{
+    mGame.OnLeftDown(event);
 }
 
 /**

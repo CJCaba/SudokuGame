@@ -12,8 +12,7 @@
 #include <memory>
 #include <wx/graphics.h>
 
-// Uncomment this once Game class is made
- class Game;
+#include "Game.h"
 
 /**
  * Base class for Numbers in the game
@@ -21,7 +20,6 @@
 class Item
 {
 private:
-
     double mX = 0; ///< X position of the item
     double mY = 0; ///< Y position of the item
 
@@ -36,6 +34,7 @@ private:
 
     /// The game this item is contained in
     Game *mGame;
+
 public:
     /// Default constructor (disabled)
     Item() = delete;
@@ -56,7 +55,7 @@ public:
      * The X location of the item
      * @return X location in pixels
      */
-     double GetX() const { return mX; }
+    double GetX() const { return mX; }
 
      /**
       * The Y location of the item
@@ -75,13 +74,13 @@ public:
        * Get Width of an image in pixels
        * @return double representing width of the item
        */
-        double GetWidth() { return mItemImage->GetWidth(); }
+     double GetWidth() { return mItemImage->GetWidth(); }
 
      /**
        * Get height of an image in pixels
        * @return double representing the height of the item
        */
-        double GetHeight() { return mItemImage->GetHeight(); }
+     double GetHeight() { return mItemImage->GetHeight(); }
 
      /**
        * Draw this item
@@ -93,7 +92,7 @@ public:
       * Get the Game class that this item is a part of
       * @return Pointer to the Game class
       */
-      Game* GetGame() { return mGame; }
+     Game* GetGame() { return mGame; }
 };
 
 #endif //ARES_GAMELIB_ITEM_H

@@ -10,6 +10,7 @@
 
 
 #include "Game.h"
+#include "Clock.h"
 
 /**
  * View class for our game
@@ -21,7 +22,6 @@ private:
     // void OnLeftUp(wxMouseEvent &event);
     void OnPaint(wxPaintEvent &event);
     void OnTimer(wxTimerEvent &event);
-
 
     /// An object that describes our game
     Game mGame;
@@ -37,14 +37,14 @@ private:
 
 public:
     void Initialize(wxFrame* parent);
-
+    void OnLeftDown(wxMouseEvent &event);
     void OnFileOpen(wxCommandEvent &event);
     void OnFileSaveAs(wxCommandEvent &event);
 
     /**
      * Stop the timer so the window can close
      */
-    void Stop() {mTimer.Stop();}
+    void Stop() { mTimer.Stop(); }
 };
 
 #endif //ARES_GAMELIB_GAMEVIEW_H

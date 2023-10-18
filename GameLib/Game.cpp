@@ -162,7 +162,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
  * Updates and refreshes Game
  * @param elapsed Time passed since last refresh
  */
-void Game::OnUpdate(double elapsed, long time)
+void Game::OnUpdate(double elapsed)
 {
     mClock->AddTime(elapsed);
     mSparty->Update(elapsed);

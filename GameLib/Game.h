@@ -60,14 +60,14 @@ private:
     std::shared_ptr<Clock> mClock;
 
     /// Map of Declarations, with IDs as keys
-    map<string, std::shared_ptr<Declaration>> mDeclarations;
+    std::map<std::string, std::shared_ptr<Declaration>> mDeclarations;
 
 public:
     Game();
 
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, double height);
 
-    void OnUpdate(double elapsed, long time);
+    void OnUpdate(double elapsed);
 
     void OnLeftDown(wxMouseEvent &event);
 

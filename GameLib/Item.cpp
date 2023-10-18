@@ -38,7 +38,9 @@ void Item::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         mItemBitmap = graphics ->CreateBitmapFromImage(*mItemImage);
     }
     // Now it is okay to draw that bitmap.
-    int itemWid = mItemImage->GetWidth();
-    int itemHeight = mItemImage->GetHeight();
-    graphics->DrawBitmap(mItemBitmap, GetX(), GetY(), itemWid, itemHeight);
+    int itemWid = mItemImage->GetWidth() * mGame->GetScale();
+    int itemHeight = mItemImage->GetHeight() * mGame->GetScale();
+    double virtualX = mGame->GetXOffset() + GetX() * mGame->GetScale();
+    double virtualY = mGame->GetYOffset() + GetY() * mGame->GetScale();
+    graphics->DrawBitmap(mItemBitmap, virtualX, virtualY, itemWid, itemHeight);
 }
