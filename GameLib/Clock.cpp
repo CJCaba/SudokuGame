@@ -97,16 +97,12 @@ void Clock::Reset()
 
 void Clock::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
-    double xOffset = mGame->GetXOffset();
-    double yOffset = mGame->GetYOffset();
-    double scale = mGame->GetScale();
-
-    wxFont font(wxSize(ScoreboardTextSize * scale, ScoreboardTextSize * scale),
-                wxFONTFAMILY_SWISS,
+    wxFont font(wxSize(ScoreboardTextSize, ScoreboardTextSize),
+                wxFONTFAMILY_SCRIPT,
                 wxFONTSTYLE_NORMAL,
                 wxFONTWEIGHT_BOLD);
     graphics->SetFont(font, wxColour(*wxWHITE));
 
     std::string analog = GetMinutes() + ":" + GetSeconds();
-    graphics->DrawText(analog, xOffset + ScoreboardTopLeft.x * scale, yOffset + ScoreboardTopLeft.y * scale);
+    graphics->DrawText(analog, ScoreboardTopLeft.x, ScoreboardTopLeft.y);
 }

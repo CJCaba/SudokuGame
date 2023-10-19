@@ -15,15 +15,20 @@
 
 using namespace std;
 
-/// Path to Background Image (Hard Coded)
+// Path to Background Image (Hard Coded)
 std::wstring backgroundFileName = L"images/background.png";
 
-/// Path to X-Ray Image (Hard Coded)
+// Path to X-Ray Image (Hard Coded)
 std::wstring xRayFileName = L"images/xray.png";
 
 // Delete this later, hardcoded until xml loading is figured out
 std::wstring spartyHead = L"images/sparty-1.png";
 std::wstring spartyMouth = L"images/sparty-2.png";
+
+// Hard Coded Level 1 Attributes
+const double gameWidth = 20;
+const double gameHeight = 15;
+const double tileSize = 48;
 
 /**
  * Constructor for the game object
@@ -36,6 +41,7 @@ Game::Game()
     mXRay = std::make_shared<XRay>(this, xRayFileName);
 
     mClock = std::make_shared<Clock>(this);
+
     mClock->Reset();
 }
 
@@ -58,20 +64,10 @@ void Game::Add(std::shared_ptr<Item> item)
  */
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, double height)
 {
-    //
-    // Take Background Bitmap and Load Width & Height
-    //
-    if (mBackgroundBitmap.IsNull())
-    {
-        mBackgroundBitmap = graphics->CreateBitmapFromImage(*mBackgroundImage);
-    }
-    int backgroundWidth = mBackgroundImage->GetWidth();
-    int backgroundHeight = mBackgroundImage->GetHeight();
-
     // Determine the size of the playing area in pixels
     // This is up to you...
-    mPixelWidth = backgroundWidth;
-    mPixelHeight = backgroundHeight;
+    mPixelWidth = gameWidth * tileSize;
+    mPixelHeight = gameHeight * tileSize;
 
     //
     // Automatic Scaling
@@ -90,10 +86,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     graphics->PushState();
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
-    graphics->PopState();
 
-    mPixelWidth *= mScale;
-    mPixelHeight *= mScale;
 
     //
     // Draw in virtual pixels on the graphics context
@@ -101,30 +94,28 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // INSERT YOUR DRAWING CODE HERE
 
     //
+    // Take Background Bitmap and Load Width & Height
+    //
+    if (mBackgroundBitmap.IsNull())
+    {
+        mBackgroundBitmap = graphics->CreateBitmapFromImage(*mBackgroundImage);
+    }
+    int backgroundWidth = mBackgroundImage->GetWidth();
+    int backgroundHeight = mBackgroundImage->GetHeight();
+
+    //
     // Draws Background
     //
     graphics->DrawBitmap(mBackgroundBitmap,
-                         mXOffset, mYOffset,
-                         mPixelWidth,
-                         mPixelHeight);
+                         0, 0,
+                         backgroundWidth,
+                         backgroundHeight);
 
-    //
-    // Take X-Ray Image and BitMap
-    // Draw X-Ray
-    //
-
+    // Hard Code Draw X-Ray
     mXRay->Draw(graphics);
 
-    //
     // Hard coded drawing sparty until the add items function is implemented
-    //
     mSparty->Draw(graphics);
-
-
-    //
-    // Drawing a rectangle that is the playing area size
-    // Draw a rectangle
-    //
 
 
     //
@@ -145,12 +136,12 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         double rectWidth = mPixelWidth / 1.5;
         double rectHeight = mPixelHeight / 2.5;
 
-        double rectX = mXOffset + (mPixelWidth / 2) - (rectWidth / 2);
-        double rectY = mYOffset + (mPixelHeight / 2) - (rectHeight / 2);
+        double rectX = (mPixelWidth / 2) - (rectWidth / 2);
+        double rectY = (mPixelHeight / 2) - (rectHeight / 2);
 
         graphics->DrawRectangle(rectX, rectY,rectWidth, rectHeight);
 
-        wxFont bigFont(wxSize(75 * mScale, 75 * mScale),
+        wxFont bigFont(wxSize(75, 75),
                        wxFONTFAMILY_SWISS,
                        wxFONTSTYLE_NORMAL,
                        wxFONTWEIGHT_BOLD);
@@ -165,7 +156,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
 
         // Draw guide for inputs
         double textWidth, textHeight;
-        wxFont subFont(wxSize(50 * mScale, 50 * mScale),
+        wxFont subFont(wxSize(50, 50),
                        wxFONTFAMILY_SWISS,
                        wxFONTSTYLE_NORMAL,
                        wxFONTWEIGHT_BOLD);
@@ -209,6 +200,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // loop through containers
     // draw container (also draws contained items)
 
+    graphics->PopState();
 }
 
 /**

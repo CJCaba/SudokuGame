@@ -26,8 +26,6 @@ Sparty::Sparty(Game *game, const std::wstring &filename1, const std::wstring &fi
  */
 void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
-    auto game = Item::GetGame();
-
     // Head gets drawn first if 1
     if (mFront == 1)
     {
@@ -39,11 +37,9 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         mMouthBitmap = graphics->CreateBitmapFromImage(*mMouthImage);
     }
     // Now it is okay to draw that bitmap.
-    int itemWid = mMouthImage->GetWidth() * game->GetScale();
-    int itemHeight = mMouthImage->GetHeight() * game->GetScale();
-    double virtualX = game->GetXOffset() + GetX() * game->GetScale();
-    double virtualY = game->GetYOffset() + GetY() * game->GetScale();
-    graphics->DrawBitmap(mMouthBitmap, virtualX, virtualY, itemWid, itemHeight);
+    int itemWid = mMouthImage->GetWidth();
+    int itemHeight = mMouthImage->GetHeight();
+    graphics->DrawBitmap(mMouthBitmap, GetX(), GetY(), itemWid, itemHeight);
 
     // Head gets drawn last if 2
     if (mFront == 2)
@@ -58,6 +54,8 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 */
 void Sparty::Update(double elapsed)
 {
+    auto game = GetGame();
+
     double deltaX = mTarget.x - GetX();
     double deltaY = mTarget.y - GetY();
 
@@ -77,6 +75,16 @@ void Sparty::Update(double elapsed)
         // Calculate the new point's coordinates
         double newX = GetX() + deltaX * scaleFactor;
         double newY = GetY() + deltaY * scaleFactor;
+
+        if (newX > double( game->GetWidth() - (GetWidth()/2) ))
+        {
+            newX =double(game->GetWidth() - (GetWidth()/2) );
+        }
+
+        if (newY > double(game->GetHeight() - GetHeight()) )
+        {
+            newY = double(game->GetHeight() - GetHeight());
+        }
 
         SetLocation(newX, newY);
     }

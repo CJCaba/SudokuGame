@@ -88,40 +88,13 @@ public:
 
     void Save(const wxString &filename);
 
-    /**
-     * Getter for scale.
-     * @return scale.
-     */
-    double GetScale() const { return mScale; }
-
-    /**
-     * Getter for x-offset.
-     * @return x-offset
-     */
-    double GetXOffset() const { return mXOffset; }
-
-    /**
-     * Getter for y-offset.
-     * @return y-offset
-     */
-    double GetYOffset() const { return mYOffset; }
-
     bool WithinWidth(double x);
 
     bool WithinHeight(double y);
 
-    /**
-     * Getter for game height
-     * @return double Pixel Height
-     */
-    double GetHeight() const { return mPixelHeight; }
-
-    /**
-     * Getter for game width
-     * @return double Pixel Width
-     */
     double GetWidth() const { return mPixelWidth; }
 
+    double GetHeight() const { return mPixelHeight; }
 
     void XmlDeclare(wxXmlNode *node);
 };
