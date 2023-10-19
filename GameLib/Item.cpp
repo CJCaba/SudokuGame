@@ -34,8 +34,9 @@ Item::~Item()
  */
 void Item::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
+    // Checks if bitmap is empty, then imports the image
     if(mItemBitmap.IsNull()){
-        mItemBitmap = graphics ->CreateBitmapFromImage(*mItemImage);
+        mItemBitmap = graphics->CreateBitmapFromImage(*mItemImage);
     }
     // Now it is okay to draw that bitmap.
     int itemWid = mItemImage->GetWidth() * mGame->GetScale();

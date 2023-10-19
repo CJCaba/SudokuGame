@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "Clock.h"
 #include "Sparty.h"
+#include "XRay.h"
 #include "Declaration.h"
 #include "DeclarationGiven.h"
 #include "DeclarationInteract.h"
@@ -15,10 +16,10 @@
 using namespace std;
 
 /// Path to Background Image (Hard Coded)
-std::string backgroundFileName = "images/background.png";
+std::wstring backgroundFileName = L"images/background.png";
 
 /// Path to X-Ray Image (Hard Coded)
-std::string xRayFileName = "images/xray.png";
+std::wstring xRayFileName = L"images/xray.png";
 
 // Delete this later, hardcoded until xml loading is figured out
 std::wstring spartyHead = L"images/sparty-1.png";
@@ -29,12 +30,12 @@ std::wstring spartyMouth = L"images/sparty-2.png";
  */
 Game::Game()
 {
-    mBackgroundImage = std::make_shared<wxImage>(backgroundFileName);
-    mSparty = std::make_shared<Sparty>(this, spartyHead, spartyMouth);
-    mXRayImage = std::make_shared<wxImage>(xRayFileName);
+    mBackgroundImage = std::make_shared<wxImage>(backgroundFileName, wxBITMAP_TYPE_ANY);
 
-    auto clock = std::make_shared<Clock>(this);
-    mClock = clock;
+    mSparty = std::make_shared<Sparty>(this, spartyHead, spartyMouth);
+    mXRay = std::make_shared<XRay>(this, xRayFileName);
+
+    mClock = std::make_shared<Clock>(this);
     mClock->Reset();
 }
 
@@ -111,18 +112,20 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // Take X-Ray Image and BitMap
     // Draw X-Ray
     //
-    if (mXRayBitmap.IsNull())
-    {
-        mXRayBitmap = graphics->CreateBitmapFromImage(*mXRayImage);
-    }
-    int xRayWidth = mXRayImage->GetWidth();
-    int xRayHeight = mXRayImage->GetHeight();
+//    if (mXRayBitmap.IsNull())
+//    {
+//        mXRayBitmap = graphics->CreateBitmapFromImage(*mXRayImage);
+//    }
+//    int xRayWidth = mXRayImage->GetWidth();
+//    int xRayHeight = mXRayImage->GetHeight();
+//
+//    graphics->DrawBitmap(mXRayBitmap,
+//                         mXOffset + (30 * mScale),
+//                         mYOffset + ((backgroundHeight - xRayHeight) * mScale),
+//                         xRayWidth * mScale,
+//                         xRayHeight * mScale);
 
-    graphics->DrawBitmap(mXRayBitmap,
-                         mXOffset + (30 * mScale),
-                         mYOffset + ((backgroundHeight - xRayHeight) * mScale),
-                         xRayWidth * mScale,
-                         xRayHeight * mScale);
+    mXRay->Draw(graphics);
 
     //
     // Hard coded drawing sparty until the add items function is implemented
@@ -333,7 +336,11 @@ void Game::XmlDeclare(wxXmlNode *node){
         dec->XmlLoad(node);
     }
 }
-
+/**
+ * Checks if current x value is outside of game range
+ * @param x location in width
+ * @return true if still within, else false
+ */
 bool Game::WithinWidth(double x)
 {
     if (x > mPixelWidth || x < 0)
@@ -345,6 +352,12 @@ bool Game::WithinWidth(double x)
         return true;
     }
 }
+
+/**
+ * Checks if current y value is outside of game range
+ * @param y location in height
+ * @return true if still within, else false
+ */
 bool Game::WithinHeight(double y)
 {
     if (y > mPixelHeight || y < 0)

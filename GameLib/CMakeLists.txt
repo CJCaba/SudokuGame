@@ -34,6 +34,10 @@ set(SOURCE_FILES
         DeclarationInteract.h
         DeclarationSparty.cpp
         DeclarationSparty.h
+        SudokuBoard.cpp
+        SudokuBoard.h
+        XRay.cpp
+        XRay.h
 )
 
 set(wxBUILD_PRECOMP OFF)

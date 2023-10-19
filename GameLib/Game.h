@@ -19,6 +19,7 @@ class Clock;
 class Item;
 class Container;
 class Sparty;
+class XRay;
 
 /**
  * Implements a game class with necessary items
@@ -34,15 +35,11 @@ private:
 
     std::shared_ptr<Sparty> mSparty;
 
+    std::shared_ptr<XRay> mXRay;
+
     std::shared_ptr<wxImage> mBackgroundImage;  ///< Background image to use
 
     wxGraphicsBitmap mBackgroundBitmap; ///< The background bitmap
-
-    /// X-Ray Image to use
-    std::shared_ptr<wxImage> mXRayImage;
-
-    /// X-Ray Image as Bitmap for wx
-    wxGraphicsBitmap mXRayBitmap;
 
     /// The current scale of our game made in comparison to our window
     double mScale = 1;
