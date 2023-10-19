@@ -306,8 +306,8 @@ void Game::Load(const wxString &filename)
                     double x;
                     double y;
 
-                    decChild->GetAttribute("row", "0").ToDouble(&x);
-                    decChild->GetAttribute("col", "0").ToDouble(&y);
+                    decChild->GetAttribute("col", "0").ToDouble(&x);
+                    decChild->GetAttribute("row", "0").ToDouble(&y);
 
                     item->SetLocation(x * tileWidth, y * tileHeight);
 
