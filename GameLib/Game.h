@@ -110,6 +110,18 @@ public:
 
     bool WithinHeight(double y);
 
+    /**
+     * Getter for game height
+     * @return double Pixel Height
+     */
+    double GetHeight() const { return mPixelHeight; }
+
+    /**
+     * Getter for game width
+     * @return double Pixel Width
+     */
+    double GetWidth() const { return mPixelWidth; }
+
 
     void XmlDeclare(wxXmlNode *node);
 };

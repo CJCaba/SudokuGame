@@ -112,18 +112,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // Take X-Ray Image and BitMap
     // Draw X-Ray
     //
-//    if (mXRayBitmap.IsNull())
-//    {
-//        mXRayBitmap = graphics->CreateBitmapFromImage(*mXRayImage);
-//    }
-//    int xRayWidth = mXRayImage->GetWidth();
-//    int xRayHeight = mXRayImage->GetHeight();
-//
-//    graphics->DrawBitmap(mXRayBitmap,
-//                         mXOffset + (30 * mScale),
-//                         mYOffset + ((backgroundHeight - xRayHeight) * mScale),
-//                         xRayWidth * mScale,
-//                         xRayHeight * mScale);
 
     mXRay->Draw(graphics);
 
