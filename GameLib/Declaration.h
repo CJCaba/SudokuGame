@@ -45,6 +45,8 @@ public:
 
     void SetImage(wstring fileName) { mImageFile = fileName; }
 
+    virtual void XmlLoad(wxXmlNode *node);
+
     double GetWidth() const { return mWidth; }
     double GetHeight() const { return mHeight; }
     wstring GetImage() const { return mImageFile; }

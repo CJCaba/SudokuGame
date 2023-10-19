@@ -330,6 +330,7 @@ void Game::XmlDeclare(wxXmlNode *node){
     {
         id = node->GetAttribute(L"id", L'0').ToStdString();
         mDeclarations[id] = dec;
+        dec->XmlLoad(node);
     }
 }
 

@@ -30,7 +30,7 @@ public:
     void SetValue(int i) { mValue = i; }
     int GetValue() const { return mValue; }
 
-
+    void XmlLoad(wxXmlNode *node) override;
 };
 
 #endif //ARES_GAMELIB_DECLARATIONNUMBER_H

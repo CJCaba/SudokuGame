@@ -10,3 +10,10 @@ Declaration::Declaration(Game *game) : mGame(game)
 {
 
 }
+
+void Declaration::XmlLoad(wxXmlNode *node)
+{
+    node->GetAttribute("width", "0").ToDouble(&mWidth);
+    node->GetAttribute("height", "0").ToDouble(&mHeight);
+    mImageFile = node->GetAttribute("image", "0").ToStdWstring();
+}

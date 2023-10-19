@@ -16,6 +16,8 @@
 
 using namespace std;
 
+const wstring LevelZero = L"LevelFiles/";
+
 class GameTest : public ::testing::Test {
 protected:
     /**
@@ -85,3 +87,17 @@ TEST_F(GameTest, Save) {
 
     TestNewGame(file1);
 }
+
+///**
+//* Test Loading
+//*/
+//TEST_F(GameTest, Load){
+//    // Create a path to temporary files
+//    auto path = TempPath();
+//
+//    // Create a game
+//    Game game;
+//
+//
+//
+//}

@@ -13,7 +13,7 @@
 class DeclarationSparty : public Declaration
 {
 private:
-    int mFront;
+    double mFront;
 
     double mHeadPivotAngle;
 
@@ -30,8 +30,14 @@ private:
     double mTargetX;
 
     double mTargetY;
+
+    wstring mImage1;
+    wstring mImage2;
+
 public:
     DeclarationSparty(Game *game);
+
+    void XmlLoad(wxXmlNode *node) override;
 };
 
 #endif //ARES_GAMELIB_DECLARATIONSPARTY_H

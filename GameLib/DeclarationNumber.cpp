@@ -11,3 +11,9 @@ DeclarationNumber::DeclarationNumber(Game *game) : Declaration(game)
 {
 
 }
+
+void DeclarationNumber::XmlLoad(wxXmlNode *node)
+{
+    Declaration::XmlLoad(node);
+    node->GetAttribute("value", "0").ToInt(&mValue);
+}
