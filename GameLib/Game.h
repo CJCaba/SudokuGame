@@ -74,7 +74,7 @@ public:
 
     void OnLeftDown(wxMouseEvent &event);
 
-    void Add(std::shared_ptr<Item> item);
+    void AddItem(std::shared_ptr<Item> item);
 
     void Load(const wxString &filename);
 

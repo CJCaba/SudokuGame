@@ -12,6 +12,8 @@
 #include "DeclarationGiven.h"
 #include "DeclarationInteract.h"
 #include "DeclarationSparty.h"
+#include "GivenNumber.h"
+#include "InteractNumber.h"
 
 using namespace std;
 
@@ -49,7 +51,7 @@ Game::Game()
  * Add an item to the game
  * @param item New item to add
  */
-void Game::Add(std::shared_ptr<Item> item)
+void Game::AddItem(std::shared_ptr<Item> item)
 {
     // Code for setting an items location can go here
 
@@ -193,6 +195,10 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     }
 
 
+    for (auto item : mItems)
+    {
+        item->Draw(graphics);
+    }
     // loop through items
     // if item is not in any containers
     // draw item
@@ -259,6 +265,11 @@ void Game::Load(const wxString &filename)
     // Get the XML document root node
     auto root = xmlDoc.GetRoot();
 
+    int tileWidth;
+    int tileHeight;
+    root->GetAttribute("tilewidth", "1").ToInt(&tileWidth);
+    root->GetAttribute("tileheight", "1").ToInt(&tileHeight);
+
     //
     // Traverse the children of the root
     // node of the XML document in memory!!!!
@@ -273,6 +284,35 @@ void Game::Load(const wxString &filename)
             for ( ; decChild; decChild = decChild->GetNext())
             {
                 XmlDeclare(decChild);
+            }
+        }
+        else if (name == L"items")
+        {
+            auto decChild = child->GetChildren();
+            for ( ; decChild; decChild = decChild->GetNext())
+            {
+                auto itemName = decChild->GetName();
+                auto itemID = decChild->GetAttribute("id", "").ToStdString();
+                auto itemDeclaration = mDeclarations[itemID];
+
+                shared_ptr <Item> item;
+                if(itemName == "given")
+                    item = std::make_shared<GivenNumber>(this, L"images/" + itemDeclaration->GetImage());
+                else if(itemName == "digit")
+                    item = std::make_shared<InteractNumber>(this, L"images/" + itemDeclaration->GetImage());
+
+                if(item)
+                {
+                    double x;
+                    double y;
+
+                    decChild->GetAttribute("row", "0").ToDouble(&x);
+                    decChild->GetAttribute("col", "0").ToDouble(&y);
+
+                    item->SetLocation(x * tileWidth, y * tileHeight);
+
+                    AddItem(item);
+                }
             }
         }
     }
@@ -316,6 +356,7 @@ void Game::XmlDeclare(wxXmlNode *node){
         dec->XmlLoad(node);
     }
 }
+
 /**
  * Checks if current x value is outside of game range
  * @param x location in width
