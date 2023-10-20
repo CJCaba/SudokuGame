@@ -20,12 +20,6 @@ private:
     /// A collection of Numbers that represents the game's solution
     std::vector<std::shared_ptr<SolutionNumber>> mSolutionNumbers;
 
-    /// Column for top left cell of Sudoku grid
-    double mColumn;
-
-    /// Row for top left cell of Sudoku grid
-    double mRow;
-
 public:
 
     /// Copy constructor (disabled)
