@@ -40,6 +40,8 @@ set(SOURCE_FILES
         XRay.h
         Solution.cpp
         Solution.h
+        SolutionNumber.cpp
+        SolutionNumber.h
 )
 
 set(wxBUILD_PRECOMP OFF)

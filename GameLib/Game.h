@@ -20,6 +20,7 @@ class Item;
 class Container;
 class Sparty;
 class XRay;
+class Solution;
 
 /**
  * Implements a game class with necessary items
@@ -36,6 +37,9 @@ private:
     std::shared_ptr<Sparty> mSparty;
 
     std::shared_ptr<XRay> mXRay;
+
+    /// Solution to the game
+    std::shared_ptr<Solution> mGameSolution;
 
     std::shared_ptr<wxImage> mBackgroundImage;  ///< Background image to use
 
@@ -64,6 +68,8 @@ private:
     std::map<std::string, std::shared_ptr<Declaration>> mDeclarations;
 
     bool mStartUp = true;
+
+
 
 public:
     Game();

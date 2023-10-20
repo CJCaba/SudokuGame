@@ -14,6 +14,7 @@
 #include "DeclarationSparty.h"
 #include "GivenNumber.h"
 #include "InteractNumber.h"
+#include "Solution.h"
 
 using namespace std;
 
@@ -317,7 +318,7 @@ void Game::Load(const wxString &filename)
         }
         else if (name == L"game")
         {
-
+            mGameSolution->LoadSolution(child);
         }
     }
 }

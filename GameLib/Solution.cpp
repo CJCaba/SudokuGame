@@ -5,38 +5,41 @@
 
 #include "pch.h"
 #include "Solution.h"
+#include <wx/tokenzr.h>
 
 using namespace std;
 
 
 /**
- * Constructor
- * Constructs object from information within game tag of level xml file
- * @param node the node containing the game tag
- * @param filename
+ * Handles loading the game's solution
+ * @param node
+ * @return
  */
-Solution::Solution(wxXmlNode *node)
+void Solution::LoadSolution(wxXmlNode* node)
 {
-    node->GetAttribute(L"col").ToDouble(&mColumn);
-    node->GetAttribute(L"row").ToDouble(&mRow);
+    std::wstring gameContent = node->GetNodeContent().ToStdWstring();
+    wxArrayString numbers = wxStringTokenize(gameContent, L" ");
 
-    // Set values for first and last rows/columns of scoreboard
-    double currentRow = mRow;
-    double currentColumn = mColumn;
-    double finalRow = currentRow + 8;
-    double finalColumn = currentColumn + 8;
+    int startingCol, startingRow;
+    node->GetAttribute(L"col").ToInt(&startingCol);
+    node->GetAttribute(L"row").ToInt(&startingRow);
 
+    int currentRow = startingRow;
+    int currentCol = startingCol;
 
-    size_t index = 0;
+    for (auto& numStr : numbers)
+    {
+        int value;
+        numStr.ToInt(&value); // Convert the string to an integer
 
-    // Loop through rows to set row value of solution numbers
-    while(currentRow <= finalRow){
-        // Loop through columns to set column value of solution numbers
-        while(currentColumn <= finalColumn){
+        // Create a SolutionNumber and add it to mSolutionNumbers
+        mSolutionNumbers.push_back(std::make_shared<SolutionNumber>(value, currentCol, currentRow));
 
-            currentColumn += 1;
+        currentCol++;
+        if (currentCol == startingCol + 9)
+        {
+            currentCol = startingCol;
+            currentRow++;
         }
-        currentRow += 1;
-        currentColumn = mColumn;
     }
 }
