@@ -38,6 +38,8 @@ set(SOURCE_FILES
         SudokuBoard.h
         XRay.cpp
         XRay.h
+        Solution.cpp
+        Solution.h
 )
 
 set(wxBUILD_PRECOMP OFF)
