@@ -27,6 +27,9 @@ std::wstring xRayFileName = L"images/xray.png";
 std::wstring spartyHead = L"images/sparty-1.png";
 std::wstring spartyMouth = L"images/sparty-2.png";
 
+// Level 1
+std::wstring level1 = L"LevelFiles/level1.xml";
+
 // Hard Coded Level 1 Attributes
 const double gameWidth = 20;
 const double gameHeight = 15;
@@ -186,6 +189,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         {
             mStartUp = false;
             mClock->Reset();
+
+            if (mItems.empty())
+                Load(level1);
         }
     }
     else

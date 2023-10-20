@@ -8,6 +8,7 @@ project(ares)
 set(APPLICATION_LIBRARY GameLib)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/images/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/images/)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/LevelFiles/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/LevelFiles/)
 
 # Request the required wxWidgets libs
 # Turn off wxWidgets own precompiled header system, since
