@@ -16,7 +16,7 @@
 
 using namespace std;
 
-const wstring LevelZero = L"LevelFiles/";
+const wstring levelZero = L"LevelFiles/level0.xml";
 
 class GameTest : public ::testing::Test {
 protected:
@@ -88,16 +88,15 @@ TEST_F(GameTest, Save) {
     TestNewGame(file1);
 }
 
-///**
-//* Test Loading
-//*/
-//TEST_F(GameTest, Load){
-//    // Create a path to temporary files
-//    auto path = TempPath();
-//
-//    // Create a game
-//    Game game;
-//
-//
-//
-//}
+/**
+ * File Traversal / Loading Test
+ */
+TEST_F(GameTest, Load){
+    // Create a game
+    Game game;
+
+    game.Load(levelZero);
+
+    // Successful item traversal if 81 items
+    ASSERT_EQ(game.GetItems().size(), 81);
+}
