@@ -28,5 +28,3 @@ public:
  * Class that holds the games solution
  */
 
-#ifndef ARES_GAMELIB_SOLUTION_H
-#define ARES_GAMELIB_SOLUTION_H
