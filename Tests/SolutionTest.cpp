@@ -14,11 +14,11 @@
 
 using namespace std;
 
-class SolutionMock : public Solution
-{
-public:
-    SolutionMock(wxXmlNode *node) : Solution(node) {}
-};
+//class SolutionMock : public Solution
+//{
+//public:
+//    SolutionMock(wxXmlNode *node) : Solution(node) {}
+//};
 
 
 /**

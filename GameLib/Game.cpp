@@ -323,7 +323,7 @@ void Game::Load(const wxString &filename)
         }
         else if (name == L"game")
         {
-            mGameSolution->LoadSolution(child);
+       //     mGameSolution->LoadSolution(child);
         }
     }
 }

@@ -30,7 +30,7 @@ void Solution::LoadSolution(wxXmlNode* node)
     for (auto& numStr : numbers)
     {
         int value;
-        numStr.ToInt(&value); // Convert the string to an integer
+        numStr.ToInt(&value);
 
         // Create a SolutionNumber and add it to mSolutionNumbers
         mSolutionNumbers.push_back(std::make_shared<SolutionNumber>(value, currentCol, currentRow));
