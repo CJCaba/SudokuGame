@@ -102,6 +102,12 @@ public:
 
     double GetHeight() const { return mPixelHeight; }
 
+    /**
+     * Getter for items.
+     * @return Pointers to items stored in a vector.
+     */
+    std::vector<std::shared_ptr<Item>> GetItems() const { return mItems; }
+
     void XmlDeclare(wxXmlNode *node);
 };
 

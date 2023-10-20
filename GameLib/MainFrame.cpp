@@ -49,7 +49,7 @@ void MainFrame::Initialize()
 
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
-
+    Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);
 
     SetMenuBar(menuBar);
 
@@ -61,8 +61,7 @@ void MainFrame::Initialize()
  */
 void MainFrame::OnExit(wxCommandEvent& event)
 {
-    mGameView->Stop();
-    Destroy();
+    Close(true);
 }
 
 /**
@@ -75,4 +74,14 @@ void MainFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
                  L"About the Game",
                  wxOK | wxCENTRE,
                  this);
+}
+
+/**
+ * Handle a close event. Stop the animation and destroy this window.
+ * @param event The Close event
+ */
+void MainFrame::OnClose(wxCloseEvent& event)
+{
+    mGameView->Stop();
+    Destroy();
 }

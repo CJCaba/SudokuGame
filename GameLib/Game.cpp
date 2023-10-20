@@ -28,6 +28,9 @@ std::wstring xRayFileName = L"images/xray.png";
 std::wstring spartyHead = L"images/sparty-1.png";
 std::wstring spartyMouth = L"images/sparty-2.png";
 
+// Level 1
+std::wstring level1 = L"LevelFiles/level1.xml";
+
 // Hard Coded Level 1 Attributes
 const double gameWidth = 20;
 const double gameHeight = 15;
@@ -114,6 +117,17 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                          backgroundWidth,
                          backgroundHeight);
 
+    for (auto item : mItems)
+    {
+        item->Draw(graphics);
+    }
+    // loop through items
+    // if item is not in any containers
+    // draw item
+
+    // loop through containers
+    // draw container (also draws contained items)
+
     // Hard Code Draw X-Ray
     mXRay->Draw(graphics);
 
@@ -187,6 +201,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         {
             mStartUp = false;
             mClock->Reset();
+
+            if (mItems.empty())
+                Load(level1);
         }
     }
     else
@@ -194,18 +211,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         // Drawing Clock on Screen, should be Top Layer Drawing
         mClock->Draw(graphics);
     }
-
-
-    for (auto item : mItems)
-    {
-        item->Draw(graphics);
-    }
-    // loop through items
-    // if item is not in any containers
-    // draw item
-
-    // loop through containers
-    // draw container (also draws contained items)
 
     graphics->PopState();
 }
