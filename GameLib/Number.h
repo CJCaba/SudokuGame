@@ -1,6 +1,6 @@
 /**
  * @file Number.h
- * @author jadec
+ * @author jadec, Daniel Flanagan
  *
  *
  */
@@ -13,7 +13,9 @@ class Number : public Item
 protected:
     Number(Game *game, const std::wstring &filename);
 private:
+    /// Value of the number
     int mValue;
+
 public:
     /// Default constructor (disabled)
     Number() = delete;
@@ -24,6 +26,7 @@ public:
     /// Assignment operator
     void operator=(const Number &) = delete;
 
+    /// Sets number's value
     void SetValue(int i) { mValue = i; }
 
     /**

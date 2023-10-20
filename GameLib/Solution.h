@@ -8,8 +8,7 @@
 #ifndef ARES_GAMELIB_SOLUTION_H
 #define ARES_GAMELIB_SOLUTION_H
 
-#include "Item.h"
-#
+#include "Number.h"
 
 /**
  * Implements a solution class
@@ -18,8 +17,8 @@ class Solution
 {
 private:
 
-    /// A collection of Items that represents the game's solution
-    std::vector<std::shared_ptr<Item>> mSolutionItems;
+    /// A collection of Numbers that represents the game's solution
+    std::vector<std::shared_ptr<Number>> mSolutionNumbers;
 
     /// Column for top left cell of Sudoku grid
     double mColumn;
@@ -37,7 +36,6 @@ public:
     /// Copy constructor (disabled)
     Solution(const Solution &) = delete;
 
-    void LoadSolution(wxXmlNode *node);
 };
 
 #endif //ARES_GAMELIB_SOLUTION_H

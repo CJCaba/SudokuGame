@@ -23,8 +23,11 @@ Solution::Solution(wxXmlNode *node)
     // Set values for first and last rows/columns of scoreboard
     double currentRow = mRow;
     double currentColumn = mColumn;
-    double finalRow = currentRow + 9;
-    double finalColumn = currentColumn + 9;
+    double finalRow = currentRow + 8;
+    double finalColumn = currentColumn + 8;
+
+
+    size_t index = 0;
 
     // Loop through rows to set row value of solution numbers
     while(currentRow <= finalRow){
@@ -36,8 +39,4 @@ Solution::Solution(wxXmlNode *node)
         currentRow += 1;
         currentColumn = mColumn;
     }
-
-
-
-
 }
