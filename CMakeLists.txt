@@ -24,6 +24,7 @@ set(SOURCE_FILES
         GameApp.h
         GameApp.cpp
         pch.h
+        ../../../../../../
 )
 
 add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SOURCE_FILES})
