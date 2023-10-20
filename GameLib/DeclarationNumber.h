@@ -9,14 +9,28 @@
 #define ARES_GAMELIB_DECLARATIONNUMBER_H
 
 #include "Declaration.h"
+#include "Number.h"
 
 class DeclarationNumber : public Declaration
 {
 private:
-    int value;
+    int mValue;
 public:
-    DeclarationNumber(double width, double height, const wstring &fileName, int value);
+    DeclarationNumber(Game *game);
 
+    /// Default constructor (disabled)
+    DeclarationNumber() = delete;
+
+    /// Copy constructor (disabled)
+    DeclarationNumber(const DeclarationNumber &) = delete;
+
+    /// Assignment operator
+    void operator=(const DeclarationNumber &) = delete;
+
+    void SetValue(int i) { mValue = i; }
+    int GetValue() const { return mValue; }
+
+    void XmlLoad(wxXmlNode *node) override;
 };
 
 #endif //ARES_GAMELIB_DECLARATIONNUMBER_H

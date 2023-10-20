@@ -16,17 +16,9 @@
 class GivenNumber : public Number
 {
 protected:
-//    GivenNumber(Game *game, const std::wstring &filename);
 private:
-    int value;
 public:
-
-    /**
-     * Return value of this number
-     * @return value
-     */
-    int GetValue() { return value; }
-    
+    GivenNumber(Game *game, const std::wstring &filename);
 };
 
 #endif //ARES_GAMELIB_GIVENNUMBER_H

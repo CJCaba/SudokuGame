@@ -16,15 +16,11 @@
 class InteractNumber : public Number
 {
 private:
-    int value;
 
 public:
+    InteractNumber(Game *game, const std::wstring &filename);
 
-    /**
-    * Return value of this number
-    * @return value
-    */
-    int GetValue() { return value; }
+
 };
 
 #endif //ARES_GAMELIB_INTERACTNUMBER_H

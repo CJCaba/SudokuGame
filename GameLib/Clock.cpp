@@ -7,11 +7,19 @@
 #include "Clock.h"
 #include "Game.h"
 
+#include <iostream>
+
+/// Size of the scoreboard text in virtual pixels
+const int ScoreboardTextSize = 64;
+
+/// Top left corner of the scoreboard in virtual pixels
+const wxPoint ScoreboardTopLeft(10, 10);
+
 /**
  * Constructor
  * @param gameView The window this clock is a member of
  */
-Clock::Clock(Game *game)
+Clock::Clock(Game *game) : mGame(game)
 {
 }
 
@@ -37,14 +45,25 @@ void Clock::SetTime(long time)
     }
 }
 
+void Clock::AddTime(double elapsed)
+{
+    mSeconds += elapsed;
+
+    if(mSeconds >= 60)
+    {
+        mSeconds -= 60;
+        mMinutes += 1;
+    }
+}
+
 /**
  * Converts analog minutes to a string
  * @return minutes as type string
  */
 std::string Clock::GetMinutes()
 {
-    std::string hrs = std::to_string(mMinutes);
-    return hrs;
+    std::string mins = std::to_string(int(mMinutes));
+    return mins;
 }
 
 /**
@@ -53,18 +72,18 @@ std::string Clock::GetMinutes()
  */
 std::string Clock::GetSeconds()
 {
-    std::string mins;
+    std::string secs;
 
     if (mSeconds < 10)
     {
-        mins = "0" + std::to_string(mSeconds);
+        secs = "0" + std::to_string(int(mSeconds));
     }
     else
     {
-        mins = std::to_string(mSeconds);
+        secs = std::to_string(int(mSeconds));
     }
 
-    return mins;
+    return secs;
 }
 
 /**
@@ -74,4 +93,16 @@ void Clock::Reset()
 {
     mMinutes = 0;
     mSeconds = 0;
+}
+
+void Clock::Draw(std::shared_ptr<wxGraphicsContext> graphics)
+{
+    wxFont font(wxSize(ScoreboardTextSize, ScoreboardTextSize),
+                wxFONTFAMILY_SCRIPT,
+                wxFONTSTYLE_NORMAL,
+                wxFONTWEIGHT_BOLD);
+    graphics->SetFont(font, wxColour(*wxWHITE));
+
+    std::string analog = GetMinutes() + ":" + GetSeconds();
+    graphics->DrawText(analog, ScoreboardTopLeft.x, ScoreboardTopLeft.y);
 }

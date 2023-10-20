@@ -28,8 +28,16 @@ set(SOURCE_FILES
         Declaration.h
         DeclarationNumber.cpp
         DeclarationNumber.h
-        Solution.cpp
-        Solution.h
+        DeclarationGiven.cpp
+        DeclarationGiven.h
+        DeclarationInteract.cpp
+        DeclarationInteract.h
+        DeclarationSparty.cpp
+        DeclarationSparty.h
+        SudokuBoard.cpp
+        SudokuBoard.h
+        XRay.cpp
+        XRay.h
 )
 
 set(wxBUILD_PRECOMP OFF)

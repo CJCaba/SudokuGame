@@ -7,7 +7,7 @@
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include "GameView.h"
-// #include "ids.h"
+ #include "ids.h"
 
 using namespace std;
 
@@ -27,6 +27,7 @@ void GameView::Initialize(wxFrame *parent) {
 
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
+    Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
 
     mTimer.SetOwner(this);
     mTimer.Start(1);
@@ -52,12 +53,6 @@ void GameView::OnPaint(wxPaintEvent &event) {
     auto elapsed = (double)(newTime - mTime) * 0.001;
     mTime = newTime;
 
-    //
-    // Update
-    //
-    mGame.OnUpdate(elapsed, newTime);
-
-
     // Create a graphics context
     auto gc =
         std::shared_ptr<wxGraphicsContext>(wxGraphicsContext::Create(dc));
@@ -74,6 +69,11 @@ void GameView::OnPaint(wxPaintEvent &event) {
     }
 
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
+
+    //
+    // Update
+    //
+    mGame.OnUpdate(elapsed);
 }
 
 /**
@@ -86,13 +86,22 @@ void GameView::OnTimer(wxTimerEvent& event)
 }
 
 /**
+ * Handle the left mouse button down event
+ * @param event The mouse event
+ */
+void GameView::OnLeftDown(wxMouseEvent &event)
+{
+    mGame.OnLeftDown(event);
+}
+
+/**
  * Handle the File>Save As menu option
  * @param event The menu event
  */
 void GameView::OnFileSaveAs(wxCommandEvent& event)
 {
     wxFileDialog saveFileDialog(this, L"Save Game file", L"", L"",
-                                L"Game Files (*.game)|*.game", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+                                L"Game Files (*.xml)|*.xml", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
     if (saveFileDialog.ShowModal() == wxID_CANCEL)
     {
         return;
@@ -109,7 +118,7 @@ void GameView::OnFileSaveAs(wxCommandEvent& event)
 void GameView::OnFileOpen(wxCommandEvent& event)
 {
     wxFileDialog loadFileDialog(this, L"Load Game file", L"", L"",
-                                L"Game Files (*.game)|*.game", wxFD_OPEN);
+                                L"Game Files (*.xml)|*.xml", wxFD_OPEN);
     if (loadFileDialog.ShowModal() == wxID_CANCEL)
     {
         return;

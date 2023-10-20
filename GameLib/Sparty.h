@@ -31,6 +31,7 @@ private:
 
     wxPoint mTarget; ///< Contains the x and y information for where the player last clicked (sparty goes to that point)
 
+
 public:
     /// Default constructor (disabled)
     Sparty() = delete;
@@ -44,7 +45,14 @@ public:
     /// Constructor
     Sparty(Game *game, const std::wstring &filename1, const std::wstring &filename2);
 
+    /**
+     * Target position setter.
+     * @param target that Sparty should travel to.
+     */
+    void SetTarget(wxPoint target) { mTarget = target; }
+
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
+    void Update(double elapsed);
 };
 
 #endif //ARES_GAMELIB_SPARTY_H

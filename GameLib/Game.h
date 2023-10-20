@@ -14,12 +14,12 @@
 #include <map>
 #include <wx/graphics.h>
 
-#include "Item.h"
-#include "Container.h"
-#include "Declaration.h"
-
+class Declaration;
 class Clock;
-#include "Sparty.h"
+class Item;
+class Container;
+class Sparty;
+class XRay;
 
 /**
  * Implements a game class with necessary items
@@ -35,24 +35,24 @@ private:
 
     std::shared_ptr<Sparty> mSparty;
 
+    std::shared_ptr<XRay> mXRay;
+
     std::shared_ptr<wxImage> mBackgroundImage;  ///< Background image to use
 
     wxGraphicsBitmap mBackgroundBitmap; ///< The background bitmap
 
-    /// X-Ray Image to use
-    std::shared_ptr<wxImage> mXRayImage;
-
-    /// X-Ray Image as Bitmap for wx
-    wxGraphicsBitmap mXRayBitmap;
-
     /// The current scale of our game made in comparison to our window
-    double mScale = 0;
+    double mScale = 1;
 
     /// The amount to shift the graphics object in the x direction
     double mXOffset = 0;
 
     /// The amount to shift the graphics object in the y direction
     double mYOffset = 0;
+
+    double mPixelWidth = 0;
+
+    double mPixelHeight = 0;
 
     /// Random number generator
     std::mt19937 mRandom;
@@ -61,25 +61,42 @@ private:
     std::shared_ptr<Clock> mClock;
 
     /// Map of Declarations, with IDs as keys
-    map<string, Declaration> mDeclarations;
+    std::map<std::string, std::shared_ptr<Declaration>> mDeclarations;
+
+    bool mStartUp = true;
 
 public:
     Game();
 
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, double height);
 
-    void OnUpdate(double elapsed, long time);
+    void OnUpdate(double elapsed);
 
-    void Add(std::shared_ptr<Item> item);
+    void OnLeftDown(wxMouseEvent &event);
+
+    void AddItem(std::shared_ptr<Item> item);
 
     void Load(const wxString &filename);
+
+    void Clear();
 
     /**
      * Get the random number generator
      * @return Pointer to the random number generator
      */
     std::mt19937 &GetRandom() { return mRandom; }
+
     void Save(const wxString &filename);
+
+    bool WithinWidth(double x);
+
+    bool WithinHeight(double y);
+
+    double GetWidth() const { return mPixelWidth; }
+
+    double GetHeight() const { return mPixelHeight; }
+
+    void XmlDeclare(wxXmlNode *node);
 };
 
 #endif //ARES_GAMELIB_GAME_H
