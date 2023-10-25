@@ -24,6 +24,12 @@ public:
 
     void LoadSolution(wxXmlNode* node);
 
+    /**
+     * Getter for mSolutionNumbers
+     */
+    const std::vector<std::shared_ptr<SolutionNumber>>& GetSolutionNumbers() const { return mSolutionNumbers; }
+
+
 
 };
 

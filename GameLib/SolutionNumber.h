@@ -23,13 +23,13 @@ public:
     SolutionNumber(int value, double column, double row);
 
     /// Get number's value
-    int getValue() { return mValue; }
+    int GetValue() { return mValue; }
 
     /// Get the column
-    double getColumn() { return mColumn; }
+    double GetColumn() { return mColumn; }
 
     /// Get the row
-    double getRow() { return mRow; }
+    double GetRow() { return mRow; }
 
 };
 
