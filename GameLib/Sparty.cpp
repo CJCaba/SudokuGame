@@ -39,7 +39,18 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     // Now it is okay to draw that bitmap.
     int itemWid = mMouthImage->GetWidth();
     int itemHeight = mMouthImage->GetHeight();
+    double pivotX = GetX() + mMouthPivot.x;
+    double pivotY = GetY() + mMouthPivot.y;
+
+    graphics->PushState();
+
+    graphics->Translate(pivotX, pivotY);
+    graphics->Rotate(mMouthAngle);
+    graphics->Translate(-pivotX, -pivotY);
+
     graphics->DrawBitmap(mMouthBitmap, GetX(), GetY(), itemWid, itemHeight);
+
+    graphics->PopState();
 
     // Head gets drawn last if 2
     if (mFront == 2)
@@ -78,7 +89,7 @@ void Sparty::Update(double elapsed)
 
         if (newX > double( game->GetWidth() - (GetWidth()/2) ))
         {
-            newX =double(game->GetWidth() - (GetWidth()/2) );
+            newX = double(game->GetWidth() - (GetWidth()/2) );
         }
 
         if (newY > double(game->GetHeight() - GetHeight()) )
@@ -87,5 +98,21 @@ void Sparty::Update(double elapsed)
         }
 
         SetLocation(newX, newY);
+    }
+
+    if (mIsEating)
+    {
+        mElapsedTimeEating += elapsed;
+        if (mElapsedTimeEating < EatingTime / 2)
+            mMouthAngle = mElapsedTimeEating / (EatingTime / 2) * mMouthPivotAngle;
+        else
+            mMouthAngle = (EatingTime - mElapsedTimeEating) / (EatingTime / 2) * mMouthPivotAngle;
+
+        if (mElapsedTimeEating >= EatingTime)
+        {
+            mElapsedTimeEating = 0.0;
+            mIsEating = false;
+            mMouthAngle = 0.0;
+        }
     }
 }

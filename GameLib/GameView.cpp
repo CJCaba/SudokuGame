@@ -28,6 +28,7 @@ void GameView::Initialize(wxFrame *parent) {
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
+    Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
 
     mTimer.SetOwner(this);
     mTimer.Start(1);
@@ -92,6 +93,15 @@ void GameView::OnTimer(wxTimerEvent& event)
 void GameView::OnLeftDown(wxMouseEvent &event)
 {
     mGame.OnLeftDown(event);
+}
+
+/**
+ * Handle the key down event
+ * @param event The key event
+ */
+void GameView::OnKeyDown(wxKeyEvent &event)
+{
+    mGame.OnKeyDown(event);
 }
 
 /**

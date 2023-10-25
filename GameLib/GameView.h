@@ -45,6 +45,7 @@ public:
      * Stop the timer so the window can close
      */
     void Stop() { mTimer.Stop(); }
+    void OnKeyDown(wxKeyEvent &event);
 };
 
 #endif //ARES_GAMELIB_GAMEVIEW_H

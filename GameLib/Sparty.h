@@ -24,6 +24,15 @@ private:
     /// The bitmap for this tile
     wxGraphicsBitmap mMouthBitmap;
 
+    /// Flag for if Sparty is eating
+    bool mIsEating = false;
+
+    /// How long Sparty has been eating
+    double mElapsedTimeEating = 0.0;
+
+    /// The final angle of the pivot in radians
+    double mMouthPivotAngle;
+
     wxPoint mMouthPivot; ///< Contains the x and y information for the mouth pivot point
     wxPoint mHeadPivot; ///< Contains the x and y information for the head pivot point
 
@@ -53,6 +62,11 @@ public:
 
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
     void Update(double elapsed);
+
+    /**
+     * Make Sparty eat.
+     */
+    void MakeEat() { mIsEating = true; }
 };
 
 #endif //ARES_GAMELIB_SPARTY_H
