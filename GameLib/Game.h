@@ -38,7 +38,7 @@ private:
 
     std::shared_ptr<XRay> mXRay;
 
-    /// Solution to the game
+    /// Solution to the current level
     std::shared_ptr<Solution> mGameSolution;
 
     std::shared_ptr<wxImage> mBackgroundImage;  ///< Background image to use

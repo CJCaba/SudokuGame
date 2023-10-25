@@ -16,6 +16,7 @@
 #include "InteractNumber.h"
 #include "Solution.h"
 
+
 using namespace std;
 
 // Path to Background Image (Hard Coded)
@@ -49,6 +50,8 @@ Game::Game()
     mClock = std::make_shared<Clock>(this);
 
     mClock->Reset();
+
+    mGameSolution = std::make_shared<Solution>();
 }
 
 /**
@@ -321,9 +324,10 @@ void Game::Load(const wxString &filename)
                 }
             }
         }
+        // Handles loading the game's solution
         else if (name == L"game")
         {
-       //     mGameSolution->LoadSolution(child);
+            mGameSolution ->LoadSolution(child);
         }
     }
 }
