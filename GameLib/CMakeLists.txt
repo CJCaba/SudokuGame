@@ -42,6 +42,10 @@ set(SOURCE_FILES
         Solution.h
         SolutionNumber.cpp
         SolutionNumber.h
+        DeclarationBackground.cpp
+        DeclarationBackground.h
+        Background.cpp
+        Background.h
 )
 
 set(wxBUILD_PRECOMP OFF)

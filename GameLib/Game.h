@@ -109,6 +109,7 @@ public:
     std::vector<std::shared_ptr<Item>> GetItems() const { return mItems; }
 
     void XmlDeclare(wxXmlNode *node);
+    void XmlItem(wxXmlNode *node, double tileWidth, double tileHeight);
 };
 
 #endif //ARES_GAMELIB_GAME_H
