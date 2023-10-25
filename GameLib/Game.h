@@ -110,6 +110,7 @@ public:
 
     void XmlDeclare(wxXmlNode *node);
     void XmlItem(wxXmlNode *node, double tileWidth, double tileHeight);
+    void OnKeyDown(wxKeyEvent &event);
 };
 
 #endif //ARES_GAMELIB_GAME_H

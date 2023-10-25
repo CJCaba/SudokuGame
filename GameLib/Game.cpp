@@ -231,6 +231,10 @@ void Game::OnUpdate(double elapsed)
     mSparty->Update(elapsed);
 }
 
+/**
+ * Handle the left mouse button down event
+ * @param event The mouse event
+ */
 void Game::OnLeftDown(wxMouseEvent &event)
 {
     double virtualX = ( event.GetX() - mXOffset ) / mScale;
@@ -243,6 +247,20 @@ void Game::OnLeftDown(wxMouseEvent &event)
         return;
 
     mSparty->SetTarget( wxPoint(virtualX, virtualY) );
+}
+
+/**
+ * Handle the key down event
+ * @param event The key event
+ */
+void Game::OnKeyDown(wxKeyEvent &event)
+{
+    int keyCode = event.GetKeyCode();
+
+    if (keyCode == WXK_SPACE)
+    {
+        mSparty->MakeEat();
+    }
 }
 /**
  * Save the game as a .game XML file.
