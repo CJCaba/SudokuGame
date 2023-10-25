@@ -237,8 +237,8 @@ void Game::OnUpdate(double elapsed)
  */
 void Game::OnLeftDown(wxMouseEvent &event)
 {
-    double virtualX = ( event.GetX() - mXOffset ) / mScale;
-    double virtualY = ( event.GetY() - mYOffset ) / mScale;
+    double virtualX = ( event.GetX() - mSparty->GetWidth() / 1.5 - mXOffset ) / mScale;
+    double virtualY = ( event.GetY() - mSparty->GetHeight() / 1.5 - mYOffset ) / mScale;
 
     if (!WithinWidth(virtualX))
         return;
