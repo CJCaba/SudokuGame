@@ -22,9 +22,6 @@ private:
 
 public:
 
-    /// Copy constructor (disabled)
-    Solution(const Solution &) = delete;
-
     void LoadSolution(wxXmlNode* node);
 
 
