@@ -12,9 +12,12 @@
 #include "DeclarationGiven.h"
 #include "DeclarationInteract.h"
 #include "DeclarationSparty.h"
+#include "DeclarationBackground.h"
+#include "Number.h"
 #include "GivenNumber.h"
 #include "InteractNumber.h"
 #include "Solution.h"
+#include "Background.h"
 
 using namespace std;
 
@@ -32,8 +35,8 @@ std::wstring spartyMouth = L"images/sparty-2.png";
 std::wstring level1 = L"LevelFiles/level1.xml";
 
 // Hard Coded Level 1 Attributes
-const double gameWidth = 20;
-const double gameHeight = 15;
+double gameWidth = 20;
+double gameHeight = 15;
 const double tileSize = 48;
 
 /**
@@ -275,6 +278,8 @@ void Game::Load(const wxString &filename)
     int tileHeight;
     root->GetAttribute("tilewidth", "1").ToInt(&tileWidth);
     root->GetAttribute("tileheight", "1").ToInt(&tileHeight);
+    root->GetAttribute("width", "1").ToDouble(&gameWidth);
+    root->GetAttribute("height", "1").ToDouble(&gameHeight);
 
     //
     // Traverse the children of the root
@@ -297,28 +302,7 @@ void Game::Load(const wxString &filename)
             auto decChild = child->GetChildren();
             for ( ; decChild; decChild = decChild->GetNext())
             {
-                auto itemName = decChild->GetName();
-                auto itemID = decChild->GetAttribute("id", "").ToStdString();
-                auto itemDeclaration = mDeclarations[itemID];
-
-                shared_ptr <Item> item;
-                if(itemName == "given")
-                    item = std::make_shared<GivenNumber>(this, L"images/" + itemDeclaration->GetImage());
-                else if(itemName == "digit")
-                    item = std::make_shared<InteractNumber>(this, L"images/" + itemDeclaration->GetImage());
-
-                if(item)
-                {
-                    double x;
-                    double y;
-
-                    decChild->GetAttribute("col", "0").ToDouble(&x);
-                    decChild->GetAttribute("row", "0").ToDouble(&y);
-
-                    item->SetLocation(x * tileWidth, y * tileHeight);
-
-                    AddItem(item);
-                }
+                XmlItem(decChild, tileWidth, tileHeight);
             }
         }
         else if (name == L"game")
@@ -336,6 +320,8 @@ void Game::Load(const wxString &filename)
 void Game::Clear()
 {
     mItems.clear();
+    mBackgroundImage->Clear();
+    mBackgroundBitmap.UnRef();
 }
 
 void Game::XmlDeclare(wxXmlNode *node){
@@ -359,11 +345,57 @@ void Game::XmlDeclare(wxXmlNode *node){
         dec = make_shared<DeclarationSparty>(this);
     }
 
+    if (name == L"background"){
+        dec = make_shared<DeclarationBackground>(this);
+    }
+
     if (dec != nullptr)
     {
         id = node->GetAttribute(L"id", L'0').ToStdString();
         mDeclarations[id] = dec;
         dec->XmlLoad(node);
+    }
+}
+
+void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
+    shared_ptr<Item> item;
+    auto name = node->GetName();
+    auto itemID = node->GetAttribute("id", "").ToStdString();
+    auto itemDeclaration = mDeclarations[itemID];
+
+    if(name == "given")
+    {
+        item = std::make_shared<GivenNumber>(this, L"images/" + itemDeclaration->GetImage());
+
+    }
+
+    if(name == "digit")
+    {
+        item = std::make_shared<InteractNumber>(this, L"images/" + itemDeclaration->GetImage());
+    }
+
+    if(name == "background")
+    {
+        item = make_shared<Background>(this, L"images/" + itemDeclaration->GetImage());
+        double x,y, height;
+        node->GetAttribute("col", "0").ToDouble(&x);
+        node->GetAttribute("row", "0").ToDouble(&y);
+        height = itemDeclaration->GetHeight();
+        item->SetLocation(x * tileHeight, (y + 1) * tileHeight - height);
+        AddItem(item);
+    }
+
+    if(item && name != "background")
+    {
+        double x;
+        double y;
+
+        node->GetAttribute("col", "0").ToDouble(&x);
+        node->GetAttribute("row", "0").ToDouble(&y);
+
+        item->SetLocation(x * tileHeight, y * tileHeight);
+
+        AddItem(item);
     }
 }
 
