@@ -18,8 +18,17 @@ const double HeadbuttTime = 0.5;
 Sparty::Sparty(Game *game, wxXmlNode * dec) : Item(game, dec)
 {
 //    std::wstring filename = L"images/" + dec->GetAttribute("image", "").ToStdWstring();
-    std::wstring filename2 = L"images/" + dec->GetAttribute("image2", "").ToStdWstring();
+    std::wstring filename2 = L"images/" + dec->GetAttribute("image1", "").ToStdWstring();
     mMouthImage = std::make_unique<wxImage>(filename2, wxBITMAP_TYPE_ANY);
+    dec->GetAttribute("head-pivot-angle", "0").ToDouble(&mHeadPivotAngle);
+    dec->GetAttribute("head-pivot-x", "0").ToInt(&mHeadPivot.x);
+    dec->GetAttribute("head-pivot-y", "0").ToInt(&mHeadPivot.y);
+    dec->GetAttribute("mouth-pivot-angle", "0").ToDouble(&mMouthPivotAngle);
+    dec->GetAttribute("mouth-pivot-x", "0").ToInt(&mMouthPivot.x);
+    dec->GetAttribute("mouth-pivot-y", "0").ToInt(&mMouthPivot.y);
+    dec->GetAttribute("target-x", "0").ToInt(&mTargetPoint.x);
+    dec->GetAttribute("target-y", "0").ToInt(&mTargetPoint.y);
+
 }
 
 /**
