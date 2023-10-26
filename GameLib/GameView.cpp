@@ -24,6 +24,12 @@ void GameView::Initialize(wxFrame *parent) {
                  wxID_SAVEAS);
     parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnFileOpen, this,
                  wxID_OPEN);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevel1, this,
+                 IDM_LEVELONE);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevel2, this,
+                 IDM_LEVELTWO);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevel3, this,
+                 IDM_LEVELTHREE);
 
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
@@ -137,4 +143,31 @@ void GameView::OnFileOpen(wxCommandEvent& event)
     auto filename = loadFileDialog.GetPath();
     mGame.Load(filename);
     Refresh();
+}
+
+/**
+ * Choose Level>Level 1
+ * @param event Menu event
+ */
+ void GameView::OnLevel1(wxCommandEvent &event)
+ {
+    mGame.SetLevel(L"LevelFiles/level1.xml");
+ }
+
+/**
+* Choose Level>Level 2
+* @param event Menu event
+*/
+void GameView::OnLevel2(wxCommandEvent &event)
+{
+    mGame.SetLevel(L"LevelFiles/level2.xml");
+}
+
+/**
+ * Choose Level>Level 3
+ * @param event Menu event
+ */
+void GameView::OnLevel3(wxCommandEvent &event)
+{
+    mGame.SetLevel(L"LevelFiles/level3.xml");
 }

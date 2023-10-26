@@ -69,7 +69,7 @@ private:
 
     bool mStartUp = true;
 
-
+    std::wstring mCurrentLevel = L"LevelFiles/level1.xml";
 
 public:
     Game();
@@ -85,6 +85,8 @@ public:
     void Load(const wxString &filename);
 
     void Clear();
+    
+    void SetLevel(std::wstring filename);
 
     /**
      * Get the random number generator

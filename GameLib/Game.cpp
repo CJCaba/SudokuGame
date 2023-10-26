@@ -211,8 +211,10 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
             mClock->Reset();
 
             if (mItems.empty())
-                Load(level1);
+                //Load(level1);
                 //Load(level2);
+                Load(mCurrentLevel);
+
         }
     }
     else
@@ -352,6 +354,8 @@ void Game::Load(const wxString &filename)
 void Game::Clear()
 {
     mItems.clear();
+    mContainers.clear();
+    mDeclarations.clear();
     mBackgroundImage->Clear();
     mBackgroundBitmap.UnRef();
 }
@@ -467,4 +471,16 @@ bool Game::WithinHeight(double y)
     {
         return true;
     }
+}
+
+/**
+ * Sets the level for loading
+ * @param filename
+ */
+void Game::SetLevel(std::wstring filename)
+{
+    Clear();
+    mStartUp = true;
+    mCurrentLevel = filename;
+    mClock->Reset();
 }
