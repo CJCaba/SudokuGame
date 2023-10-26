@@ -17,6 +17,7 @@ const double HeadbuttTime = 0.5;
 
 Sparty::Sparty(Game *game, wxXmlNode * dec) : Item(game, dec)
 {
+//    std::wstring filename = L"images/" + dec->GetAttribute("image", "").ToStdWstring();
     std::wstring filename2 = L"images/" + dec->GetAttribute("image2", "").ToStdWstring();
     mMouthImage = std::make_unique<wxImage>(filename2, wxBITMAP_TYPE_ANY);
 }

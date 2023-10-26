@@ -34,9 +34,9 @@ private:
     /// Collection of containers within the game
     std::vector<std::shared_ptr<Container>> mContainers;
 
-    std::shared_ptr<Sparty> mSparty;
+    std::shared_ptr<Sparty> mSparty = nullptr;
 
-    std::shared_ptr<XRay> mXRay;
+    std::shared_ptr<XRay> mXRay = nullptr;
 
     /// Solution to the game
     std::shared_ptr<Solution> mGameSolution;

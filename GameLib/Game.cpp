@@ -222,7 +222,10 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
 void Game::OnUpdate(double elapsed)
 {
     mClock->AddTime(elapsed);
-    mSparty->Update(elapsed);
+//    if (!mSparty)
+//    {
+//        mSparty->Update(elapsed);
+//    }
 }
 
 void Game::OnLeftDown(wxMouseEvent &event)
@@ -316,6 +319,7 @@ void Game::Load(const wxString &filename)
  */
 void Game::Clear()
 {
+    mDeclarations.clear();
     mItems.clear();
     mBackgroundImage->Clear();
     mBackgroundBitmap.UnRef();
@@ -352,6 +356,11 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
         itemDeclaration->GetAttribute("height", "0").ToDouble(&height);
         item->SetLocation(x * tileHeight, (y + 1) * tileHeight - height);
         AddItem(item);
+    }
+
+    if(name == "sparty")
+    {
+        mSparty = std::make_shared<Sparty>(this, itemDeclaration);
     }
 
     if(item && name != "background")
