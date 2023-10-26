@@ -234,7 +234,7 @@ void Game::OnLeftDown(wxMouseEvent &event)
     if (!WithinHeight(virtualY))
         return;
 
-//    mSparty->SetTarget( wxPoint(virtualX, virtualY) );
+    mSparty->MoveToPoint( wxPoint(virtualX, virtualY) );
 }
 /**
  * Save the game as a .game XML file.
@@ -357,10 +357,11 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
     {
         mSparty = std::make_shared<Sparty>(this, itemDeclaration);
         item = mSparty;
-//        double x, y;
-//        node->GetAttribute("col", "0").ToDouble(&x);
-//        node->GetAttribute("row", "0").ToDouble(&y);
-//        mSparty->SetLocation(x * tileWidth, y * tileHeight);
+        double x, y;
+        node->GetAttribute("col", "0").ToDouble(&x);
+        node->GetAttribute("row", "0").ToDouble(&y);
+        mSparty->SetLocation(x * tileWidth, y * tileHeight);
+        mSparty->MoveToPoint(wxPoint(x * tileWidth, y * tileHeight));
     }
 
     if(item && name != "background")
