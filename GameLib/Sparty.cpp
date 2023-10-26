@@ -26,27 +26,36 @@ Sparty::Sparty(Game *game, const std::wstring &filename1, const std::wstring &fi
  */
 void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
+    // Mouth drawing code
+    if(mMouthBitmap.IsNull()){
+        mMouthBitmap = graphics->CreateBitmapFromImage(*mMouthImage);
+    }
+
+    // Saving useful values
+    int itemWid = mMouthImage->GetWidth();
+    int itemHeight = mMouthImage->GetHeight();
+    double headPivotX = GetX() + mHeadPivot.x;
+    double headPivotY = GetY() + mHeadPivot.y;
+    double mouthPivotX = GetX() + mMouthPivot.x;
+    double mouthPivotY = GetY() + mMouthPivot.y;
+
+    graphics->PushState();
+
+    graphics->Translate(headPivotX, headPivotY);
+    graphics->Rotate(mHeadAngle);
+    graphics->Translate(-headPivotX, -headPivotY);
+
     // Head gets drawn first if 1
     if (mFront == 1)
     {
         Item::Draw(graphics);
     }
 
-    // Mouth drawing code
-    if(mMouthBitmap.IsNull()){
-        mMouthBitmap = graphics->CreateBitmapFromImage(*mMouthImage);
-    }
-    // Now it is okay to draw that bitmap.
-    int itemWid = mMouthImage->GetWidth();
-    int itemHeight = mMouthImage->GetHeight();
-    double pivotX = GetX() + mMouthPivot.x;
-    double pivotY = GetY() + mMouthPivot.y;
-
     graphics->PushState();
 
-    graphics->Translate(pivotX, pivotY);
+    graphics->Translate(mouthPivotX, mouthPivotY);
     graphics->Rotate(mMouthAngle);
-    graphics->Translate(-pivotX, -pivotY);
+    graphics->Translate(-mouthPivotX, -mouthPivotY);
 
     graphics->DrawBitmap(mMouthBitmap, GetX(), GetY(), itemWid, itemHeight);
 
@@ -57,6 +66,8 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     {
         Item::Draw(graphics);
     }
+
+    graphics->PopState();
 }
 
 /**
@@ -115,4 +126,21 @@ void Sparty::Update(double elapsed)
             mMouthAngle = 0.0;
         }
     }
+
+    if (mIsHeadButting)
+    {
+        mElapsedTimeHeadButting += elapsed;
+        if (mElapsedTimeHeadButting < HeadbuttTime / 2)
+            mHeadAngle = mElapsedTimeHeadButting / (HeadbuttTime / 2) * mHeadPivotAngle;
+        else
+            mHeadAngle = (HeadbuttTime - mElapsedTimeHeadButting) / (HeadbuttTime / 2) * mHeadPivotAngle;
+
+        if (mElapsedTimeHeadButting >= HeadbuttTime)
+        {
+            mElapsedTimeHeadButting = 0.0;
+            mIsHeadButting = false;
+            mHeadAngle = 0.0;
+        }
+    }
+
 }

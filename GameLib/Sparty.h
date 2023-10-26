@@ -1,6 +1,7 @@
 /**
  * @file Sparty.h
  * @author Tyler Przybylo
+ * @author Jerry Hoskins
  *
  * Class for Sparty
  */
@@ -30,13 +31,23 @@ private:
     /// How long Sparty has been eating
     double mElapsedTimeEating = 0.0;
 
-    /// The final angle of the pivot in radians
+    /// Flag for if Sparty is head butting
+    bool mIsHeadButting = false;
+
+    /// How long Sparty has been head butting
+    double mElapsedTimeHeadButting = 0.0;
+
+    /// The final angle of the mouth pivot in radians
     double mMouthPivotAngle;
+
+    /// The final angle of the head pivot in radians
+    double mHeadPivotAngle;
 
     wxPoint mMouthPivot; ///< Contains the x and y information for the mouth pivot point
     wxPoint mHeadPivot; ///< Contains the x and y information for the head pivot point
 
     double mMouthAngle; ///< Angle of the mouth in radians
+    double mHeadAngle; ///< Angle of the head in radians
 
     wxPoint mTarget; ///< Contains the x and y information for where the player last clicked (sparty goes to that point)
 
@@ -67,6 +78,11 @@ public:
      * Make Sparty eat.
      */
     void MakeEat() { mIsEating = true; }
+
+    /**
+     * Make Spaty headbutt.
+     */
+     void MakeHeadButt() { mIsHeadButting = true; }
 };
 
 #endif //ARES_GAMELIB_SPARTY_H

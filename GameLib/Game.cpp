@@ -261,6 +261,10 @@ void Game::OnKeyDown(wxKeyEvent &event)
     {
         mSparty->MakeEat();
     }
+    else if (keyCode == 66) // ASCII 66 = B
+    {
+        mSparty->MakeHeadButt();
+    }
 }
 /**
  * Save the game as a .game XML file.
