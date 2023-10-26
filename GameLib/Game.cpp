@@ -355,8 +355,8 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
 
     if(name == "sparty")
     {
-        item = std::make_shared<Sparty>(this, itemDeclaration);
-
+        mSparty = std::make_shared<Sparty>(this, itemDeclaration);
+        item = mSparty;
 //        double x, y;
 //        node->GetAttribute("col", "0").ToDouble(&x);
 //        node->GetAttribute("row", "0").ToDouble(&y);
