@@ -8,11 +8,6 @@
 #include "Clock.h"
 #include "Sparty.h"
 #include "XRay.h"
-#include "Declaration.h"
-#include "DeclarationGiven.h"
-#include "DeclarationInteract.h"
-#include "DeclarationSparty.h"
-#include "DeclarationBackground.h"
 #include "Number.h"
 #include "GivenNumber.h"
 #include "InteractNumber.h"
@@ -222,10 +217,10 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
 void Game::OnUpdate(double elapsed)
 {
     mClock->AddTime(elapsed);
-//    if (!mSparty)
-//    {
-//        mSparty->Update(elapsed);
-//    }
+    if (mSparty != nullptr)
+    {
+        mSparty->Update(elapsed);
+    }
 }
 
 void Game::OnLeftDown(wxMouseEvent &event)
@@ -361,6 +356,7 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
     if(name == "sparty")
     {
         item = std::make_shared<Sparty>(this, itemDeclaration);
+
 //        double x, y;
 //        node->GetAttribute("col", "0").ToDouble(&x);
 //        node->GetAttribute("row", "0").ToDouble(&y);

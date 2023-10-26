@@ -19,7 +19,16 @@ using namespace std;
  */
 Item::Item(Game *game, wxXmlNode * dec) : mGame(game)
 {
-    wstring filename = L"images/" + dec->GetAttribute("image", "").ToStdWstring();
+    auto name = dec->GetName().ToStdString();
+    wstring filename;
+    if (name == "sparty")
+    {
+        filename = L"images/" + dec->GetAttribute("image1", "").ToStdWstring();;
+    }
+    else
+    {
+        filename = L"images/" + dec->GetAttribute("image", "").ToStdWstring();
+    }
     mItemImage = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
 };
 

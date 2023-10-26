@@ -24,28 +24,14 @@ set(SOURCE_FILES
         Sparty.h
         Number.cpp
         Number.h
-        Declaration.cpp
-        Declaration.h
-        DeclarationNumber.cpp
-        DeclarationNumber.h
-        DeclarationGiven.cpp
-        DeclarationGiven.h
-        DeclarationInteract.cpp
-        DeclarationInteract.h
-        DeclarationSparty.cpp
-        DeclarationSparty.h
         XRay.cpp
         XRay.h
         Solution.cpp
         Solution.h
         SolutionNumber.cpp
         SolutionNumber.h
-        DeclarationBackground.cpp
-        DeclarationBackground.h
         Background.cpp
         Background.h
-        DeclarationContainer.cpp
-        DeclarationContainer.h
 )
 
 set(wxBUILD_PRECOMP OFF)
