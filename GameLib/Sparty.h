@@ -50,7 +50,7 @@ private:
     double mHeadAngle; ///< Angle of the head in radians
 
     wxPoint mTargetPoint; ///< Contains the x and y information for where the player last clicked (sparty goes to that point)
-    wxPoint mTargetOffset = wxPoint(72, 24); ///< Contains the x and y offset from the target point
+    wxPoint mTargetOffset; ///< Contains the x and y offset from the target point
 
 
 public:
