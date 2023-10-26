@@ -46,6 +46,8 @@ set(SOURCE_FILES
         DeclarationBackground.h
         Background.cpp
         Background.h
+        DeclarationContainer.cpp
+        DeclarationContainer.h
 )
 
 set(wxBUILD_PRECOMP OFF)

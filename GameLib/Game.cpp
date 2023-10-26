@@ -13,6 +13,7 @@
 #include "DeclarationInteract.h"
 #include "DeclarationSparty.h"
 #include "DeclarationBackground.h"
+#include "DeclarationContainer.h"
 #include "Number.h"
 #include "GivenNumber.h"
 #include "InteractNumber.h"
@@ -34,6 +35,7 @@ std::wstring spartyMouth = L"images/sparty-2.png";
 
 // Level 1
 std::wstring level1 = L"LevelFiles/level1.xml";
+std::wstring level2 = L"LevelFiles/level2.xml";
 
 // Hard Coded Level 1 Attributes
 double gameWidth = 20;
@@ -210,6 +212,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
 
             if (mItems.empty())
                 Load(level1);
+                //Load(level2);
         }
     }
     else
@@ -376,6 +379,10 @@ void Game::XmlDeclare(wxXmlNode *node){
 
     if (name == L"background"){
         dec = make_shared<DeclarationBackground>(this);
+    }
+
+    if (name == L"container"){
+        dec = make_shared<DeclarationContainer>(this);
     }
 
     if (dec != nullptr)

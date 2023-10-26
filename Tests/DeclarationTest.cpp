@@ -10,11 +10,13 @@
 #include <DeclarationGiven.h>
 #include <DeclarationInteract.h>
 #include <DeclarationSparty.h>
+#include <DeclarationContainer.h>
 
 TEST(DeclarationTest, Construct){
     DeclarationGiven decGiv(nullptr);
     DeclarationInteract decInt(nullptr);
     DeclarationSparty decSpar(nullptr);
+    DeclarationContainer decCon(nullptr);
 }
 
 TEST(DeclarationTest, GettersSetters){
