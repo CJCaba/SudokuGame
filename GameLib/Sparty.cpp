@@ -78,8 +78,8 @@ void Sparty::Update(double elapsed)
 {
     auto game = GetGame();
 
-    double deltaX = mTarget.x - GetX();
-    double deltaY = mTarget.y - GetY();
+    double deltaX = mTargetPoint.x - GetX();
+    double deltaY = mTargetPoint.y - GetY();
 
     // Calculate the length of the vector
     double length = sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -87,7 +87,7 @@ void Sparty::Update(double elapsed)
     // If the remaining distance is smaller than the distance Sparty can travel this frame
     if (length <= MaxSpeed * elapsed)
     {
-        SetLocation(mTarget.x, mTarget.y);
+        SetLocation(mTargetPoint.x, mTargetPoint.y);
     }
     else
     {

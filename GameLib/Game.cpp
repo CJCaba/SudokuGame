@@ -237,8 +237,11 @@ void Game::OnUpdate(double elapsed)
  */
 void Game::OnLeftDown(wxMouseEvent &event)
 {
-    double virtualX = ( event.GetX() - mSparty->GetWidth() / 1.5 - mXOffset ) / mScale;
-    double virtualY = ( event.GetY() - mSparty->GetHeight() / 1.5 - mYOffset ) / mScale;
+
+    wxPoint targetOffset = mSparty->GetTargetOffset();
+
+    double virtualX = ( event.GetX() - targetOffset.x - mXOffset ) / mScale;
+    double virtualY = ( event.GetY() - targetOffset.y - mYOffset ) / mScale;
 
     if (!WithinWidth(virtualX))
         return;
@@ -246,7 +249,7 @@ void Game::OnLeftDown(wxMouseEvent &event)
     if (!WithinHeight(virtualY))
         return;
 
-    mSparty->SetTarget( wxPoint(virtualX, virtualY) );
+    mSparty->MoveToPoint( wxPoint(virtualX, virtualY) );
 }
 
 /**

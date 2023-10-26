@@ -49,7 +49,8 @@ private:
     double mMouthAngle; ///< Angle of the mouth in radians
     double mHeadAngle; ///< Angle of the head in radians
 
-    wxPoint mTarget; ///< Contains the x and y information for where the player last clicked (sparty goes to that point)
+    wxPoint mTargetPoint; ///< Contains the x and y information for where the player last clicked (sparty goes to that point)
+    wxPoint mTargetOffset = wxPoint(72, 24); ///< Contains the x and y offset from the target point
 
 
 public:
@@ -66,10 +67,10 @@ public:
     Sparty(Game *game, const std::wstring &filename1, const std::wstring &filename2);
 
     /**
-     * Target position setter.
-     * @param target that Sparty should travel to.
+     * Move Sparty to given point.
+     * @param target The point Sparty should travel to.
      */
-    void SetTarget(wxPoint target) { mTarget = target; }
+    void MoveToPoint(wxPoint target) { mTargetPoint = target; }
 
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
     void Update(double elapsed);
@@ -83,6 +84,11 @@ public:
      * Make Spaty headbutt.
      */
      void MakeHeadButt() { mIsHeadButting = true; }
+
+     /**
+      * Getter for the target offset.
+      */
+      wxPoint GetTargetOffset() { return mTargetOffset; }
 };
 
 #endif //ARES_GAMELIB_SPARTY_H
