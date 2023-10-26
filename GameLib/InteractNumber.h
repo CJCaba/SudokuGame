@@ -15,10 +15,11 @@
  */
 class InteractNumber : public Number
 {
+protected:
 private:
 
 public:
-    InteractNumber(Game *game, const std::wstring &filename);
+    InteractNumber(Game *game, wxXmlNode * dec);
 
 
 };

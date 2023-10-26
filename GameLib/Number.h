@@ -11,7 +11,7 @@
 class Number : public Item
 {
 protected:
-    Number(Game *game, const std::wstring &filename);
+    Number(Game *game, wxXmlNode * dec);
 private:
     /// Value of the number
     int mValue;

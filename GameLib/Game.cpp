@@ -8,19 +8,16 @@
 #include "Clock.h"
 #include "Sparty.h"
 #include "XRay.h"
-#include "Container.h"
 #include "Declaration.h"
 #include "DeclarationGiven.h"
 #include "DeclarationInteract.h"
 #include "DeclarationSparty.h"
 #include "DeclarationBackground.h"
-#include "DeclarationContainer.h"
 #include "Number.h"
 #include "GivenNumber.h"
 #include "InteractNumber.h"
 #include "Solution.h"
 #include "Background.h"
-
 
 using namespace std;
 
@@ -36,7 +33,6 @@ std::wstring spartyMouth = L"images/sparty-2.png";
 
 // Level 1
 std::wstring level1 = L"LevelFiles/level1.xml";
-std::wstring level2 = L"LevelFiles/level2.xml";
 
 // Hard Coded Level 1 Attributes
 double gameWidth = 20;
@@ -50,14 +46,9 @@ Game::Game()
 {
     mBackgroundImage = std::make_shared<wxImage>(backgroundFileName, wxBITMAP_TYPE_ANY);
 
-    mSparty = std::make_shared<Sparty>(this, spartyHead, spartyMouth);
-    mXRay = std::make_shared<XRay>(this, xRayFileName);
-
     mClock = std::make_shared<Clock>(this);
 
     mClock->Reset();
-
-    mGameSolution = std::make_shared<Solution>();
 }
 
 /**
@@ -69,17 +60,6 @@ void Game::AddItem(std::shared_ptr<Item> item)
     // Code for setting an items location can go here
 
     mItems.push_back(item);
-}
-
-/**
- * Add a container to the game
- * @param container New container to add
- */
-void Game::AddContainer(std::shared_ptr<Container> container)
-{
-    // Code for setting an items location can go here
-
-    mContainers.push_back(container);
 }
 
 /**
@@ -109,6 +89,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         mYOffset = (double)((height - mPixelHeight * mScale) / 2.0);
     }
 
+    graphics->PushState();
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
 
@@ -144,19 +125,14 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // if item is not in any containers
     // draw item
 
-    for (auto container: mContainers)
-    {
-        container->Draw(graphics);
-    }
-
     // loop through containers
     // draw container (also draws contained items)
 
     // Hard Code Draw X-Ray
-    mXRay->Draw(graphics);
+//    mXRay->Draw(graphics);
 
     // Hard coded drawing sparty until the add items function is implemented
-    mSparty->Draw(graphics);
+//    mSparty->Draw(graphics);
 
 
     //
@@ -227,10 +203,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
             mClock->Reset();
 
             if (mItems.empty())
-                //Load(level1);
-                //Load(level2);
-                Load(mCurrentLevel);
-
+                Load(level1);
         }
     }
     else
@@ -238,6 +211,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         // Drawing Clock on Screen, should be Top Layer Drawing
         mClock->Draw(graphics);
     }
+
+    graphics->PopState();
 }
 
 /**
@@ -250,17 +225,10 @@ void Game::OnUpdate(double elapsed)
     mSparty->Update(elapsed);
 }
 
-/**
- * Handle the left mouse button down event
- * @param event The mouse event
- */
 void Game::OnLeftDown(wxMouseEvent &event)
 {
-
-    wxPoint targetOffset = mSparty->GetTargetOffset();
-
-    double virtualX = ( event.GetX() - targetOffset.x - mXOffset ) / mScale;
-    double virtualY = ( event.GetY() - targetOffset.y - mYOffset ) / mScale;
+    double virtualX = ( event.GetX() - mXOffset ) / mScale;
+    double virtualY = ( event.GetY() - mYOffset ) / mScale;
 
     if (!WithinWidth(virtualX))
         return;
@@ -268,28 +236,7 @@ void Game::OnLeftDown(wxMouseEvent &event)
     if (!WithinHeight(virtualY))
         return;
 
-    if(mStartUp)
-        return;
-
-    mSparty->MoveToPoint( wxPoint(virtualX, virtualY) );
-}
-
-/**
- * Handle the key down event
- * @param event The key event
- */
-void Game::OnKeyDown(wxKeyEvent &event)
-{
-    int keyCode = event.GetKeyCode();
-
-    if (keyCode == WXK_SPACE)
-    {
-        mSparty->MakeEat();
-    }
-    else if (keyCode == 66) // ASCII 66 = B
-    {
-        mSparty->MakeHeadButt();
-    }
+//    mSparty->SetTarget( wxPoint(virtualX, virtualY) );
 }
 /**
  * Save the game as a .game XML file.
@@ -355,10 +302,9 @@ void Game::Load(const wxString &filename)
                 XmlItem(decChild, tileWidth, tileHeight);
             }
         }
-        // Handles loading the game's solution
         else if (name == L"game")
         {
-            mGameSolution ->LoadSolution(child);
+       //     mGameSolution->LoadSolution(child);
         }
     }
 }
@@ -371,47 +317,13 @@ void Game::Load(const wxString &filename)
 void Game::Clear()
 {
     mItems.clear();
-    mContainers.clear();
-    mDeclarations.clear();
     mBackgroundImage->Clear();
     mBackgroundBitmap.UnRef();
 }
 
 void Game::XmlDeclare(wxXmlNode *node){
-    shared_ptr<Declaration> dec;
-    string id;
-
-    auto name = node->GetName();
-
-    if (name == L"given")
-    {
-        dec = make_shared<DeclarationGiven>(this);
-    }
-
-    if (name == L"digit")
-    {
-        dec = make_shared<DeclarationInteract>(this);
-    }
-
-    if (name == L"sparty")
-    {
-        dec = make_shared<DeclarationSparty>(this);
-    }
-
-    if (name == L"background"){
-        dec = make_shared<DeclarationBackground>(this);
-    }
-
-    if (name == L"container"){
-        dec = make_shared<DeclarationContainer>(this);
-    }
-
-    if (dec != nullptr)
-    {
-        id = node->GetAttribute(L"id", L'0').ToStdString();
-        mDeclarations[id] = dec;
-        dec->XmlLoad(node);
-    }
+    string id = node->GetAttribute(L"id", L'0').ToStdString();
+    mDeclarations[id] = node;
 }
 
 void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
@@ -420,34 +332,26 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
     auto itemID = node->GetAttribute("id", "").ToStdString();
     auto itemDeclaration = mDeclarations[itemID];
 
-    shared_ptr<Container> container;
-
     if(name == "given")
     {
-        item = std::make_shared<GivenNumber>(this, L"images/" + itemDeclaration->GetImage());
+        item = std::make_shared<GivenNumber>(this, itemDeclaration);
 
     }
 
     if(name == "digit")
     {
-        item = std::make_shared<InteractNumber>(this, L"images/" + itemDeclaration->GetImage());
+        item = std::make_shared<InteractNumber>(this, itemDeclaration);
     }
 
     if(name == "background")
     {
-        item = make_shared<Background>(this, L"images/" + itemDeclaration->GetImage());
+        item = std::make_shared<Background>(this, itemDeclaration);
         double x,y, height;
         node->GetAttribute("col", "0").ToDouble(&x);
         node->GetAttribute("row", "0").ToDouble(&y);
-        height = itemDeclaration->GetHeight();
+        itemDeclaration->GetAttribute("height", "0").ToDouble(&height);
         item->SetLocation(x * tileHeight, (y + 1) * tileHeight - height);
         AddItem(item);
-    }
-
-    if (name == "container")
-    {
-        auto containerDeclaration = static_pointer_cast<DeclarationContainer>(itemDeclaration);
-        container = std::make_shared<Container>(this, L"images/" + containerDeclaration->GetImage(), L"images/" + containerDeclaration->GetFront());
     }
 
     if(item && name != "background")
@@ -461,40 +365,6 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
         item->SetLocation(x * tileHeight, y * tileHeight);
 
         AddItem(item);
-    }
-
-    if(container)
-    {
-        double x;
-        double y;
-
-        node->GetAttribute("col", "0").ToDouble(&x);
-        node->GetAttribute("row", "0").ToDouble(&y);
-
-        // Loop through containers children and add them to its container
-        auto containerChildren = node->GetChildren();
-        for ( ; containerChildren; containerChildren = containerChildren->GetNext())
-        {
-            shared_ptr<Item> item;
-            auto name = node->GetName();
-            auto itemID = node->GetAttribute("id", "").ToStdString();
-            auto itemDeclaration = mDeclarations[itemID];
-            item = std::make_shared<InteractNumber>(this, L"images/" + itemDeclaration->GetImage());
-
-            double x;
-            double y;
-
-            node->GetAttribute("col", "0").ToDouble(&x);
-            node->GetAttribute("row", "0").ToDouble(&y);
-
-            item->SetLocation(x * tileHeight, y * tileHeight);
-
-            container->Add(item);
-        }
-
-        container->SetLocation(x * tileHeight, y * tileHeight);
-
-        AddContainer(container);
     }
 }
 
@@ -542,4 +412,22 @@ void Game::SetLevel(std::wstring filename)
     mStartUp = true;
     mCurrentLevel = filename;
     mClock->Reset();
+}
+
+/**
+ * Handle the key down event
+ * @param event The key event
+ */
+void Game::OnKeyDown(wxKeyEvent &event)
+{
+    int keyCode = event.GetKeyCode();
+
+    if (keyCode == WXK_SPACE)
+    {
+        mSparty->MakeEat();
+    }
+    else if (keyCode == 66) // ASCII 66 = B
+    {
+        mSparty->MakeHeadButt();
+    }
 }

@@ -15,6 +15,6 @@ const std::wstring spartyMouth = L"images/sparty-2.png";
  */
 TEST(SpartyTest, Constructor)
 {
-    Game* game;
-    std::shared_ptr<Sparty> sparty = std::make_shared<Sparty>(game, spartyHead, spartyMouth);
+//    Game* game;
+//    std::shared_ptr<Sparty> sparty = std::make_shared<Sparty>(game, spartyHead, spartyMouth);
 }

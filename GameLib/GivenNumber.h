@@ -18,7 +18,7 @@ class GivenNumber : public Number
 protected:
 private:
 public:
-    GivenNumber(Game *game, const std::wstring &filename);
+    GivenNumber(Game *game, wxXmlNode * dec);
 };
 
 #endif //ARES_GAMELIB_GIVENNUMBER_H

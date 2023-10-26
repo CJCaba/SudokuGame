@@ -17,17 +17,8 @@ private:
     int mCapacity = 7;
 
 public:
-    /// Default constructor (disabled)
-    XRay() = delete;
-    
-    /// Copy constructor (disabled)
-    XRay(const XRay &) = delete;
-    
-    /// Assignment operator
-    void operator=(const XRay &) = delete;
-
     /// Constructor
-    XRay(Game *game, const std::wstring &filename);
+    XRay(Game *game, wxXmlNode * dec);
 
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 

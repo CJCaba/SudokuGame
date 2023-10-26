@@ -18,7 +18,7 @@ private:
 public:
     DeclarationInteract(Game *game);
 
-    shared_ptr<InteractNumber> Declare();
+    shared_ptr<Item> Create(wxXmlNode *node) override;
 };
 
 #endif //ARES_GAMELIB_DECLARATIONINTERACT_H

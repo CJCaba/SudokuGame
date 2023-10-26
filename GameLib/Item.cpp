@@ -17,8 +17,9 @@ using namespace std;
  * @param game The game this item is a member of
  * @param filename The name of the image file
  */
-Item::Item(Game *game, const wstring &filename) : mGame(game)
+Item::Item(Game *game, wxXmlNode * dec) : mGame(game)
 {
+    wstring filename = L"images/" + dec->GetAttribute("image", "").ToStdWstring();
     mItemImage = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
 };
 

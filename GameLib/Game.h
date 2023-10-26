@@ -38,7 +38,7 @@ private:
 
     std::shared_ptr<XRay> mXRay;
 
-    /// Solution to the current level
+    /// Solution to the game
     std::shared_ptr<Solution> mGameSolution;
 
     std::shared_ptr<wxImage> mBackgroundImage;  ///< Background image to use
@@ -65,11 +65,11 @@ private:
     std::shared_ptr<Clock> mClock;
 
     /// Map of Declarations, with IDs as keys
-    std::map<std::string, std::shared_ptr<Declaration>> mDeclarations;
+    std::map<std::string, wxXmlNode*> mDeclarations;
 
     bool mStartUp = true;
 
-    std::wstring mCurrentLevel = L"LevelFiles/level1.xml";
+    std::wstring mCurrentLevel;
 
 public:
     Game();
@@ -82,13 +82,9 @@ public:
 
     void AddItem(std::shared_ptr<Item> item);
 
-    void AddContainer(std::shared_ptr<Container> container);
-
     void Load(const wxString &filename);
 
     void Clear();
-    
-    void SetLevel(std::wstring filename);
 
     /**
      * Get the random number generator
@@ -114,6 +110,7 @@ public:
 
     void XmlDeclare(wxXmlNode *node);
     void XmlItem(wxXmlNode *node, double tileWidth, double tileHeight);
+    void SetLevel(std::wstring filename);
     void OnKeyDown(wxKeyEvent &event);
 };
 

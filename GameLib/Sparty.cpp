@@ -15,8 +15,9 @@ const double EatingTime = 0.5;
 /// The time for a headbutt cycle in seconds
 const double HeadbuttTime = 0.5;
 
-Sparty::Sparty(Game *game, const std::wstring &filename1, const std::wstring &filename2) : Item(game, filename1)
+Sparty::Sparty(Game *game, wxXmlNode * dec) : Item(game, dec)
 {
+    std::wstring filename2 = L"images/" + dec->GetAttribute("image2", "").ToStdWstring();
     mMouthImage = std::make_unique<wxImage>(filename2, wxBITMAP_TYPE_ANY);
 }
 

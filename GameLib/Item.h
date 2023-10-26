@@ -49,7 +49,7 @@ public:
     virtual ~Item();
 
     /// Constructor
-    Item(Game *game, const std::wstring &filename);
+    Item(Game *game, wxXmlNode *dec);
 
     /**
      * The X location of the item

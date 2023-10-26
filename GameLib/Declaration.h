@@ -52,6 +52,7 @@ public:
     wstring GetImage() const { return mImageFile; }
     Game * GetGame() const { return mGame; }
 
+    virtual shared_ptr<Item> Create(wxXmlNode *node);
 };
 
 #endif //ARES_GAMELIB_DECLARATION_H

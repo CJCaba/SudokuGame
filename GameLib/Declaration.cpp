@@ -17,3 +17,8 @@ void Declaration::XmlLoad(wxXmlNode *node)
     node->GetAttribute("height", "0").ToDouble(&mHeight);
     mImageFile = node->GetAttribute("image", "0").ToStdWstring();
 }
+
+shared_ptr<Item> Declaration::Create(wxXmlNode *node)
+{
+    return shared_ptr<Item>();
+}

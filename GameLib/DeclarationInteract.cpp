@@ -8,9 +8,7 @@
 
 DeclarationInteract::DeclarationInteract(Game *game) : DeclarationNumber(game) {}
 
-shared_ptr<InteractNumber> DeclarationInteract::Declare()
+shared_ptr<Item> DeclarationInteract::Create(wxXmlNode *node)
 {
-    shared_ptr<InteractNumber> inNum = make_shared<InteractNumber>(GetGame(), GetImage());
-    inNum->SetValue(GetValue());
-    return inNum;
+    return nullptr;
 }

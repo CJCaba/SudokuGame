@@ -13,7 +13,7 @@ class Background : public Item
 private:
 
 public:
-    Background(Game *game, const std::wstring &filename);
+    Background(Game *game, wxXmlNode * dec);
 };
 
 #endif //ARES_GAMELIB_BACKGROUND_H

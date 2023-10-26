@@ -34,8 +34,6 @@ set(SOURCE_FILES
         DeclarationInteract.h
         DeclarationSparty.cpp
         DeclarationSparty.h
-        SudokuBoard.cpp
-        SudokuBoard.h
         XRay.cpp
         XRay.h
         Solution.cpp
