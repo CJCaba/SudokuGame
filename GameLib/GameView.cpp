@@ -74,13 +74,14 @@ void GameView::OnPaint(wxPaintEvent &event) {
         // and this avoids any divid by zero errors
         return;
     }
-
+    gc->PushState();
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
 
     //
     // Update
     //
     mGame.OnUpdate(elapsed);
+    gc->PopState();
 }
 
 /**

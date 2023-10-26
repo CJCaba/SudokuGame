@@ -52,7 +52,6 @@ void MainFrame::Initialize()
     Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);
 
     SetMenuBar(menuBar);
-
 }
 
 /**
