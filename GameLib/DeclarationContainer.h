@@ -22,6 +22,8 @@ public:
     DeclarationContainer(Game *game);
 
     void XmlLoad(wxXmlNode *node) override;
+
+    wstring GetFront() const { return mFront; }
 };
 
 #endif //ARES_GAMELIB_DECLARATIONCONTAINER_H

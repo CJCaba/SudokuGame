@@ -8,6 +8,7 @@
 #include "Clock.h"
 #include "Sparty.h"
 #include "XRay.h"
+#include "Container.h"
 #include "Declaration.h"
 #include "DeclarationGiven.h"
 #include "DeclarationInteract.h"
@@ -68,6 +69,17 @@ void Game::AddItem(std::shared_ptr<Item> item)
     // Code for setting an items location can go here
 
     mItems.push_back(item);
+}
+
+/**
+ * Add a container to the game
+ * @param container New container to add
+ */
+void Game::AddContainer(std::shared_ptr<Container> container)
+{
+    // Code for setting an items location can go here
+
+    mContainers.push_back(container);
 }
 
 /**
@@ -132,6 +144,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // loop through items
     // if item is not in any containers
     // draw item
+
+    for (auto container: mContainers)
+    {
+        container->Draw(graphics);
+    }
 
     // loop through containers
     // draw container (also draws contained items)
@@ -403,6 +420,8 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
     auto itemID = node->GetAttribute("id", "").ToStdString();
     auto itemDeclaration = mDeclarations[itemID];
 
+    shared_ptr<Container> container;
+
     if(name == "given")
     {
         item = std::make_shared<GivenNumber>(this, L"images/" + itemDeclaration->GetImage());
@@ -425,6 +444,12 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
         AddItem(item);
     }
 
+    if (name == "container")
+    {
+        auto containerDeclaration = static_pointer_cast<DeclarationContainer>(itemDeclaration);
+        container = std::make_shared<Container>(this, L"images/" + containerDeclaration->GetImage(), L"images/" + containerDeclaration->GetFront());
+    }
+
     if(item && name != "background")
     {
         double x;
@@ -436,6 +461,40 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
         item->SetLocation(x * tileHeight, y * tileHeight);
 
         AddItem(item);
+    }
+
+    if(container)
+    {
+        double x;
+        double y;
+
+        node->GetAttribute("col", "0").ToDouble(&x);
+        node->GetAttribute("row", "0").ToDouble(&y);
+
+        // Loop through containers children and add them to its container
+        auto containerChildren = node->GetChildren();
+        for ( ; containerChildren; containerChildren = containerChildren->GetNext())
+        {
+            shared_ptr<Item> item;
+            auto name = node->GetName();
+            auto itemID = node->GetAttribute("id", "").ToStdString();
+            auto itemDeclaration = mDeclarations[itemID];
+            item = std::make_shared<InteractNumber>(this, L"images/" + itemDeclaration->GetImage());
+
+            double x;
+            double y;
+
+            node->GetAttribute("col", "0").ToDouble(&x);
+            node->GetAttribute("row", "0").ToDouble(&y);
+
+            item->SetLocation(x * tileHeight, y * tileHeight);
+
+            container->Add(item);
+        }
+
+        container->SetLocation(x * tileHeight, y * tileHeight);
+
+        AddContainer(container);
     }
 }
 

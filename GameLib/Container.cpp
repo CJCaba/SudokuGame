@@ -36,7 +36,7 @@ Container::~Container()
  * Adds an item to the container
  * @param item to add
  */
-void Container::add(const shared_ptr<Item>& item)
+void Container::Add(const shared_ptr<Item>& item)
 {
     mItems.push_back(item);
 
@@ -51,7 +51,7 @@ void Container::add(const shared_ptr<Item>& item)
  * Moves contained items to random locations
  * across the screen, then clears the container.
  */
-void Container::release()
+void Container::Release()
 {
     auto randomSeed = mGame->GetRandom();
 

@@ -17,7 +17,7 @@
 class Container
 {
 protected:
-    Container(Game *game, const std::wstring &backImageFilename, const std::wstring &frontImageFilename);
+
 private:
     /// The game this container is a part of
     Game *mGame;
@@ -52,6 +52,8 @@ public:
 
     virtual ~Container();
 
+    Container(Game *game, const std::wstring &backImageFilename, const std::wstring &frontImageFilename);
+
     /**
      * The X location of the item
      * @return X location in pixels
@@ -65,6 +67,13 @@ public:
     double GetY() const { return mY; }
 
     /**
+     * Set the container location
+     * @param x X location in pixels
+     * @param y Y location in pixels
+     */
+    virtual void SetLocation(double x, double y) { mX = x; mY = y; }
+
+    /**
        * Get Width of an image in pixels
        * @return double representing width of the item
        */
@@ -76,15 +85,15 @@ public:
       */
     double GetHeight() { return mBackImage->GetHeight(); }
 
-    void add(const std::shared_ptr<Item>& item);
-    void release();
+    void Add(const std::shared_ptr<Item>& item);
+    void Release();
 
     /**
      * Is the item in the container?
      * @param item The item in question.
      * @return bool representing yes/no.
      */
-    bool contains(const std::shared_ptr<Item>& item) { return std::find(mItems.begin(), mItems.end(), item) != mItems.end(); };
+    bool Contains(const std::shared_ptr<Item>& item) { return std::find(mItems.begin(), mItems.end(), item) != mItems.end(); };
 
     void Draw(const std::shared_ptr<wxGraphicsContext>& graphics);
 };

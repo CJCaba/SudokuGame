@@ -82,6 +82,8 @@ public:
 
     void AddItem(std::shared_ptr<Item> item);
 
+    void AddContainer(std::shared_ptr<Container> container);
+
     void Load(const wxString &filename);
 
     void Clear();
