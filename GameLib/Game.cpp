@@ -97,7 +97,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         mYOffset = (double)((height - mPixelHeight * mScale) / 2.0);
     }
 
-    graphics->PushState();
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
 
@@ -220,8 +219,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         // Drawing Clock on Screen, should be Top Layer Drawing
         mClock->Draw(graphics);
     }
-
-    graphics->PopState();
 }
 
 /**
@@ -250,6 +247,9 @@ void Game::OnLeftDown(wxMouseEvent &event)
         return;
 
     if (!WithinHeight(virtualY))
+        return;
+
+    if(mStartUp)
         return;
 
     mSparty->MoveToPoint( wxPoint(virtualX, virtualY) );

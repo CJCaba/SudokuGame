@@ -8,9 +8,9 @@
 #ifndef ARES_GAMELIB_SUDOKUBOARD_H
 #define ARES_GAMELIB_SUDOKUBOARD_H
 
-#include "Item.h"
+#include "Container.h"
 
-class SudokuBoard : public Item
+class SudokuBoard : public Container
 {
 private:
 
@@ -23,8 +23,6 @@ public:
     
     /// Assignment operator
     void operator=(const SudokuBoard &) = delete;
-
-    SudokuBoard(Game *game, const std::wstring &filename);
     
 };
 
