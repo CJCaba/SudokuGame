@@ -1,6 +1,6 @@
 /**
  * @file MainFrame.cpp
- * @authors Jason Lin
+ * @authors Jason Lin, Daniel Flanagan
  *
  * The top level mainframe of the application
  */
@@ -24,6 +24,7 @@ private:
 
 public:
     void Initialize();
+    void OnSolve(wxCommandEvent &);
 };
 
 #endif //ARES_GAMELIB_MAINFRAME_H
