@@ -44,6 +44,8 @@ Game::Game()
     mClock = std::make_shared<Clock>(this);
 
     mClock->Reset();
+
+    mCurrentLevel = L"LevelFiles/level1.xml";
 }
 
 /**
@@ -159,10 +161,15 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                        wxFONTWEIGHT_BOLD);
         graphics->SetFont(bigFont, wxColour(78,91,49));
 
-        // Draw Title
+        // Determines which level to display in text box
+        std::wstring displayText = DetermineStartupText();
+
+        // Get text dimensions
         double titleWidth, titleHeight;
-        graphics->GetTextExtent(L"Level 1 Begin", &titleWidth, &titleHeight);
-        graphics->DrawText(L"Level 1 Begin",
+        graphics->GetTextExtent(displayText.c_str(), &titleWidth, &titleHeight);
+
+        // Draw the determined text
+        graphics->DrawText(displayText.c_str(),
                            rectX + (rectWidth/2) - (titleWidth/2),
                            rectY);
 
@@ -440,5 +447,30 @@ void Game::OnKeyDown(wxKeyEvent &event)
     else if (keyCode == 66) // ASCII 66 = B
     {
         mSparty->MakeHeadButt();
+    }
+}
+
+/**
+ * Determines display text based on level
+ * @param currentLevel level to display
+ */
+wstring Game::DetermineStartupText()
+{
+    if (mCurrentLevel == L"LevelFiles/level1.xml")
+    {
+        return L"Level 1 Begin";
+    }
+    else if (mCurrentLevel == L"LevelFiles/level2.xml")
+    {
+        return L"Level 2 Begin";
+    }
+    else if (mCurrentLevel == L"LevelFiles/level3.xml")
+    {
+        return L"Level 3 Begin";
+    }
+    else
+    {
+        // Default or error text in case mCurrentLevel has an unexpected value
+        return L"Unknown Level";
     }
 }

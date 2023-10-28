@@ -102,6 +102,9 @@ public:
 
     double GetHeight() const { return mPixelHeight; }
 
+    std::wstring DetermineStartupText();
+
+
     /**
      * Getter for items.
      * @return Pointers to items stored in a vector.
