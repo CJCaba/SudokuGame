@@ -422,6 +422,7 @@ void Game::SetLevel(std::wstring filename)
     mStartUp = true;
     mCurrentLevel = filename;
     mClock->Reset();
+    Load(filename);
 }
 
 /**
