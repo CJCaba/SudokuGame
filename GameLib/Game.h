@@ -115,6 +115,7 @@ public:
     void XmlItem(wxXmlNode *node, double tileWidth, double tileHeight);
     void SetLevel(std::wstring filename);
     void OnKeyDown(wxKeyEvent &event);
+    void TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics);
 };
 
 #endif //ARES_GAMELIB_GAME_H

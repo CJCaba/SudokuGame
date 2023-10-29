@@ -142,61 +142,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         //
 
         // Draw tutorial box
-        graphics->PushState();
-        wxBrush rectBrush(*wxWHITE);
-        graphics->SetBrush(rectBrush);
-        graphics->SetPen(*wxBLACK);
-
-        double rectWidth = mPixelWidth / 1.5;
-        double rectHeight = mPixelHeight / 2.5;
-
-        double rectX = (mPixelWidth / 2) - (rectWidth / 2);
-        double rectY = (mPixelHeight / 2) - (rectHeight / 2);
-
-        graphics->DrawRectangle(rectX, rectY,rectWidth, rectHeight);
-
-        wxFont bigFont(wxSize(75, 75),
-                       wxFONTFAMILY_SWISS,
-                       wxFONTSTYLE_NORMAL,
-                       wxFONTWEIGHT_BOLD);
-        graphics->SetFont(bigFont, wxColour(78,91,49));
-
-        // Determines which level to display in text box
-        std::wstring displayText = DetermineStartupText();
-
-        // Get text dimensions
-        double titleWidth, titleHeight;
-        graphics->GetTextExtent(displayText.c_str(), &titleWidth, &titleHeight);
-
-        // Draw the determined text
-        graphics->DrawText(displayText.c_str(),
-                           rectX + (rectWidth/2) - (titleWidth/2),
-                           rectY);
-
-        // Draw guide for inputs
-        double textWidth, textHeight;
-        wxFont subFont(wxSize(50, 50),
-                       wxFONTFAMILY_SWISS,
-                       wxFONTSTYLE_NORMAL,
-                       wxFONTWEIGHT_BOLD);
-        graphics->SetFont(subFont, wxColour(0,0,0));
-
-        graphics->GetTextExtent(L"Space = Eat", &textWidth, &textHeight);
-        graphics->DrawText(L"Space = Eat",
-                           rectX + (rectWidth/2) - (textWidth/2),
-                           rectY + titleHeight);
-
-        graphics->GetTextExtent(L"0-8 = Regurgitate", &textWidth, nullptr);
-        graphics->DrawText(L"0-8 = Regurgitate",
-                           rectX + (rectWidth/2) - (textWidth/2),
-                           rectY + titleHeight + textHeight);
-
-        graphics->GetTextExtent(L"B = Headbutt", &textWidth, nullptr);
-        graphics->DrawText(L"B = Headbutt",
-                           rectX + (rectWidth/2) - (textWidth/2),
-                           rectY + titleHeight + (textHeight * 2));
-
-        graphics->PopState();
+        TutorialPrompt(graphics);
 
         // After 3 seconds, remove tutorial and start game
         if(mClock->GetSeconds() == "03")
@@ -241,7 +187,8 @@ void Game::OnLeftDown(wxMouseEvent &event)
     if (!WithinHeight(virtualY))
         return;
 
-    mSparty->MoveToPoint( wxPoint(virtualX, virtualY) );
+    if (mSparty != nullptr)
+        mSparty->MoveToPoint( wxPoint(virtualX, virtualY) );
 }
 /**
  * Save the game as a .game XML file.
@@ -473,4 +420,60 @@ wstring Game::DetermineStartupText()
         // Default or error text in case mCurrentLevel has an unexpected value
         return L"Unknown Level";
     }
+}
+
+void Game::TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics)
+{
+    wxBrush rectBrush(*wxWHITE);
+    graphics->SetBrush(rectBrush);
+    graphics->SetPen(*wxBLACK);
+
+    double rectWidth = mPixelWidth / 1.5;
+    double rectHeight = mPixelHeight / 2.5;
+
+    double rectX = (mPixelWidth / 2) - (rectWidth / 2);
+    double rectY = (mPixelHeight / 2) - (rectHeight / 2);
+
+    graphics->DrawRectangle(rectX, rectY,rectWidth, rectHeight);
+
+    wxFont bigFont(wxSize(75, 75),
+                   wxFONTFAMILY_SWISS,
+                   wxFONTSTYLE_NORMAL,
+                   wxFONTWEIGHT_BOLD);
+    graphics->SetFont(bigFont, wxColour(78,91,49));
+
+    // Determines which level to display in text box
+    std::wstring displayText = DetermineStartupText();
+
+    // Get text dimensions
+    double titleWidth, titleHeight;
+    graphics->GetTextExtent(displayText.c_str(), &titleWidth, &titleHeight);
+
+    // Draw the determined text
+    graphics->DrawText(displayText.c_str(),
+                       rectX + (rectWidth/2) - (titleWidth/2),
+                       rectY);
+
+    // Draw guide for inputs
+    double textWidth, textHeight;
+    wxFont subFont(wxSize(50, 50),
+                   wxFONTFAMILY_SWISS,
+                   wxFONTSTYLE_NORMAL,
+                   wxFONTWEIGHT_BOLD);
+    graphics->SetFont(subFont, wxColour(0,0,0));
+
+    graphics->GetTextExtent(L"Space = Eat", &textWidth, &textHeight);
+    graphics->DrawText(L"Space = Eat",
+                       rectX + (rectWidth/2) - (textWidth/2),
+                       rectY + titleHeight);
+
+    graphics->GetTextExtent(L"0-8 = Regurgitate", &textWidth, nullptr);
+    graphics->DrawText(L"0-8 = Regurgitate",
+                       rectX + (rectWidth/2) - (textWidth/2),
+                       rectY + titleHeight + textHeight);
+
+    graphics->GetTextExtent(L"B = Headbutt", &textWidth, nullptr);
+    graphics->DrawText(L"B = Headbutt",
+                       rectX + (rectWidth/2) - (textWidth/2),
+                       rectY + titleHeight + (textHeight * 2));
 }
