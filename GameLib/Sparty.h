@@ -64,7 +64,7 @@ public:
     void operator=(const Sparty &) = delete;
 
     /// Constructor
-    Sparty(Game *game, wxXmlNode * dec);
+    Sparty(Game *game, wxXmlNode * dec, wxXmlNode* item);
 
     /**
      * Move Sparty to given point.

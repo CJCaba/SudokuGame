@@ -282,18 +282,18 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
 
     if(name == "given")
     {
-        item = std::make_shared<GivenNumber>(this, itemDeclaration);
+        item = std::make_shared<GivenNumber>(this, itemDeclaration, node);
 
     }
 
     if(name == "digit")
     {
-        item = std::make_shared<InteractNumber>(this, itemDeclaration);
+        item = std::make_shared<InteractNumber>(this, itemDeclaration, node);
     }
 
     if(name == "background")
     {
-        item = std::make_shared<Background>(this, itemDeclaration);
+        item = std::make_shared<Background>(this, itemDeclaration, node);
         double x,y, height;
         node->GetAttribute("col", "0").ToDouble(&x);
         node->GetAttribute("row", "0").ToDouble(&y);
@@ -304,12 +304,12 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
 
     if(name == "container")
     {
-        item = std::make_shared<Container>(this, itemDeclaration);
+        item = std::make_shared<Container>(this, itemDeclaration, node);
     }
 
     if(name == "sparty")
     {
-        mSparty = std::make_shared<Sparty>(this, itemDeclaration);
+        mSparty = std::make_shared<Sparty>(this, itemDeclaration, node);
         item = mSparty;
     }
 
@@ -320,7 +320,6 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
 
         node->GetAttribute("col", "0").ToDouble(&x);
         node->GetAttribute("row", "0").ToDouble(&y);
-
         item->SetLocation(x * tileHeight, y * tileHeight);
         if (name == "sparty"){
             mSparty->SetLocation(x * tileWidth, y * tileHeight);

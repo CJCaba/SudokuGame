@@ -11,8 +11,8 @@
  * @param game
  * @param filename
  */
-Number::Number(Game *game, wxXmlNode * dec) :
-    Item(game, dec)
+Number::Number(Game *game, wxXmlNode * dec, wxXmlNode* item) :
+    Item(game, dec, item)
 {
     dec->GetAttribute("value", "0").ToInt(&mValue);
 }

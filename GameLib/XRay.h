@@ -18,7 +18,7 @@ private:
 
 public:
     /// Constructor
-    XRay(Game *game, wxXmlNode * dec);
+    XRay(Game *game, wxXmlNode * dec, wxXmlNode* item);
 
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 

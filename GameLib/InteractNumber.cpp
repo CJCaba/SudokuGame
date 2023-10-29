@@ -6,7 +6,7 @@
 #include "pch.h"
 #include "InteractNumber.h"
 
-InteractNumber::InteractNumber(Game *game, wxXmlNode * dec) :
-    Number(game, dec)
+InteractNumber::InteractNumber(Game *game, wxXmlNode * dec, wxXmlNode* item) :
+    Number(game, dec, item)
 {
 }

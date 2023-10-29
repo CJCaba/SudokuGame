@@ -19,7 +19,7 @@ protected:
 private:
 
 public:
-    InteractNumber(Game *game, wxXmlNode * dec);
+    InteractNumber(Game *game, wxXmlNode * dec, wxXmlNode* item);
 
 
 };

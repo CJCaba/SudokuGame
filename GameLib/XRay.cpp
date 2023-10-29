@@ -12,7 +12,7 @@ const double y = 14.0;
 const double tileSize = 48;
 const double tileOffset = 96;
 
-XRay::XRay(Game *game, wxXmlNode * dec) : Item(game, dec)
+XRay::XRay(Game *game, wxXmlNode * dec, wxXmlNode* item) : Item(game, dec, item)
 {
 }
 

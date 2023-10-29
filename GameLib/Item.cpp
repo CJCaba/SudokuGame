@@ -17,7 +17,7 @@ using namespace std;
  * @param game The game this item is a member of
  * @param filename The name of the image file
  */
-Item::Item(Game *game, wxXmlNode * dec) : mGame(game)
+Item::Item(Game *game, wxXmlNode * dec, wxXmlNode* item) : mGame(game)
 {
     auto name = dec->GetName().ToStdString();
     wstring filename;

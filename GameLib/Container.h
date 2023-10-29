@@ -42,7 +42,7 @@ private:
 
 public:
 
-    Container(Game *game, wxXmlNode* dec);
+    Container(Game *game, wxXmlNode* dec, wxXmlNode* item);
 
     /**
      * The X location of the item

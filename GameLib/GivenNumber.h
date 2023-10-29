@@ -18,7 +18,7 @@ class GivenNumber : public Number
 protected:
 private:
 public:
-    GivenNumber(Game *game, wxXmlNode * dec);
+    GivenNumber(Game *game, wxXmlNode * dec, wxXmlNode* item);
 };
 
 #endif //ARES_GAMELIB_GIVENNUMBER_H

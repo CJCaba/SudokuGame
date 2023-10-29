@@ -11,7 +11,7 @@
 class Number : public Item
 {
 protected:
-    Number(Game *game, wxXmlNode * dec);
+    Number(Game *game, wxXmlNode * dec, wxXmlNode* item);
 private:
     /// Value of the number
     int mValue;

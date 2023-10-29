@@ -18,17 +18,17 @@ using namespace std;
  * @param game The game this container is a member of
  * @param dec The declaration node containing all the information to create a basic Container
  */
-Container::Container(Game *game, wxXmlNode *dec) : Item(game, dec)
+Container::Container(Game *game, wxXmlNode *dec, wxXmlNode* item) : Item(game, dec, item)
 {   auto backImageFilename = dec->GetAttribute("image", "");
     auto frontImageFilename = dec->GetAttribute("front", "");
-    mBackImage = make_unique<wxImage>(backImageFilename, wxBITMAP_TYPE_ANY);
-    mFrontImage = make_unique<wxImage>(frontImageFilename, wxBITMAP_TYPE_ANY);
-    auto child = dec->GetChildren();
+    mBackImage = make_unique<wxImage>(L"images/" + backImageFilename, wxBITMAP_TYPE_ANY);
+    mFrontImage = make_unique<wxImage>(L"images/" + frontImageFilename, wxBITMAP_TYPE_ANY);
+    auto child = item->GetChildren();
     for (;child; child=child->GetNext()){
         auto id = child->GetAttribute("id", "0").ToStdString();
         auto itemDec = game->GetDec()[id];
-        auto item = std::make_shared<InteractNumber>(game, itemDec);
-        mItems.push_back(item);
+        auto numItem = std::make_shared<InteractNumber>(game, itemDec, child);
+        mItems.push_back(numItem);
     }
 }
 

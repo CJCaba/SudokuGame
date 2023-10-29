@@ -13,7 +13,7 @@ class Background : public Item
 private:
 
 public:
-    Background(Game *game, wxXmlNode * dec);
+    Background(Game *game, wxXmlNode * dec, wxXmlNode* item);
 };
 
 #endif //ARES_GAMELIB_BACKGROUND_H

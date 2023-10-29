@@ -5,7 +5,7 @@
 
 #include "Background.h"
 
-Background::Background(Game *game, wxXmlNode * dec) : Item(game, dec)
+Background::Background(Game *game, wxXmlNode * dec, wxXmlNode* item) : Item(game, dec, item)
 {
 
 //    double x, y, height;

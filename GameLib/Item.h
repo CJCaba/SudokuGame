@@ -49,7 +49,7 @@ public:
     virtual ~Item();
 
     /// Constructor
-    Item(Game *game, wxXmlNode *dec);
+    Item(Game *game, wxXmlNode *dec, wxXmlNode *item);
 
     /**
      * The X location of the item

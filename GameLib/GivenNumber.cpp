@@ -13,7 +13,7 @@ using namespace std;
  * @param game
  * @param filename
  */
-GivenNumber::GivenNumber(Game *game, wxXmlNode * dec) :
-    Number(game, dec)
+GivenNumber::GivenNumber(Game *game, wxXmlNode * dec, wxXmlNode* item) :
+    Number(game, dec, item)
 {
 }
