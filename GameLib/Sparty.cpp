@@ -87,8 +87,8 @@ void Sparty::Update(double elapsed)
 {
     auto game = GetGame();
 
-    double deltaX = mTargetPoint.x - GetX();
-    double deltaY = mTargetPoint.y - GetY();
+    double deltaX = mTargetPoint.x - Item::GetX();
+    double deltaY = mTargetPoint.y - Item::GetY();
 
     // Calculate the length of the vector
     double length = sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -104,8 +104,8 @@ void Sparty::Update(double elapsed)
         double scaleFactor = MaxSpeed * elapsed / length;
 
         // Calculate the new point's coordinates
-        double newX = GetX() + deltaX * scaleFactor;
-        double newY = GetY() + deltaY * scaleFactor;
+        double newX = Item::GetX() + deltaX * scaleFactor;
+        double newY = Item::GetY() + deltaY * scaleFactor;
 
         if (newX > double( game->GetWidth() - (GetWidth()/2) ))
         {

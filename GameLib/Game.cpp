@@ -182,13 +182,7 @@ void Game::OnLeftDown(wxMouseEvent &event)
     double virtualX = ( event.GetX() - mXOffset ) / mScale;
     double virtualY = ( event.GetY() - mYOffset ) / mScale;
 
-    if (!WithinWidth(virtualX))
-        return;
-
-    if (!WithinHeight(virtualY))
-        return;
-
-    if (mSparty != nullptr)
+    if (WithinWidth(virtualX) and WithinHeight(virtualY))
         mSparty->MoveToPoint( wxPoint(virtualX, virtualY) );
 }
 /**

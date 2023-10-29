@@ -83,12 +83,24 @@ public:
     /**
      * Make Spaty headbutt.
      */
-     void MakeHeadButt() { mIsHeadButting = true; }
+    void MakeHeadButt() { mIsHeadButting = true; }
 
-     /**
-      * Getter for the target offset.
-      */
-      wxPoint GetTargetOffset() { return mTargetOffset; }
+    /**
+     * Getter for the target offset.
+     */
+    wxPoint GetTargetOffset() { return mTargetOffset; }
+
+    /**
+     * The X location of the item
+     * @return X location in pixels
+     */
+    double GetX() const override { return Item::GetX() - mTargetOffset.x; }
+
+    /**
+     * The Y location of the item
+     * @return Y location in pixels
+     */
+    double GetY() const override { return Item::GetY() - GetHeight() - mTargetOffset.y; }
 };
 
 #endif //ARES_GAMELIB_SPARTY_H

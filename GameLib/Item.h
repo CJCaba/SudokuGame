@@ -55,13 +55,13 @@ public:
      * The X location of the item
      * @return X location in pixels
      */
-    double GetX() const { return mX; }
+    virtual double GetX() const { return mX; }
 
      /**
       * The Y location of the item
       * @return Y location in pixels
       */
-     double GetY() const { return mY; }
+     virtual double GetY() const { return mY; }
 
      /**
       * Set the item location
@@ -74,13 +74,13 @@ public:
        * Get Width of an image in pixels
        * @return double representing width of the item
        */
-     double GetWidth() { return mItemImage->GetWidth(); }
+     double GetWidth() const { return mItemImage->GetWidth(); }
 
      /**
        * Get height of an image in pixels
        * @return double representing the height of the item
        */
-     double GetHeight() { return mItemImage->GetHeight(); }
+     double GetHeight() const { return mItemImage->GetHeight(); }
 
      /**
        * Draw this item
