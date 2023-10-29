@@ -111,6 +111,12 @@ public:
      */
     std::vector<std::shared_ptr<Item>> GetItems() const { return mItems; }
 
+    /**
+     * Getter for Map of Declarations
+     * @return
+     */
+    std::map<std::string, wxXmlNode*> GetDec() const { return mDeclarations; }
+
     void XmlDeclare(wxXmlNode *node);
     void XmlItem(wxXmlNode *node, double tileWidth, double tileHeight);
     void SetLevel(std::wstring filename);

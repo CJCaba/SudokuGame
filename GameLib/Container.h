@@ -14,7 +14,7 @@
 /**
  * This class implements containers
  */
-class Container
+class Container : public Item
 {
 protected:
 
@@ -41,18 +41,8 @@ private:
     double mY = 0;  ///< Y position of the item
 
 public:
-    /// Default constructor (disabled)
-    Container() = delete;
 
-    /// Copy constructor (disabled)
-    Container(const Container &) = delete;
-
-    /// Assignment operator
-    void operator=(const Container &) = delete;
-
-    virtual ~Container();
-
-    Container(Game *game, const std::wstring &backImageFilename, const std::wstring &frontImageFilename);
+    Container(Game *game, wxXmlNode* dec);
 
     /**
      * The X location of the item

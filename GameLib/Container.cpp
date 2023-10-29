@@ -9,27 +9,27 @@
 
 #include "Container.h"
 #include "Game.h"
+#include "InteractNumber.h"
 
 using namespace std;
 
 /**
  * Constructor
  * @param game The game this container is a member of
- * @param backImageFilename The name of the file that contains the back of the container
- * @param frontImageFilename The name of the file that contains the front of the container
+ * @param dec The declaration node containing all the information to create a basic Container
  */
-Container::Container(Game *game, const std::wstring &backImageFilename, const std::wstring &frontImageFilename) : mGame(game)
-{
+Container::Container(Game *game, wxXmlNode *dec) : Item(game, dec)
+{   auto backImageFilename = dec->GetAttribute("image", "");
+    auto frontImageFilename = dec->GetAttribute("front", "");
     mBackImage = make_unique<wxImage>(backImageFilename, wxBITMAP_TYPE_ANY);
     mFrontImage = make_unique<wxImage>(frontImageFilename, wxBITMAP_TYPE_ANY);
-}
-
-/**
- * Destructor
- */
-Container::~Container()
-{
-
+    auto child = dec->GetChildren();
+    for (;child; child=child->GetNext()){
+        auto id = child->GetAttribute("id", "0").ToStdString();
+        auto itemDec = game->GetDec()[id];
+        auto item = std::make_shared<InteractNumber>(game, itemDec);
+        mItems.push_back(item);
+    }
 }
 
 /**

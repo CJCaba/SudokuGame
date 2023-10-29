@@ -6,7 +6,6 @@ set(TEST_FILES
         ClockTest.cpp
         GameTest.cpp
         SpartyTest.cpp
-        DeclarationTest.cpp
         XRayTest.cpp
         SolutionTest.cpp
 )

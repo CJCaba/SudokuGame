@@ -12,6 +12,7 @@
 #include "GivenNumber.h"
 #include "InteractNumber.h"
 #include "Solution.h"
+#include "Container.h"
 #include "Background.h"
 
 using namespace std;
@@ -307,15 +308,15 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
         AddItem(item);
     }
 
+    if(name == "container")
+    {
+        item = std::make_shared<Container>(this, itemDeclaration);
+    }
+
     if(name == "sparty")
     {
         mSparty = std::make_shared<Sparty>(this, itemDeclaration);
         item = mSparty;
-        double x, y;
-        node->GetAttribute("col", "0").ToDouble(&x);
-        node->GetAttribute("row", "0").ToDouble(&y);
-        mSparty->SetLocation(x * tileWidth, y * tileHeight);
-        mSparty->MoveToPoint(wxPoint(x * tileWidth, y * tileHeight));
     }
 
     if(item && name != "background")
@@ -327,7 +328,10 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
         node->GetAttribute("row", "0").ToDouble(&y);
 
         item->SetLocation(x * tileHeight, y * tileHeight);
-
+        if (name == "sparty"){
+            mSparty->SetLocation(x * tileWidth, y * tileHeight);
+            mSparty->MoveToPoint(wxPoint(x * tileWidth, y * tileHeight));
+        }
         AddItem(item);
     }
 }
