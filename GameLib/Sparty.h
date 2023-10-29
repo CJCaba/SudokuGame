@@ -86,21 +86,16 @@ public:
     void MakeHeadButt() { mIsHeadButting = true; }
 
     /**
-     * Getter for the target offset.
-     */
-    wxPoint GetTargetOffset() { return mTargetOffset; }
-
-    /**
-     * The X location of the item
+     * The X location of Sparty
      * @return X location in pixels
      */
     double GetX() const override { return Item::GetX() - mTargetOffset.x; }
 
     /**
-     * The Y location of the item
+     * The Y location of Sparty
      * @return Y location in pixels
      */
-    double GetY() const override { return Item::GetY() - GetHeight() - mTargetOffset.y; }
+    double GetY() const override { return Item::GetY() - GetHeight() + mTargetOffset.y; }
 };
 
 #endif //ARES_GAMELIB_SPARTY_H
