@@ -28,6 +28,10 @@ Container::Container(Game *game, wxXmlNode *dec, wxXmlNode* item) : Item(game, d
         auto id = child->GetAttribute("id", "0").ToStdString();
         auto itemDec = game->GetDec()[id];
         auto numItem = std::make_shared<InteractNumber>(game, itemDec, child);
+        double x, y;
+        child->GetAttribute("col", "").ToDouble(&x);
+        child->GetAttribute("row", "").ToDouble(&y);
+        numItem->SetLocation(x * game->GetTileWidth(), y * game->GetTileHeight());
         mItems.push_back(numItem);
     }
 }

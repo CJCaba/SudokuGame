@@ -218,10 +218,8 @@ void Game::Load(const wxString &filename)
     // Get the XML document root node
     auto root = xmlDoc.GetRoot();
 
-    int tileWidth;
-    int tileHeight;
-    root->GetAttribute("tilewidth", "1").ToInt(&tileWidth);
-    root->GetAttribute("tileheight", "1").ToInt(&tileHeight);
+    root->GetAttribute("tilewidth", "1").ToInt(&mTileWidth);
+    root->GetAttribute("tileheight", "1").ToInt(&mTileHeight);
     root->GetAttribute("width", "1").ToDouble(&gameWidth);
     root->GetAttribute("height", "1").ToDouble(&gameHeight);
 
@@ -246,7 +244,7 @@ void Game::Load(const wxString &filename)
             auto decChild = child->GetChildren();
             for ( ; decChild; decChild = decChild->GetNext())
             {
-                XmlItem(decChild, tileWidth, tileHeight);
+                XmlItem(decChild, mTileWidth, mTileHeight);
             }
         }
         else if (name == L"game")
