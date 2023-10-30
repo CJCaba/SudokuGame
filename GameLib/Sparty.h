@@ -96,6 +96,18 @@ public:
      * @return Y location in pixels
      */
     double GetY() const override { return Item::GetY() - GetHeight() + mTargetOffset.y; }
+
+    /**
+     * Whether Sparty is moving.
+     * @return boolean representing yes/no.
+     */
+    bool IsMoving() const { return (Item::GetX() != mTargetPoint.x) || (Item::GetY() != mTargetPoint.y); }
+
+    /**
+     * Getter for target point
+     * @return target point as wxPoint
+     */
+    wxPoint GetTargetPoint() { return mTargetPoint; }
 };
 
 #endif //ARES_GAMELIB_SPARTY_H

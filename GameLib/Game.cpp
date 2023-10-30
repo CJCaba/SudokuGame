@@ -385,10 +385,30 @@ void Game::OnKeyDown(wxKeyEvent &event)
     if (keyCode == WXK_SPACE)
     {
         mSparty->MakeEat();
+        if (!mSparty->IsMoving())
+        {
+            auto target = mSparty->GetTargetPoint();
+            for (auto item : mItems) {
+                if (item->HitTest(target))
+                {
+                    // Create some visitor that will ignore anything but interact numbers
+                }
+            }
+        }
     }
     else if (keyCode == 66) // ASCII 66 = B
     {
         mSparty->MakeHeadButt();
+        if (!mSparty->IsMoving())
+        {
+            auto target = mSparty->GetTargetPoint();
+            for (auto item : mItems) {
+                if (item->HitTest(target))
+                {
+                    // Create some visitor that will ignore anything but containers
+                }
+            }
+        }
     }
 }
 

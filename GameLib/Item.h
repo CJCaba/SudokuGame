@@ -93,6 +93,13 @@ public:
       * @return Pointer to the Game class
       */
      Game* GetGame() { return mGame; }
+
+     /**
+      * Check whether the point is within the bounds of this item
+      * @param point point to check
+      * @return boolean representing yes/no
+      */
+     bool HitTest(wxPoint point) const { return (point.x > mX && point.x < (mX + GetWidth()) && point.y > mY && point.y < (mY + GetHeight())); }
 };
 
 #endif //ARES_GAMELIB_ITEM_H
