@@ -52,7 +52,6 @@ private:
     wxPoint mTargetPoint; ///< Contains the x and y information for where the player last clicked (sparty goes to that point)
     wxPoint mTargetOffset; ///< Contains the x and y offset from the target point
 
-
 public:
     /// Default constructor (disabled)
     Sparty() = delete;

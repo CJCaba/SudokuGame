@@ -23,4 +23,17 @@ XRay::XRay(Game *game, wxXmlNode * dec, wxXmlNode* item) : Item(game, dec, item)
 void XRay::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     Item::Draw(graphics);
+
+    for(auto &item : mStomachItems)
+        item->SetLocation(0,0);
+}
+
+void XRay::Add(InteractNumber* interact)
+{
+    if (mStomachItems.size() >= mCapacity)
+    {
+        return;
+    }
+
+    mStomachItems.push_back(interact);
 }

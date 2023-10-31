@@ -15,6 +15,9 @@
 #include "Container.h"
 #include "Background.h"
 
+#include "InteractiveItems.h"
+#include "XRayVisitor.h"
+
 using namespace std;
 
 // Path to Background Image (Hard Coded)
@@ -412,10 +415,24 @@ void Game::OnKeyDown(wxKeyEvent &event)
         if (!mSparty->IsMoving())
         {
             auto target = mSparty->GetTargetPoint();
-            for (auto item : mItems) {
+
+            // Visitor creating an array of interact numbers
+            InteractiveItems visitorOne;
+            Accept(&visitorOne);
+
+            // Visitor finding xray
+            XRayVisitor visitorTwo;
+            Accept(&visitorTwo);
+
+            auto redNumbers = visitorOne.InteractFound();
+            auto xRay = visitorTwo.XRayFound();
+
+            for (const auto& item : redNumbers) {
+                // if item is found, add to xray and break
                 if (item->HitTest(target))
                 {
-                    // Create some visitor that will ignore anything but interact numbers
+                    xRay->Add(item);
+                    break;
                 }
             }
         }

@@ -34,6 +34,10 @@ set(SOURCE_FILES
         Background.h
         Visitor.cpp
         Visitor.h
+        InteractiveItems.cpp
+        InteractiveItems.h
+        XRayVisitor.cpp
+        XRayVisitor.h
 )
 
 set(wxBUILD_PRECOMP OFF)

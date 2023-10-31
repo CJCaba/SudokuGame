@@ -77,7 +77,7 @@ void Container::Release()
  * Draw the container.
  * @param graphics Graphics context to draw the container on.
  */
-void Container::Draw(const shared_ptr<wxGraphicsContext> graphics)
+void Container::Draw(shared_ptr<wxGraphicsContext> graphics)
 {
 
 //    if(mBackBitmap.IsNull())

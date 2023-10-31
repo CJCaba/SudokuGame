@@ -85,7 +85,7 @@ public:
      */
     bool Contains(const std::shared_ptr<Item>& item) { return std::find(mItems.begin(), mItems.end(), item) != mItems.end(); };
 
-    void Draw(const std::shared_ptr<wxGraphicsContext> graphics);
+    void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
     /**
      * Accept a visitor
