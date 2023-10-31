@@ -49,7 +49,7 @@ void Item::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     // Checks if bitmap is empty, then imports the image
     if(mItemBitmap.IsNull()){
-        mItemBitmap = graphics->CreateBitmapFromImage(*GetGame()->GetImage(mID));
+        mItemBitmap = graphics->CreateBitmapFromImage(*mGame->GetImage(mID));
     }
 
     // Now it is okay to draw that bitmap.
