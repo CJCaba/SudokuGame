@@ -28,8 +28,6 @@ set(SOURCE_FILES
         XRay.h
         Solution.cpp
         Solution.h
-        SolutionNumber.cpp
-        SolutionNumber.h
         Background.cpp
         Background.h
         Visitor.cpp

@@ -8,8 +8,6 @@
 #ifndef ARES_GAMELIB_SOLUTION_H
 #define ARES_GAMELIB_SOLUTION_H
 
-#include "SolutionNumber.h"
-
 /**
  * Implements a solution class
  */
@@ -19,9 +17,8 @@ private:
 
     int mRow;
     int mCol;
-    /// A collection of Numbers that represents the game's solution
-    //std::vector<std::shared_ptr<SolutionNumber>> mSolutionNumbers;
 
+    /// A collection of Numbers that represents the game's solution
     int mSolutionNumbers[9][9];
 
 public:
