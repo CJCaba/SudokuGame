@@ -292,12 +292,6 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
     if(name == "background")
     {
         item = std::make_shared<Background>(this, itemDeclaration, node);
-        double x,y, height;
-        node->GetAttribute("col", "0").ToDouble(&x);
-        node->GetAttribute("row", "0").ToDouble(&y);
-        itemDeclaration->GetAttribute("height", "0").ToDouble(&height);
-        item->SetLocation(x * tileHeight, (y + 1) * tileHeight - height);
-        AddItem(item);
     }
 
     if(name == "container")
@@ -311,18 +305,26 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
         item = mSparty;
     }
 
-    if(item && name != "background")
+    if(item)
     {
-        double x;
-        double y;
+        double x, y, height;
 
         node->GetAttribute("col", "0").ToDouble(&x);
         node->GetAttribute("row", "0").ToDouble(&y);
-        item->SetLocation(x * tileHeight, y * tileHeight);
-        if (name == "sparty"){
-            mSparty->SetLocation(x * tileWidth, y * tileHeight);
-            mSparty->MoveToPoint(wxPoint(x * tileWidth, y * tileHeight));
+        itemDeclaration->GetAttribute("height", "0").ToDouble(&height);
+        if (name == "background" || name == "container"){
+            item->SetLocation(x * tileHeight, (y + 1) * tileHeight - height);
         }
+        else
+        {
+            item->SetLocation(x * tileHeight, y * tileHeight);
+            if (name == "sparty")
+            {
+                mSparty->SetLocation(x * tileWidth, y * tileHeight);
+                mSparty->MoveToPoint(wxPoint(x * tileWidth, y * tileHeight));
+            }
+        }
+
         AddItem(item);
     }
 }
