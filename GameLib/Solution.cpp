@@ -15,34 +15,6 @@ using namespace std;
  * @param node
  * @return
  */
-//void Solution::LoadSolution(wxXmlNode* node)
-//{
-//    std::wstring gameContent = node->GetNodeContent().ToStdWstring();
-//    wxArrayString numbers = wxStringTokenize(gameContent, L" ");
-//
-//    int startingCol, startingRow;
-//    node->GetAttribute(L"col").ToInt(&startingCol);
-//    node->GetAttribute(L"row").ToInt(&startingRow);
-//
-//    int currentRow = startingRow;
-//    int currentCol = startingCol;
-//
-//    for (auto& numStr : numbers)
-//    {
-//        int value;
-//        numStr.ToInt(&value);
-//
-//        // Create a SolutionNumber and add it to mSolutionNumbers
-//        mSolutionNumbers.push_back(std::make_shared<SolutionNumber>(value, currentCol, currentRow));
-//
-//        currentCol++;
-//        if (currentCol == startingCol + 9)
-//        {
-//            currentCol = startingCol;
-//            currentRow++;
-//        }
-//    }
-//}
 
 void Solution::LoadSolution(wxXmlNode* node)
 {
@@ -52,8 +24,7 @@ void Solution::LoadSolution(wxXmlNode* node)
     int startingCol, startingRow;
     node->GetAttribute(L"col").ToInt(&startingCol);
     node->GetAttribute(L"row").ToInt(&startingRow);
-    mCol = startingCol;
-    mRow = startingRow;
+    mPoint.x = startingCol, mPoint.y = startingRow;
 
     int currentRow = startingRow;
     int currentCol = startingCol;

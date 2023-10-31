@@ -15,8 +15,7 @@ class Solution
 {
 private:
 
-    int mRow;
-    int mCol;
+    wxPoint mPoint;
 
     /// A collection of Numbers that represents the game's solution
     int mSolutionNumbers[9][9];
@@ -32,6 +31,11 @@ public:
     {
         return reinterpret_cast<int **>(mSolutionNumbers);
 
+    }
+
+    wxPoint GetBoardPosition()
+    {
+        return mPoint;
     }
 };
 
