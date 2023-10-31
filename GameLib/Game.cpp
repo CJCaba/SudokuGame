@@ -17,6 +17,7 @@
 
 #include "InteractiveItems.h"
 #include "XRayVisitor.h"
+#include "ContainerVisitor.h"
 
 using namespace std;
 
@@ -110,22 +111,13 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                          backgroundWidth,
                          backgroundHeight);
 
+    // loop through items
+    // if item is not in any containers
+    // draw item
     for (auto item : mItems)
     {
         item->Draw(graphics);
     }
-    // loop through items
-    // if item is not in any containers
-    // draw item
-
-    // loop through containers
-    // draw container (also draws contained items)
-
-    // Hard Code Draw X-Ray
-//    mXRay->Draw(graphics);
-
-    // Hard coded drawing sparty until the add items function is implemented
-//    mSparty->Draw(graphics);
 
 
     //
@@ -443,10 +435,17 @@ void Game::OnKeyDown(wxKeyEvent &event)
         if (!mSparty->IsMoving())
         {
             auto target = mSparty->GetTargetPoint();
-            for (auto item : mItems) {
+
+            // Visitor finding
+            ContainerVisitor visitor;
+            Accept(&visitor);
+
+            auto container = visitor.ContainerFound();
+
+            for (auto item : container) {
                 if (item->HitTest(target))
                 {
-                    // Create some visitor that will ignore anything but containers
+                    item->Release();
                 }
             }
         }
@@ -549,7 +548,7 @@ std::shared_ptr<wxImage> Game::GetImage(const string& id){
 
 void Game::Accept(Visitor *visitor)
 {
-    for (auto item : mItems)
+    for (const auto &item : mItems)
     {
         item->Accept(visitor);
     }

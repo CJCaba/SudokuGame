@@ -3,8 +3,12 @@
  * @author linja
  */
 
+#include <random>
+
 #include "pch.h"
 #include "XRay.h"
+
+using namespace std;
 
 /**
  * Constructor
@@ -23,9 +27,6 @@ XRay::XRay(Game *game, wxXmlNode * dec, wxXmlNode* item) : Item(game, dec, item)
 void XRay::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     Item::Draw(graphics);
-
-    for(auto &item : mStomachItems)
-        item->SetLocation(0,0);
 }
 
 void XRay::Add(InteractNumber* interact)
@@ -34,6 +35,16 @@ void XRay::Add(InteractNumber* interact)
     {
         return;
     }
+
+    auto game = GetGame();
+
+    auto randomSeed = game->GetRandom();
+    std::uniform_real_distribution<> distributionX(GetX(), GetX() + GetWidth()); // Adjust the range as needed
+    std::uniform_real_distribution<> distributionY(GetY(), GetY() + GetHeight()); // Adjust the range as needed
+
+    double randomX = distributionX(randomSeed);
+    double randomY = distributionY(randomSeed);
+    interact->SetLocation(randomX, randomY);
 
     mStomachItems.push_back(interact);
 }

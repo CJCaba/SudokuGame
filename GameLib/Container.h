@@ -88,6 +88,18 @@ public:
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
     /**
+      * Check whether the point is within the bounds of this item
+      * @param point point to check
+      * @return boolean representing yes/no
+      */
+    virtual bool HitTest(wxPoint point) const override
+    {
+        return (point.x > mX &&
+            point.x < (mX + mFrontImage->GetWidth()) &&
+            point.y > mY && point.y < (mY + mFrontImage->GetHeight()));
+    }
+
+    /**
      * Accept a visitor
      * @param visitor The visitor we accept
      */

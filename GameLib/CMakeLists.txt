@@ -38,6 +38,8 @@ set(SOURCE_FILES
         InteractiveItems.h
         XRayVisitor.cpp
         XRayVisitor.h
+        ContainerVisitor.cpp
+        ContainerVisitor.h
 )
 
 set(wxBUILD_PRECOMP OFF)

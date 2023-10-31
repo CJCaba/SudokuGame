@@ -59,7 +59,8 @@ void Container::Add(const shared_ptr<Item>& item)
  */
 void Container::Release()
 {
-    auto randomSeed = mGame->GetRandom();
+    auto game = GetGame();
+    auto randomSeed = game->GetRandom();
 
     // Distribute contained items across the screen
     for (const auto& item : mItems)
