@@ -2,7 +2,7 @@
  * @file XRay.h
  * @author linja
  *
- *
+ * Class for Xray item
  */
 
 #ifndef ARES_GAMELIB_XRAY_H
@@ -10,6 +10,9 @@
 
 #include "Item.h"
 
+/**
+ * Base class for XRay Item
+ */
 class XRay : public Item
 {
 private:

@@ -17,10 +17,12 @@ using namespace std;
  * Constructor
  * @param game The game this container is a member of
  * @param dec The declaration node containing all the information to create a basic Container
+ * @param item The item node containing the location information for this specific Container
  */
 Container::Container(Game *game, wxXmlNode *dec, wxXmlNode* item) : Item(game, dec, item)
 {   auto backImageFilename = dec->GetAttribute("image", "");
     auto frontImageFilename = dec->GetAttribute("front", "");
+    auto id = dec->GetAttribute("id", "").ToStdString();
     mBackImage = make_unique<wxImage>(L"images/" + backImageFilename, wxBITMAP_TYPE_ANY);
     mFrontImage = make_unique<wxImage>(L"images/" + frontImageFilename, wxBITMAP_TYPE_ANY);
     auto child = item->GetChildren();
@@ -77,15 +79,17 @@ void Container::Release()
  */
 void Container::Draw(const shared_ptr<wxGraphicsContext> graphics)
 {
-    if(mBackBitmap.IsNull())
-        mBackBitmap = graphics->CreateBitmapFromImage(*mBackImage);
+
+//    if(mBackBitmap.IsNull())
+//        mBackBitmap = graphics->CreateBitmapFromImage(*mBackImage);
+    Item::Draw(graphics);
     if (mFrontBitmap.IsNull())
         mFrontBitmap = graphics->CreateBitmapFromImage(*mFrontImage);
 
     // Draw the bottom bitmap
-    int bottomImageWidth = mBackImage->GetWidth();
-    int bottomImageHeight = mBackImage->GetHeight();
-    graphics->DrawBitmap(mBackBitmap, GetX(), GetY(), bottomImageWidth, bottomImageHeight);
+//    int bottomImageWidth = mBackImage->GetWidth();
+//    int bottomImageHeight = mBackImage->GetHeight();
+//    graphics->DrawBitmap(mBackBitmap, GetX(), GetY(), bottomImageWidth, bottomImageHeight);
 
     // Draw contained items
     for (const auto& item : mItems)

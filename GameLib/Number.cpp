@@ -1,6 +1,6 @@
 /**
  * @file Number.cpp
- * @author jadec
+ * @author Jaden Cabansag
  */
 
 #include "pch.h"
@@ -8,8 +8,9 @@
 
 /**
  * Constructor
- * @param game
- * @param filename
+ * @param game The game class the item is a part of
+ * @param dec Pointer to a Declartion node containing basic information
+ * @param item Pointer to an Item node containing position information
  */
 Number::Number(Game *game, wxXmlNode * dec, wxXmlNode* item) :
     Item(game, dec, item)

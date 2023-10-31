@@ -128,12 +128,12 @@ public:
     int GetTileHeight() const { return mTileHeight; }
 
     void XmlDeclare(wxXmlNode *node);
-    void XmlItem(wxXmlNode *node, double tileWidth, double tileHeight);
+    void XmlItem(wxXmlNode *node);
     void SetLevel(std::wstring filename);
     void OnKeyDown(wxKeyEvent &event);
     void TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics);
 
-    std::shared_ptr<wxImage> GetImage(std::string id);
+    std::shared_ptr<wxImage> GetImage(const std::string& id);
 
     void Accept(Visitor* visitor);
 };

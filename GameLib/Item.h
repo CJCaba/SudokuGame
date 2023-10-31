@@ -16,7 +16,7 @@
 #include "Visitor.h"
 
 /**
- * Base class for Numbers in the game
+ * Base class for Items in the game
  */
 class Item
 {
@@ -29,9 +29,6 @@ private:
 
     /// The bitmap for this tile
     wxGraphicsBitmap mItemBitmap;
-
-    /// The file for this item
-    std::wstring mFile;
 
     /// The game this item is contained in
     Game *mGame;

@@ -1,6 +1,6 @@
 /**
  * @file GameView.h
- * @author jadec, Daniel Flanagan, and Jason Lin
+ * @author Jaden Cabansag, Daniel Flanagan, and Jason Lin
  *
  * View class for our game
  */

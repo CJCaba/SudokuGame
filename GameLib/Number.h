@@ -1,13 +1,17 @@
 /**
  * @file Number.h
- * @author jadec, Daniel Flanagan
+ * @author Jaden Cabansag, Daniel Flanagan
  *
- *
+ * Class derived from Item used for representing numbers on the board
  */
 
 #ifndef ARES_GAMELIB_NUMBER_H
 #define ARES_GAMELIB_NUMBER_H
 #include "Item.h"
+
+/**
+ * Abstract class for Numbers in the game
+ */
 class Number : public Item
 {
 protected:

@@ -15,7 +15,7 @@ private:
 public:
     Background(Game *game, wxXmlNode * dec, wxXmlNode* item);
 
-/**
+    /**
      * Accept a visitor
      * @param visitor The visitor we accept
      */

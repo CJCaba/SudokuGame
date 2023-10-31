@@ -14,8 +14,9 @@ using namespace std;
 
 /**
  * Constructor
- * @param game The game this item is a member of
- * @param filename The name of the image file
+ * @param game The game class the item is a part of
+ * @param dec Pointer to a Declartion node containing basic information
+ * @param item Pointer to an Item node containing position information
  */
 Item::Item(Game *game, wxXmlNode * dec, wxXmlNode* item) : mGame(game)
 {

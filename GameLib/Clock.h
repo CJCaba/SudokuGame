@@ -17,7 +17,7 @@ class Clock
 {
 private:
 
-/// The window clock is contained in
+    /// The window clock is contained in
     Game *mGame;
 
     /// Minutes that have past since level start
@@ -48,7 +48,6 @@ public:
     void SetTime(long time);
     void AddTime(double elapsed);
     void Reset();
-
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 };
 

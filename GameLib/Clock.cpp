@@ -45,6 +45,10 @@ void Clock::SetTime(long time)
     }
 }
 
+/**
+ * Increment the clock counter
+ * @param elapsed The amount of time to add to mSeconds
+ */
 void Clock::AddTime(double elapsed)
 {
     mSeconds += elapsed;
@@ -95,6 +99,10 @@ void Clock::Reset()
     mSeconds = 0;
 }
 
+/**
+ * Draw the clock onto the Game
+ * @param graphics The graphics context to draw on
+ */
 void Clock::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     wxFont font(wxSize(ScoreboardTextSize, ScoreboardTextSize),

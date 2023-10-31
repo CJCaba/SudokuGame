@@ -20,13 +20,6 @@ using namespace std;
 // Path to Background Image (Hard Coded)
 std::wstring backgroundFileName = L"images/background.png";
 
-// Path to X-Ray Image (Hard Coded)
-std::wstring xRayFileName = L"images/xray.png";
-
-// Delete this later, hardcoded until xml loading is figured out
-std::wstring spartyHead = L"images/sparty-1.png";
-std::wstring spartyMouth = L"images/sparty-2.png";
-
 // Level 1
 std::wstring level1 = L"LevelFiles/level1.xml";
 
@@ -246,7 +239,7 @@ void Game::Load(const wxString &filename)
             auto decChild = child->GetChildren();
             for ( ; decChild; decChild = decChild->GetNext())
             {
-                XmlItem(decChild, mTileWidth, mTileHeight);
+                XmlItem(decChild);
             }
         }
         else if (name == L"game")
@@ -269,6 +262,12 @@ void Game::Clear()
     mBackgroundBitmap.UnRef();
 }
 
+/**
+ * Load a Declaration node into our map to store its information
+ * Also load the given base image file into a wxImage and add to
+ * a separate map
+ * @param node The Declaration node to store
+ */
 void Game::XmlDeclare(wxXmlNode *node){
     string id = node->GetAttribute(L"id", L'0').ToStdString();
     auto name = node->GetName();
@@ -286,7 +285,11 @@ void Game::XmlDeclare(wxXmlNode *node){
     mImages[id] = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
 }
 
-void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
+/**
+ * Load an Item derived from our declarations and add it to our game
+ * @param node The Item node containing the position information and ID
+ */
+void Game::XmlItem(wxXmlNode *node){
     shared_ptr<Item> item;
     auto name = node->GetName();
     auto itemID = node->GetAttribute("id", "").ToStdString();
@@ -332,15 +335,15 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
         node->GetAttribute("row", "0").ToDouble(&y);
         itemDeclaration->GetAttribute("height", "0").ToDouble(&height);
         if (name == "background" || name == "container" || name == "xray"){
-            item->SetLocation(x * tileHeight, (y + 1) * tileHeight - height);
+            item->SetLocation(x * mTileHeight, (y + 1) * mTileHeight - height);
         }
         else
         {
-            item->SetLocation(x * tileHeight, y * tileHeight);
+            item->SetLocation(x * mTileHeight, y * mTileHeight);
             if (name == "sparty")
             {
-                mSparty->SetLocation(x * tileWidth, y * tileHeight);
-                mSparty->MoveToPoint(wxPoint(x * tileWidth, y * tileHeight));
+                mSparty->SetLocation(x * mTileWidth, y * mTileHeight);
+                mSparty->MoveToPoint(wxPoint(x * mTileWidth, y * mTileHeight));
             }
         }
 
@@ -458,6 +461,10 @@ wstring Game::DetermineStartupText()
     }
 }
 
+/**
+ * Draw the Tutorial Prompt for our game
+ * @param graphics The context to draw on
+ */
 void Game::TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics)
 {
     wxBrush rectBrush(*wxWHITE);
@@ -514,7 +521,12 @@ void Game::TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics)
                        rectY + titleHeight + (textHeight * 2));
 }
 
-std::shared_ptr<wxImage> Game::GetImage(string id){
+/**
+ * Getter to return a specific image file loaded from our Declarations
+ * @param id The id attributed to a specific image
+ * @return Pointer to wxImage
+ */
+std::shared_ptr<wxImage> Game::GetImage(const string& id){
     return mImages[id];
 }
 
