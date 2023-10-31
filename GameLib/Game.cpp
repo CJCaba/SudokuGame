@@ -43,7 +43,6 @@ Game::Game()
     mBackgroundImage = std::make_shared<wxImage>(backgroundFileName, wxBITMAP_TYPE_ANY);
 
     mClock = std::make_shared<Clock>(this);
-
     mClock->Reset();
 
     mCurrentLevel = L"LevelFiles/level1.xml";
@@ -170,7 +169,10 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
  */
 void Game::OnUpdate(double elapsed)
 {
-    mClock->AddTime(elapsed);
+    if (mClock != nullptr)
+    {
+        mClock->AddTime(elapsed);
+    }
     if (mSparty != nullptr)
     {
         mSparty->Update(elapsed);

@@ -75,7 +75,7 @@ void Container::Release()
  * Draw the container.
  * @param graphics Graphics context to draw the container on.
  */
-void Container::Draw(const shared_ptr<wxGraphicsContext>& graphics)
+void Container::Draw(const shared_ptr<wxGraphicsContext> graphics)
 {
     if(mBackBitmap.IsNull())
         mBackBitmap = graphics->CreateBitmapFromImage(*mBackImage);
@@ -96,5 +96,5 @@ void Container::Draw(const shared_ptr<wxGraphicsContext>& graphics)
     // Draw the top bitmap
     int topImageWidth = mFrontImage->GetWidth();
     int topImageHeight = mFrontImage->GetHeight();
-    graphics->DrawBitmap(mBackBitmap, GetX(), GetY(), topImageWidth, topImageHeight);
+    graphics->DrawBitmap(mFrontBitmap, GetX(), GetY(), topImageWidth, topImageHeight);
 }

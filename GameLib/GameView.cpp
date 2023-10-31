@@ -75,12 +75,10 @@ void GameView::OnPaint(wxPaintEvent &event) {
         return;
     }
     gc->PushState();
+
+    mGame.OnUpdate(elapsed);    //<-Update
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
 
-    //
-    // Update
-    //
-    mGame.OnUpdate(elapsed);
     gc->PopState();
 }
 
