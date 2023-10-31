@@ -311,6 +311,11 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
         item = std::make_shared<Container>(this, itemDeclaration, node);
     }
 
+    if(name == "xray")
+    {
+        item = std::make_shared<XRay>(this, itemDeclaration, node);
+    }
+
     if(name == "sparty")
     {
         mSparty = std::make_shared<Sparty>(this, itemDeclaration, node);
@@ -324,7 +329,7 @@ void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
         node->GetAttribute("col", "0").ToDouble(&x);
         node->GetAttribute("row", "0").ToDouble(&y);
         itemDeclaration->GetAttribute("height", "0").ToDouble(&height);
-        if (name == "background" || name == "container"){
+        if (name == "background" || name == "container" || name == "xray"){
             item->SetLocation(x * tileHeight, (y + 1) * tileHeight - height);
         }
         else
@@ -509,4 +514,12 @@ void Game::TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics)
 
 std::shared_ptr<wxImage> Game::GetImage(string id){
     return mImages[id];
+}
+
+void Game::Accept(Visitor *visitor)
+{
+    for (auto item : mItems)
+    {
+        item->Accept(visitor);
+    }
 }

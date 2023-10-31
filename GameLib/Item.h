@@ -13,6 +13,7 @@
 #include <wx/graphics.h>
 
 #include "Game.h"
+#include "Visitor.h"
 
 /**
  * Base class for Numbers in the game
@@ -99,7 +100,14 @@ public:
       * @param point point to check
       * @return boolean representing yes/no
       */
-     bool HitTest(wxPoint point) const { return (point.x > mX && point.x < (mX + GetWidth()) && point.y > mY && point.y < (mY + GetHeight())); }
+     virtual bool HitTest(wxPoint point) const
+     {
+         return (point.x > mX &&
+                    point.x < (mX + GetWidth()) &&
+                    point.y > mY && point.y < (mY + GetHeight()));
+     }
+
+     virtual void Accept(Visitor* visitor) = 0;
 };
 
 #endif //ARES_GAMELIB_ITEM_H

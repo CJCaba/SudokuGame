@@ -22,6 +22,11 @@ public:
 
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(Visitor* visitor) override { visitor->VisitXRay(this); }
 };
 
 #endif //ARES_GAMELIB_XRAY_H

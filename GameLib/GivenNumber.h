@@ -19,6 +19,12 @@ protected:
 private:
 public:
     GivenNumber(Game *game, wxXmlNode * dec, wxXmlNode* item);
+
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(Visitor* visitor) override { visitor->VisitGiven(this); }
 };
 
 #endif //ARES_GAMELIB_GIVENNUMBER_H

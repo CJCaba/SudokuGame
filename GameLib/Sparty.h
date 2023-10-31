@@ -108,6 +108,12 @@ public:
      * @return target point as wxPoint
      */
     wxPoint GetTargetPoint() { return mTargetPoint; }
+
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(Visitor* visitor) override { visitor->VisitSparty(this); }
 };
 
 #endif //ARES_GAMELIB_SPARTY_H

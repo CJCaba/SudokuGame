@@ -32,6 +32,8 @@ set(SOURCE_FILES
         SolutionNumber.h
         Background.cpp
         Background.h
+        Visitor.cpp
+        Visitor.h
 )
 
 set(wxBUILD_PRECOMP OFF)

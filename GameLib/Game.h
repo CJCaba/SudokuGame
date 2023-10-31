@@ -21,6 +21,7 @@ class Container;
 class Sparty;
 class XRay;
 class Solution;
+class Visitor;
 
 /**
  * Implements a game class with necessary items
@@ -133,6 +134,8 @@ public:
     void TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics);
 
     std::shared_ptr<wxImage> GetImage(std::string id);
+
+    void Accept(Visitor* visitor);
 };
 
 #endif //ARES_GAMELIB_GAME_H
