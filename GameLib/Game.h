@@ -67,6 +67,9 @@ private:
     /// Map of Declarations, with IDs as keys
     std::map<std::string, wxXmlNode*> mDeclarations;
 
+    /// Map of Image pointers to IDs
+    std::map<std::string, std::shared_ptr<wxImage>> mImages;
+
     bool mStartUp = true;
 
     std::wstring mCurrentLevel;
@@ -129,6 +132,7 @@ public:
     void OnKeyDown(wxKeyEvent &event);
     void TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics);
 
+    std::shared_ptr<wxImage> GetImage(std::string id);
 };
 
 #endif //ARES_GAMELIB_GAME_H

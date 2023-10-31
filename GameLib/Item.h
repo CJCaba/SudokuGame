@@ -20,11 +20,11 @@
 class Item
 {
 private:
+    /// The ID of this item given by its declaration
+    std::string mID;
+
     double mX = 0; ///< X position of the item
     double mY = 0; ///< Y position of the item
-
-    /// The image for this tile
-    std::unique_ptr<wxImage> mItemImage;
 
     /// The bitmap for this tile
     wxGraphicsBitmap mItemBitmap;
@@ -74,13 +74,13 @@ public:
        * Get Width of an image in pixels
        * @return double representing width of the item
        */
-     double GetWidth() const { return mItemImage->GetWidth(); }
+     double GetWidth() const { return mGame->GetImage(mID)->GetWidth(); }
 
      /**
        * Get height of an image in pixels
        * @return double representing the height of the item
        */
-     double GetHeight() const { return mItemImage->GetHeight(); }
+     double GetHeight() const { return mGame->GetImage(mID)->GetHeight(); }
 
      /**
        * Draw this item

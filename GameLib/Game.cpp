@@ -269,7 +269,19 @@ void Game::Clear()
 
 void Game::XmlDeclare(wxXmlNode *node){
     string id = node->GetAttribute(L"id", L'0').ToStdString();
+    auto name = node->GetName();
+    wstring filename;
+    if (name == "sparty")
+    {
+        filename = L"images/" + node->GetAttribute("image1", "").ToStdWstring();
+    }
+    else
+    {
+        filename = L"images/" + node->GetAttribute("image", "").ToStdWstring();
+    }
+
     mDeclarations[id] = node;
+    mImages[id] = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
 }
 
 void Game::XmlItem(wxXmlNode *node, double tileWidth, double tileHeight){
@@ -493,4 +505,8 @@ void Game::TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics)
     graphics->DrawText(L"B = Headbutt",
                        rectX + (rectWidth/2) - (textWidth/2),
                        rectY + titleHeight + (textHeight * 2));
+}
+
+std::shared_ptr<wxImage> Game::GetImage(string id){
+    return mImages[id];
 }
