@@ -17,20 +17,25 @@ class Solution
 {
 private:
 
+    int mRow;
+    int mCol;
     /// A collection of Numbers that represents the game's solution
-    std::vector<std::shared_ptr<SolutionNumber>> mSolutionNumbers;
+    //std::vector<std::shared_ptr<SolutionNumber>> mSolutionNumbers;
+
+    int mSolutionNumbers[9][9];
 
 public:
 
-    void LoadSolution(wxXmlNode* node);
+    void LoadSolution(wxXmlNode *node);
 
     /**
      * Getter for mSolutionNumbers
      */
-    const std::vector<std::shared_ptr<SolutionNumber>>& GetSolutionNumbers() const { return mSolutionNumbers; }
+    int **getSolutionNumbers()
+    {
+        return reinterpret_cast<int **>(mSolutionNumbers);
 
-
-
+    }
 };
 
 #endif //ARES_GAMELIB_SOLUTION_H
