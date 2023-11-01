@@ -38,6 +38,8 @@ set(SOURCE_FILES
         XRayVisitor.h
         ContainerVisitor.cpp
         ContainerVisitor.h
+        ImFullErrorMessage.cpp
+        ImFullErrorMessage.h
 )
 
 set(wxBUILD_PRECOMP OFF)

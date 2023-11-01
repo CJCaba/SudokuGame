@@ -14,6 +14,7 @@
 #include "Solution.h"
 #include "Container.h"
 #include "Background.h"
+#include "ImFullErrorMessage.h"
 
 #include "InteractiveItems.h"
 #include "XRayVisitor.h"
@@ -119,6 +120,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         item->Draw(graphics);
     }
 
+    for (auto errorMessage : mErrorMessages)
+    {
+        errorMessage->Draw(graphics);
+    }
+
 
     //
     // Checks if level is booting up
@@ -164,6 +170,21 @@ void Game::OnUpdate(double elapsed)
     if (mSparty != nullptr)
     {
         mSparty->Update(elapsed);
+    }
+
+    for (auto it = mErrorMessages.begin(); it != mErrorMessages.end(); )
+    {
+        auto errorMessage = *it;
+        errorMessage->Update(elapsed);
+
+        if (errorMessage->ShouldBeDeleted())
+        {
+            it = mErrorMessages.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
     }
 }
 
@@ -419,12 +440,18 @@ void Game::OnKeyDown(wxKeyEvent &event)
             auto redNumbers = visitorOne.InteractFound();
             auto xRay = visitorTwo.XRayFound();
 
-            for (const auto& item : redNumbers) {
-                // if item is found, add to xray and break
-                if (item->HitTest(target))
+            if (xRay->IsFull())
+                mErrorMessages.push_back(make_shared<ImFullErrorMessage>(wxPoint(GetWidth() / 2, GetHeight())));
+            else
+            {
+                for(const auto &item : redNumbers)
                 {
-                    xRay->Add(item);
-                    break;
+                    // if item is found, add to xray and break
+                    if(item->HitTest(target))
+                    {
+                        xRay->Add(item);
+                        break;
+                    }
                 }
             }
         }

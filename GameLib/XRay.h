@@ -35,6 +35,8 @@ public:
 
     void Remove();
 
+    bool IsFull() const { return mStomachItems.size() == mCapacity; }
+
     /**
      * Accept a visitor
      * @param visitor The visitor we accept

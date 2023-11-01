@@ -22,6 +22,7 @@ class Sparty;
 class XRay;
 class Solution;
 class Visitor;
+class ImFullErrorMessage;
 
 /**
  * Implements a game class with necessary items
@@ -34,6 +35,9 @@ private:
 
     /// Collection of containers within the game
     std::vector<std::shared_ptr<Container>> mContainers;
+
+    /// Collection of error messages within the game
+    std::vector<std::shared_ptr<ImFullErrorMessage>> mErrorMessages;
 
     std::shared_ptr<Sparty> mSparty = nullptr;
 
