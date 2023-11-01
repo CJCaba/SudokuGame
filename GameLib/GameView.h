@@ -38,6 +38,7 @@ private:
 public:
     void Initialize(wxFrame* parent);
     void OnLeftDown(wxMouseEvent &event);
+    void OnMouseMove(wxMouseEvent &event);
     void OnFileOpen(wxCommandEvent &event);
     void OnFileSaveAs(wxCommandEvent &event);
     void OnLevel1(wxCommandEvent &event);

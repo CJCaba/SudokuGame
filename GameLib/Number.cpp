@@ -17,4 +17,3 @@ Number::Number(Game *game, wxXmlNode * dec, wxXmlNode* item) :
 {
     dec->GetAttribute("value", "0").ToInt(&mValue);
 }
-

@@ -22,6 +22,7 @@ class Sparty;
 class XRay;
 class Solution;
 class Visitor;
+class Spotlight;
 
 /**
  * Implements a game class with necessary items
@@ -38,6 +39,10 @@ private:
     std::shared_ptr<Sparty> mSparty = nullptr;
 
     std::shared_ptr<XRay> mXRay = nullptr;
+
+    std::shared_ptr<Spotlight> mSpotlight = nullptr;
+
+    wxPoint mSpotlightLocation;
 
     /// Solution to the game
     std::shared_ptr<Solution> mGameSolution;
@@ -86,6 +91,8 @@ public:
     void OnUpdate(double elapsed);
 
     void OnLeftDown(wxMouseEvent &event);
+
+    void OnMouseMove(wxMouseEvent &event);
 
     void AddItem(std::shared_ptr<Item> item);
 

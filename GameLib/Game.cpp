@@ -14,6 +14,7 @@
 #include "Solution.h"
 #include "Container.h"
 #include "Background.h"
+#include "Spotlight.h"
 
 #include "InteractiveItems.h"
 #include "XRayVisitor.h"
@@ -111,6 +112,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                          backgroundWidth,
                          backgroundHeight);
 
+    if (mSpotlight != NULL)
+    {
+        mSpotlight->SetLocation(mSpotlightLocation.x - double(width), mSpotlightLocation.y - double(height));
+    }
+
     // loop through items
     // if item is not in any containers
     // draw item
@@ -165,6 +171,12 @@ void Game::OnUpdate(double elapsed)
     {
         mSparty->Update(elapsed);
     }
+}
+
+void Game::OnMouseMove(wxMouseEvent &event)
+{
+    mSpotlightLocation.x = ( event.GetX() - mXOffset ) / mScale;
+    mSpotlightLocation.y = ( event.GetY() - mYOffset ) / mScale;
 }
 
 void Game::OnLeftDown(wxMouseEvent &event)
@@ -320,6 +332,12 @@ void Game::XmlItem(wxXmlNode *node){
     {
         mSparty = std::make_shared<Sparty>(this, itemDeclaration, node);
         item = mSparty;
+    }
+
+    if(name == "spotlight")
+    {
+        mSpotlight = std::make_shared<Spotlight>(this, itemDeclaration, node);
+        item = mSpotlight;
     }
 
     if(item)
