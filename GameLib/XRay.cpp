@@ -36,15 +36,18 @@ void XRay::Add(InteractNumber* interact)
         return;
     }
 
+    mStomachItems.push_back(interact);
+
     auto game = GetGame();
 
     auto randomSeed = game->GetRandom();
-    std::uniform_real_distribution<> distributionX(GetX(), GetX() + GetWidth()); // Adjust the range as needed
-    std::uniform_real_distribution<> distributionY(GetY(), GetY() + GetHeight()); // Adjust the range as needed
+    std::uniform_real_distribution<> distributionX(GetX(), GetX() + GetWidth() - interact->GetWidth()); // Adjust the range as needed
+    std::uniform_real_distribution<> distributionY(GetY(), GetY() + GetHeight() - interact->GetHeight()); // Adjust the range as needed
 
-    double randomX = distributionX(randomSeed);
-    double randomY = distributionY(randomSeed);
-    interact->SetLocation(randomX, randomY);
-
-    mStomachItems.push_back(interact);
+    for (const auto &item : mStomachItems) {
+        // Generate random X and Y coordinates within the specified range
+        double randomX = distributionX(randomSeed);
+        double randomY = distributionY(randomSeed);
+        item->SetLocation(randomX, randomY);
+    }
 }

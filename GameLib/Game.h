@@ -23,6 +23,7 @@ class XRay;
 class Solution;
 class Visitor;
 class ImFullErrorMessage;
+class Spotlight;
 
 /**
  * Implements a game class with necessary items
@@ -42,6 +43,10 @@ private:
     std::shared_ptr<Sparty> mSparty = nullptr;
 
     std::shared_ptr<XRay> mXRay = nullptr;
+
+    std::shared_ptr<Spotlight> mSpotlight = nullptr;
+
+    wxPoint mSpotlightLocation;
 
     /// Solution to the game
     std::shared_ptr<Solution> mGameSolution;
@@ -75,12 +80,17 @@ private:
     /// Map of Image pointers to IDs
     std::map<std::string, std::shared_ptr<wxImage>> mImages;
 
+    int mSolution[9][9] = {0};
+
     bool mStartUp = true;
 
     std::wstring mCurrentLevel;
 
     int mTileWidth;
     int mTileHeight;
+
+    /// True if level is won
+    bool mLevelWon = false;
 
 public:
     Game();
@@ -90,6 +100,8 @@ public:
     void OnUpdate(double elapsed);
 
     void OnLeftDown(wxMouseEvent &event);
+
+    void OnMouseMove(wxMouseEvent &event);
 
     void AddItem(std::shared_ptr<Item> item);
 
@@ -139,7 +151,20 @@ public:
 
     std::shared_ptr<wxImage> GetImage(const std::string& id);
 
+    /**
+     * Game accepts visitor to view mItems list
+     * @param visitor
+     */
     void Accept(Visitor* visitor);
+
+    void UpdateBoard();
+    void LevelSolutionCorrect();
+
+    void Add(std::shared_ptr<Item> item)
+    {
+        mItems.push_back(item);
+    }
+
 };
 
 #endif //ARES_GAMELIB_GAME_H

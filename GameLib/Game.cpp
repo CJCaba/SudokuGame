@@ -15,8 +15,10 @@
 #include "Container.h"
 #include "Background.h"
 #include "ImFullErrorMessage.h"
+#include "Spotlight.h"
 
 #include "InteractiveItems.h"
+#include "VisitorNumbers.h"
 #include "XRayVisitor.h"
 #include "ContainerVisitor.h"
 
@@ -39,7 +41,7 @@ const double tileSize = 48;
 Game::Game()
 {
     mBackgroundImage = std::make_shared<wxImage>(backgroundFileName, wxBITMAP_TYPE_ANY);
-
+    mGameSolution = std::make_shared<Solution>();
     mClock = std::make_shared<Clock>(this);
     mClock->Reset();
 
@@ -88,7 +90,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
 
-
     //
     // Draw in virtual pixels on the graphics context
     //
@@ -111,6 +112,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                          0, 0,
                          backgroundWidth,
                          backgroundHeight);
+
+    if (mSpotlight != NULL)
+    {
+        mSpotlight->SetLocation(mSpotlightLocation.x - double(width), mSpotlightLocation.y - double(height));
+    }
 
     // loop through items
     // if item is not in any containers
@@ -186,6 +192,18 @@ void Game::OnUpdate(double elapsed)
             ++it;
         }
     }
+
+    // Implement Building the Virtual Solution Board
+    if (!mStartUp){
+        UpdateBoard();
+     //   LevelSolutionCorrect();
+    }
+}
+
+void Game::OnMouseMove(wxMouseEvent &event)
+{
+    mSpotlightLocation.x = ( event.GetX() - mXOffset ) / mScale;
+    mSpotlightLocation.y = ( event.GetY() - mYOffset ) / mScale;
 }
 
 void Game::OnLeftDown(wxMouseEvent &event)
@@ -260,7 +278,7 @@ void Game::Load(const wxString &filename)
         }
         else if (name == L"game")
         {
-       //     mGameSolution->LoadSolution(child);
+            mGameSolution->LoadSolution(child);
         }
     }
 }
@@ -341,6 +359,12 @@ void Game::XmlItem(wxXmlNode *node){
     {
         mSparty = std::make_shared<Sparty>(this, itemDeclaration, node);
         item = mSparty;
+    }
+
+    if(name == "spotlight")
+    {
+        mSpotlight = std::make_shared<Spotlight>(this, itemDeclaration, node);
+        item = mSpotlight;
     }
 
     if(item)
@@ -578,5 +602,58 @@ void Game::Accept(Visitor *visitor)
     for (const auto &item : mItems)
     {
         item->Accept(visitor);
+    }
+}
+
+
+void Game::UpdateBoard()
+{
+    // Obtain the starting point for the Sudoku Board
+    auto point = mGameSolution->GetBoardPosition();
+
+    // Obtain list of all current numbers on the board
+    VisitorNumbers visNum;
+    Accept(&visNum);
+    auto numbers = visNum.FoundItems();
+
+    int startCol = point.x;
+    int endCol = point.x + 9;
+    // Iterate through the Virtual Solution
+    // and update the placement of numbers
+    for(int row = 0; row < 9; row++){
+        for(int col = 0; col < 9; col++){
+
+            // First set point to 9, a number not present in our game
+            mSolution[row][col] = 9;
+            for(auto item : numbers){
+                // If a number is present on the point, add it to the board
+                if (item->HitTest(point * 48)){
+                    mSolution[row][col] = item->GetValue();
+                }
+            }
+            point.x++;
+            if (point.x >= endCol){point.x = startCol;}
+        }
+        point.y++;
+    }
+}
+
+/**
+  * Compares the expected solution to the current solution.
+  * If solution matches, mLevelWon set to True.
+  */
+void Game::LevelSolutionCorrect() {
+    int** expectedSolution = mGameSolution->getSolutionNumbers();
+    bool arraysAreIdentical = true;
+    for (int i = 0; i < 9 && arraysAreIdentical; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            if (expectedSolution[i][j] != mSolution[i][j]) {
+                arraysAreIdentical = false;
+                break;
+            }
+        }
+    }
+    if (arraysAreIdentical) {
+        mLevelWon = true;
     }
 }

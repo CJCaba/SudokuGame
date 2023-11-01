@@ -36,10 +36,14 @@ set(SOURCE_FILES
         InteractiveItems.h
         XRayVisitor.cpp
         XRayVisitor.h
+        VisitorNumbers.cpp
+        VisitorNumbers.h
         ContainerVisitor.cpp
         ContainerVisitor.h
         ImFullErrorMessage.cpp
         ImFullErrorMessage.h
+        Spotlight.cpp
+        Spotlight.h
 )
 
 set(wxBUILD_PRECOMP OFF)

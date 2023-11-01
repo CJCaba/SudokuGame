@@ -22,6 +22,8 @@ private:
 
 public:
 
+    Solution();
+
     void LoadSolution(wxXmlNode *node);
 
     /**

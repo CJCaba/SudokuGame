@@ -35,9 +35,10 @@ void GameView::Initialize(wxFrame *parent) {
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
     Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
+    Bind(wxEVT_MOTION, &GameView::OnMouseMove, this);
 
     mTimer.SetOwner(this);
-    mTimer.Start(1);
+    mTimer.Start(1); //< Set to 1 to avoid error on MacOS
     mStopWatch.Start();
 }
 
@@ -107,6 +108,15 @@ void GameView::OnLeftDown(wxMouseEvent &event)
 void GameView::OnKeyDown(wxKeyEvent &event)
 {
     mGame.OnKeyDown(event);
+}
+
+/**
+ * Handle Mouse movement
+ * @param event the mouse event
+ */
+ void GameView::OnMouseMove(wxMouseEvent &event)
+{
+     mGame.OnMouseMove(event);
 }
 
 /**
