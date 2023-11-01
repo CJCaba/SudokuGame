@@ -652,7 +652,7 @@ void Game::UpdateBoard()
   * If solution matches, mLevelWon set to True.
   */
 void Game::LevelSolutionCorrect() {
-    int** expectedSolution = mGameSolution->getSolutionNumbers();
+    int (*expectedSolution)[9] = mGameSolution->GetSolutionNumbers();
     bool arraysAreIdentical = true;
     for (int i = 0; i < 9 && arraysAreIdentical; ++i) {
         for (int j = 0; j < 9; ++j) {

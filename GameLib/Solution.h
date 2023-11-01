@@ -29,11 +29,11 @@ public:
     /**
      * Getter for mSolutionNumbers
      */
-    int **getSolutionNumbers()
+    int (*GetSolutionNumbers())[9]
     {
-        return reinterpret_cast<int **>(mSolutionNumbers);
-
+        return mSolutionNumbers;
     }
+
 
     wxPoint GetBoardPosition()
     {
