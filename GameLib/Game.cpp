@@ -578,11 +578,11 @@ void Game::UpdateBoard()
         for(int col = 0; col < 9; col++){
 
             // First set point to 9, a number not present in our game
-            mSolution[col][row] = 9;
+            mSolution[row][col] = 9;
             for(auto item : numbers){
                 // If a number is present on the point, add it to the board
-                if (item->HitTest(point)){
-                    mSolution[col][row] = item->GetValue();
+                if (item->HitTest(point * 48)){
+                    mSolution[row][col] = item->GetValue();
                 }
             }
             point.x++;
