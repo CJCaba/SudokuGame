@@ -80,7 +80,7 @@ public:
     void MakeEat() { mIsEating = true; }
 
     /**
-     * Make Spaty headbutt.
+     * Make Sparty headbutt.
      */
     void MakeHeadButt() { mIsHeadButting = true; }
 

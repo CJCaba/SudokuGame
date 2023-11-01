@@ -40,6 +40,8 @@ set(SOURCE_FILES
         VisitorNumbers.h
         ContainerVisitor.cpp
         ContainerVisitor.h
+        Spotlight.cpp
+        Spotlight.h
 )
 
 set(wxBUILD_PRECOMP OFF)

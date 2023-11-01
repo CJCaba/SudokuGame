@@ -65,9 +65,10 @@ void Container::Release()
     // Distribute contained items across the screen
     for (const auto& item : mItems)
     {
-        uniform_real_distribution<> distributionX(0, 100);//mGame->GetBackgroundImage()->GetWidth());
-        uniform_real_distribution<> distributionY(0, 100);//mGame->GetBackgroundImage()->GetHeight());
+        uniform_real_distribution<> distributionX(GetX() - 48, GetX() + GetWidth() + 48);//mGame->GetBackgroundImage()->GetWidth());
+        uniform_real_distribution<> distributionY(GetY() - 96, GetY());//mGame->GetBackgroundImage()->GetHeight());
         item->SetLocation(distributionX(randomSeed), distributionY(randomSeed));
+        game->Add(item);
     }
 
     // Empty the container

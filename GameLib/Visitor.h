@@ -14,6 +14,7 @@ class GivenNumber;
 class Background;
 class Container;
 class XRay;
+class Spotlight;
 class Sparty;
 
 /**
@@ -40,6 +41,8 @@ public:
     virtual void VisitXRay(XRay* xray) {}
 
     virtual void VisitSparty(Sparty* sparty) {}
+
+    virtual void VisitSpotlight(Spotlight* spotlight) {}
 };
 
 #endif //ARES_GAMELIB_VISITOR_H
