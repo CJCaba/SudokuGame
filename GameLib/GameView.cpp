@@ -30,6 +30,8 @@ void GameView::Initialize(wxFrame *parent) {
                  IDM_LEVELTWO);
     parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevel3, this,
                  IDM_LEVELTHREE);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnSolve, this,
+                 IDM_SOLVE);
 
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
@@ -179,4 +181,12 @@ void GameView::OnLevel2(wxCommandEvent &event)
 void GameView::OnLevel3(wxCommandEvent &event)
 {
     mGame.SetLevel(L"LevelFiles/level3.xml");
+}
+
+/**
+ * Solve the board with current numbers
+ * @param event Menu event
+*/
+void GameView::OnSolve(wxCommandEvent &event){
+    mGame.Solve();
 }

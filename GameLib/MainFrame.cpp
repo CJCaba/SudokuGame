@@ -51,7 +51,7 @@ void MainFrame::Initialize()
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);
-    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSolve, this, IDM_SOLVE);  // Add this line
+//    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnSolve, this, IDM_SOLVE);  // Add this line
 
 
     SetMenuBar(menuBar);
@@ -86,9 +86,4 @@ void MainFrame::OnClose(wxCloseEvent& event)
 {
     mGameView->Stop();
     Destroy();
-}
-
-void MainFrame::OnSolve(wxCommandEvent& WXUNUSED(event))
-{
-    wxMessageBox(L"Text placeholder for solve!", L"Solve Puzzle", wxOK | wxCENTRE, this);
 }

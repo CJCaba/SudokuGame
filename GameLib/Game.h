@@ -165,6 +165,7 @@ public:
         mItems.push_back(item);
     }
 
+    void Solve();
 };
 
 #endif //ARES_GAMELIB_GAME_H

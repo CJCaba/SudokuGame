@@ -58,3 +58,20 @@ void Item::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     double itemHeight = GetHeight();
     graphics->DrawBitmap(mItemBitmap, GetX(), GetY(), itemWid, itemHeight);
 }
+bool Item::OnBoard(wxPoint point)
+{
+    int startCol = point.x;
+    int endCol = point.x + 9;
+    for(int row = 0; row < 9; row++){
+        for(int col = 0; col < 9; col++){
+            if(HitTest(point*48)){
+                return true;
+            }
+            point.x++;
+            if(point.x >= endCol){ point.x = startCol; }
+        }
+        point.y++;
+    }
+
+    return false;
+}

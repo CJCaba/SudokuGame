@@ -3,6 +3,9 @@
  * @author Gerald Hoskins
  */
 
+#include "pch.h"
+
+#include <wx/graphics.h>
 #include <string>
 #include "ImFullErrorMessage.h"
 
