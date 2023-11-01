@@ -24,7 +24,6 @@ private:
 
 public:
     void Initialize();
-    void OnSolve(wxCommandEvent &);
 };
 
 #endif //ARES_GAMELIB_MAINFRAME_H

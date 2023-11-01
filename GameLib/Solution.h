@@ -39,6 +39,20 @@ public:
     {
         return mPoint;
     }
+
+    /**
+     * Determine whether a point on our virtual board is equal to the solution
+     * @return bool of integer comparison
+     */
+    bool IsEqual(int num, int row, int col){ return mSolutionNumbers[row][col] == num; }
+
+    /**
+     * Return a particular value from the solution
+     * @param row The row the value appears in
+     * @param col The column the value appears in
+     * @return The value found at the given row and column
+     */
+    int GetValue(int row, int col){ return mSolutionNumbers[row][col]; }
 };
 
 #endif //ARES_GAMELIB_SOLUTION_H

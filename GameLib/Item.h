@@ -93,6 +93,13 @@ public:
      Game* GetGame() { return mGame; }
 
      /**
+      * Ensure that the item isn't on the sudoku board
+      * @param point The starting point of the board
+      * @return bool value
+      */
+     bool OnBoard(wxPoint point);
+
+     /**
       * Check whether the point is within the bounds of this item
       * @param point point to check
       * @return boolean representing yes/no

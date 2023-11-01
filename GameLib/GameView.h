@@ -44,6 +44,7 @@ public:
     void OnLevel1(wxCommandEvent &event);
     void OnLevel2(wxCommandEvent &event);
     void OnLevel3(wxCommandEvent &event);
+    void OnSolve(wxCommandEvent &event);
 
     /**
      * Stop the timer so the window can close

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<level width="20" height="15" tilewidth="48" tileheight="48">
+<level width="30" height="20" tilewidth="48" tileheight="48">
 	<declarations>
 		<given id="i145" width="48" height="48" image="0b.png" value="0" />
 		<digit id="i146" width="48" height="48" image="0r.png" value="0" />
@@ -18,13 +18,15 @@
 		<digit id="i161" width="48" height="48" image="8r.png" value="8" />
 		<digit id="i164" width="48" height="48" image="3r.png" value="3" />
 		<sparty id="i165" width="96" height="96" front="2" head-pivot-angle="0.8" head-pivot-x="30" head-pivot-y="86" image1="sparty-1.png" image2="sparty-2.png" mouth-pivot-angle="1" mouth-pivot-x="39" mouth-pivot-y="86" target-x="72" target-y="24" />
-		<background id="i166" width="960" height="720" image="background.png" />
+		<background id="i169" width="528" height="528" image="sudoku.png" />
+		<background id="i166" width="1440" height="960" image="luigibackground.png" />
 		<xray id="i167" width="144" height="144" image="xray.png" capacity="7" />
 		<spotlight id="i168" width="1800" height="1400" image="spotlight.png" />
 	</declarations>
 	<game col="4" row="3">7 3 1 4 6 5 8 0 2 2 6 5 0 7 8 1 3 4 8 4 0 3 2 1 7 5 6 3 0 2 1 4 7 5 6 8 4 1 8 6 5 3 0 2 7 5 7 6 8 0 2 3 4 1 1 5 7 2 3 4 6 8 0 0 8 4 5 1 6 2 7 3 6 2 3 7 8 0 4 1 5</game>
 	<items>
-		<background id="i166" col="0.0" row="14.0" />
+		<background id="i166" col="0.0" row="19.0" />
+		<background id="i169" col="4.0" row="10.0" />
 		<xray id="i167" col="0.6042" row="14.0" />
 		<given id="i158" col="4" row="3" />
 		<given id="i152" col="7" row="3" />

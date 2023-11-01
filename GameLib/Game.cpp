@@ -8,7 +8,6 @@
 #include "Clock.h"
 #include "Sparty.h"
 #include "XRay.h"
-#include "Number.h"
 #include "GivenNumber.h"
 #include "InteractNumber.h"
 #include "Solution.h"
@@ -606,6 +605,10 @@ std::shared_ptr<wxImage> Game::GetImage(const string& id){
     return mImages[id];
 }
 
+/**
+ * Function to allow visitors to visit mItems
+ * @param visitor The visitor that will visit each item
+ */
 void Game::Accept(Visitor *visitor)
 {
     for (const auto &item : mItems)
@@ -614,7 +617,9 @@ void Game::Accept(Visitor *visitor)
     }
 }
 
-
+/**
+ * Update our Virtual Game board with the current numbers placed on the sudoku
+ */
 void Game::UpdateBoard()
 {
     // Obtain the starting point for the Sudoku Board
@@ -631,7 +636,6 @@ void Game::UpdateBoard()
     // and update the placement of numbers
     for(int row = 0; row < 9; row++){
         for(int col = 0; col < 9; col++){
-
             // First set point to 9, a number not present in our game
             mSolution[row][col] = 9;
             for(auto item : numbers){
@@ -664,5 +668,45 @@ void Game::LevelSolutionCorrect() {
     }
     if (arraysAreIdentical) {
         mLevelWon = true;
+    }
+}
+
+/**
+ * Solve the board with current numbers in mItems
+ */
+void Game::Solve() {
+    // Obtain the starting point for the Sudoku Board
+    auto point = mGameSolution->GetBoardPosition();
+
+    // Collect all current interactive numbers in mItems
+    InteractiveItems visitor;
+    Accept(&visitor);
+
+    auto numbers = visitor.InteractFound();
+
+    int startCol = point.x;
+    int endCol = point.x + 9;
+    // Iterate through the virtual board to see if we need to place a number there.
+    for(int row = 0; row < 9; row++){
+        for(int col = 0; col < 9; col++){
+            int boardValue = mSolution[row][col];
+            int solValue = mGameSolution->GetValue(row, col);
+            // If they are not equal, find a number that can be placed there
+            if(!mGameSolution->IsEqual(boardValue, row, col)){
+                for(auto item : numbers){
+                    if(item->GetValue() == solValue){
+                        // Ensure the current item isn't already placed on the board
+                        if(!item->OnBoard(mGameSolution->GetBoardPosition()))
+                        {
+                            item->SetLocation(point.x * 48, point.y * 48);
+                            break;
+                        }
+                    }
+                }
+            }
+            point.x++;
+            if (point.x >= endCol){point.x = startCol;}
+        }
+        point.y++;
     }
 }
