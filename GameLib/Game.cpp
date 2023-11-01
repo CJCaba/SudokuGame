@@ -197,7 +197,7 @@ void Game::OnUpdate(double elapsed)
     // Implement Building the Virtual Solution Board
     if (!mStartUp){
         UpdateBoard();
-     //   LevelSolutionCorrect();
+        LevelSolutionCorrect();
     }
 }
 
