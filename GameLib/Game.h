@@ -72,15 +72,6 @@ private:
     std::map<std::string, std::shared_ptr<wxImage>> mImages;
 
     int mSolution[9][9] = {0};
-//        {{9,9,9,9,9,9,9,9,9},
-//                           {9,9,9,9,9,9,9,9,9},
-//                           {9,9,9,9,9,9,9,9,9},
-//                           {9,9,9,9,9,9,9,9,9},
-//                           {9,9,9,9,9,9,9,9,9},
-//                           {9,9,9,9,9,9,9,9,9},
-//                           {9,9,9,9,9,9,9,9,9},
-//                           {9,9,9,9,9,9,9,9,9},
-//                           {9,9,9,9,9,9,9,9,9}};
 
     bool mStartUp = true;
 
@@ -88,6 +79,9 @@ private:
 
     int mTileWidth;
     int mTileHeight;
+
+    /// True if level is won
+    bool mLevelWon = false;
 
 public:
     Game();
@@ -149,6 +143,7 @@ public:
     void Accept(Visitor* visitor);
 
     void UpdateBoard();
+    void LevelSolutionCorrect();
 };
 
 #endif //ARES_GAMELIB_GAME_H

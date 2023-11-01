@@ -169,6 +169,7 @@ void Game::OnUpdate(double elapsed)
     // Implement Building the Virtual Solution Board
     if (!mStartUp){
         UpdateBoard();
+        LevelSolutionCorrect();
     }
 }
 
@@ -589,5 +590,25 @@ void Game::UpdateBoard()
             if (point.x >= endCol){point.x = startCol;}
         }
         point.y++;
+    }
+}
+
+/**
+  * Compares the expected solution to the current solution.
+  * If solution matches, mLevelWon set to True.
+  */
+void Game::LevelSolutionCorrect() {
+    int** expectedSolution = mGameSolution->getSolutionNumbers();
+    bool arraysAreIdentical = true;
+    for (int i = 0; i < 9 && arraysAreIdentical; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            if (expectedSolution[i][j] != mSolution[i][j]) {
+                arraysAreIdentical = false;
+                break;
+            }
+        }
+    }
+    if (arraysAreIdentical) {
+        mLevelWon = true;
     }
 }
