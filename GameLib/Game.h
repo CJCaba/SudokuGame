@@ -71,6 +71,17 @@ private:
     /// Map of Image pointers to IDs
     std::map<std::string, std::shared_ptr<wxImage>> mImages;
 
+    int mSolution[9][9] = {0};
+//        {{9,9,9,9,9,9,9,9,9},
+//                           {9,9,9,9,9,9,9,9,9},
+//                           {9,9,9,9,9,9,9,9,9},
+//                           {9,9,9,9,9,9,9,9,9},
+//                           {9,9,9,9,9,9,9,9,9},
+//                           {9,9,9,9,9,9,9,9,9},
+//                           {9,9,9,9,9,9,9,9,9},
+//                           {9,9,9,9,9,9,9,9,9},
+//                           {9,9,9,9,9,9,9,9,9}};
+
     bool mStartUp = true;
 
     std::wstring mCurrentLevel;
@@ -136,6 +147,8 @@ public:
     std::shared_ptr<wxImage> GetImage(const std::string& id);
 
     void Accept(Visitor* visitor);
+
+    void UpdateBoard();
 };
 
 #endif //ARES_GAMELIB_GAME_H
