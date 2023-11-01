@@ -38,7 +38,7 @@ void GameView::Initialize(wxFrame *parent) {
     Bind(wxEVT_MOTION, &GameView::OnMouseMove, this);
 
     mTimer.SetOwner(this);
-    mTimer.Start(1);
+    mTimer.Start(1); //< Set to 1 to avoid error on MacOS
     mStopWatch.Start();
 }
 

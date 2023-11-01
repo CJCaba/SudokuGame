@@ -89,7 +89,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
 
-
     //
     // Draw in virtual pixels on the graphics context
     //

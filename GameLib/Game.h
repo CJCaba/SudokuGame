@@ -153,9 +153,19 @@ public:
 
     std::shared_ptr<wxImage> GetImage(const std::string& id);
 
+    /**
+     * Game accepts visitor to view mItems list
+     * @param visitor
+     */
     void Accept(Visitor* visitor);
 
     void UpdateBoard();
+
+    void Add(std::shared_ptr<Item> item)
+    {
+        mItems.push_back(item);
+    }
+
 };
 
 #endif //ARES_GAMELIB_GAME_H
