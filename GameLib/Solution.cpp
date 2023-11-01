@@ -24,10 +24,10 @@ void Solution::LoadSolution(wxXmlNode* node)
     std::wstring gameContent = node->GetNodeContent().ToStdWstring();
     wxArrayString numbers = wxStringTokenize(gameContent, L" ");
 
-    int startingCol, startingRow;
-    node->GetAttribute(L"col").ToInt(&startingCol);
-    node->GetAttribute(L"row").ToInt(&startingRow);
-    mPoint.x = startingCol, mPoint.y = startingRow;
+    int boardStartingCol, boardStartingRow;
+    node->GetAttribute(L"col").ToInt(&boardStartingCol);
+    node->GetAttribute(L"row").ToInt(&boardStartingRow);
+    mPoint.x = boardStartingCol, mPoint.y = boardStartingRow;
 
     int currentRow = 0;
     int currentCol = 0;
