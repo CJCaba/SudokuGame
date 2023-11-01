@@ -116,8 +116,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // Drawing the Spotlight
     if (mSpotlight != NULL)
     {
-        mSpotlight->SetLocation(((mSpotlightLocation.x - (mSpotlight->GetWidth() / 2)) - mXOffset) / mScale,
-                                ((mSpotlightLocation.y - (mSpotlight->GetHeight() / 2)) - mYOffset) / mScale);
+        mSpotlight->SetLocation((mSpotlightLocation.x - (mSpotlight->GetWidth() / 2)),
+                                (mSpotlightLocation.y - (mSpotlight->GetHeight() / 2)));
     }
 
     // loop through items
