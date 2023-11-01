@@ -113,9 +113,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                          backgroundWidth,
                          backgroundHeight);
 
+    // Drawing the Spotlight
     if (mSpotlight != NULL)
     {
-        mSpotlight->SetLocation(mSpotlightLocation.x - double(width), mSpotlightLocation.y - double(height));
+        mSpotlight->SetLocation(((mSpotlightLocation.x - (mSpotlight->GetWidth() / 2)) - mXOffset) / mScale,
+                                ((mSpotlightLocation.y - (mSpotlight->GetHeight() / 2)) - mYOffset) / mScale);
     }
 
     // loop through items
@@ -202,8 +204,15 @@ void Game::OnUpdate(double elapsed)
 
 void Game::OnMouseMove(wxMouseEvent &event)
 {
-    mSpotlightLocation.x = ( event.GetX() - mXOffset ) / mScale;
-    mSpotlightLocation.y = ( event.GetY() - mYOffset ) / mScale;
+    double virtualX = ( event.GetX() - mXOffset ) / mScale;
+    double virtualY = ( event.GetY() - mYOffset ) / mScale;
+
+    if (WithinWidth(virtualX) && WithinHeight(virtualY))
+    {
+        mSpotlightLocation.x = virtualX;
+        mSpotlightLocation.y = virtualY;
+    }
+
 }
 
 void Game::OnLeftDown(wxMouseEvent &event)
