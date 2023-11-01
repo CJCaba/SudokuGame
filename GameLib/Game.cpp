@@ -17,6 +17,7 @@
 #include "Spotlight.h"
 
 #include "InteractiveItems.h"
+#include "VisitorNumbers.h"
 #include "XRayVisitor.h"
 #include "ContainerVisitor.h"
 
@@ -39,7 +40,7 @@ const double tileSize = 48;
 Game::Game()
 {
     mBackgroundImage = std::make_shared<wxImage>(backgroundFileName, wxBITMAP_TYPE_ANY);
-
+    mGameSolution = std::make_shared<Solution>();
     mClock = std::make_shared<Clock>(this);
     mClock->Reset();
 
@@ -171,6 +172,10 @@ void Game::OnUpdate(double elapsed)
     {
         mSparty->Update(elapsed);
     }
+    // Implement Building the Virtual Solution Board
+    if (!mStartUp){
+        UpdateBoard();
+    }
 }
 
 void Game::OnMouseMove(wxMouseEvent &event)
@@ -251,7 +256,7 @@ void Game::Load(const wxString &filename)
         }
         else if (name == L"game")
         {
-       //     mGameSolution->LoadSolution(child);
+            mGameSolution->LoadSolution(child);
         }
     }
 }
@@ -569,5 +574,38 @@ void Game::Accept(Visitor *visitor)
     for (const auto &item : mItems)
     {
         item->Accept(visitor);
+    }
+}
+
+
+void Game::UpdateBoard()
+{
+    // Obtain the starting point for the Sudoku Board
+    auto point = mGameSolution->GetBoardPosition();
+
+    // Obtain list of all current numbers on the board
+    VisitorNumbers visNum;
+    Accept(&visNum);
+    auto numbers = visNum.FoundItems();
+
+    int startCol = point.x;
+    int endCol = point.x + 9;
+    // Iterate through the Virtual Solution
+    // and update the placement of numbers
+    for(int row = 0; row < 9; row++){
+        for(int col = 0; col < 9; col++){
+
+            // First set point to 9, a number not present in our game
+            mSolution[row][col] = 9;
+            for(auto item : numbers){
+                // If a number is present on the point, add it to the board
+                if (item->HitTest(point * 48)){
+                    mSolution[row][col] = item->GetValue();
+                }
+            }
+            point.x++;
+            if (point.x >= endCol){point.x = startCol;}
+        }
+        point.y++;
     }
 }

@@ -28,8 +28,6 @@ set(SOURCE_FILES
         XRay.h
         Solution.cpp
         Solution.h
-        SolutionNumber.cpp
-        SolutionNumber.h
         Background.cpp
         Background.h
         Visitor.cpp
@@ -38,6 +36,8 @@ set(SOURCE_FILES
         InteractiveItems.h
         XRayVisitor.cpp
         XRayVisitor.h
+        VisitorNumbers.cpp
+        VisitorNumbers.h
         ContainerVisitor.cpp
         ContainerVisitor.h
         Spotlight.cpp

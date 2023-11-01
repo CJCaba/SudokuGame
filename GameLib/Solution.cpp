@@ -9,6 +9,10 @@
 
 using namespace std;
 
+Solution::Solution()
+{
+    mPoint = wxPoint(0,0);
+}
 
 /**
  * Handles loading the game's solution
@@ -20,12 +24,13 @@ void Solution::LoadSolution(wxXmlNode* node)
     std::wstring gameContent = node->GetNodeContent().ToStdWstring();
     wxArrayString numbers = wxStringTokenize(gameContent, L" ");
 
-    int startingCol, startingRow;
-    node->GetAttribute(L"col").ToInt(&startingCol);
-    node->GetAttribute(L"row").ToInt(&startingRow);
+    int boardStartingCol, boardStartingRow;
+    node->GetAttribute(L"col").ToInt(&boardStartingCol);
+    node->GetAttribute(L"row").ToInt(&boardStartingRow);
+    mPoint.x = boardStartingCol, mPoint.y = boardStartingRow;
 
-    int currentRow = startingRow;
-    int currentCol = startingCol;
+    int currentRow = 0;
+    int currentCol = 0;
 
     for (auto& numStr : numbers)
     {
@@ -33,13 +38,15 @@ void Solution::LoadSolution(wxXmlNode* node)
         numStr.ToInt(&value);
 
         // Create a SolutionNumber and add it to mSolutionNumbers
-        mSolutionNumbers.push_back(std::make_shared<SolutionNumber>(value, currentCol, currentRow));
+        mSolutionNumbers[currentRow][currentCol] = value;
 
         currentCol++;
-        if (currentCol == startingCol + 9)
+        if (currentCol >= 9)
         {
-            currentCol = startingCol;
+            currentCol = 0;
             currentRow++;
         }
     }
 }
+
+

@@ -99,9 +99,9 @@ public:
       */
      virtual bool HitTest(wxPoint point) const
      {
-         return (point.x > mX &&
+         return (point.x >= mX &&
                     point.x < (mX + GetWidth()) &&
-                    point.y > mY && point.y < (mY + GetHeight()));
+                    point.y >= mY && point.y < (mY + GetHeight()));
      }
 
      virtual void Accept(Visitor* visitor) = 0;

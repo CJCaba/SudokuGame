@@ -8,8 +8,6 @@
 #ifndef ARES_GAMELIB_SOLUTION_H
 #define ARES_GAMELIB_SOLUTION_H
 
-#include "SolutionNumber.h"
-
 /**
  * Implements a solution class
  */
@@ -17,20 +15,30 @@ class Solution
 {
 private:
 
+    wxPoint mPoint;
+
     /// A collection of Numbers that represents the game's solution
-    std::vector<std::shared_ptr<SolutionNumber>> mSolutionNumbers;
+    int mSolutionNumbers[9][9];
 
 public:
 
-    void LoadSolution(wxXmlNode* node);
+    Solution();
+
+    void LoadSolution(wxXmlNode *node);
 
     /**
      * Getter for mSolutionNumbers
      */
-    const std::vector<std::shared_ptr<SolutionNumber>>& GetSolutionNumbers() const { return mSolutionNumbers; }
+    int **getSolutionNumbers()
+    {
+        return reinterpret_cast<int **>(mSolutionNumbers);
 
+    }
 
-
+    wxPoint GetBoardPosition()
+    {
+        return mPoint;
+    }
 };
 
 #endif //ARES_GAMELIB_SOLUTION_H
