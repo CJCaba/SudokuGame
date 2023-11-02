@@ -92,6 +92,9 @@ private:
     /// True if level is won
     bool mLevelWon = false;
 
+    /// Records time of level victory
+    long mVictoryTime = -1;
+
 public:
     Game();
 
