@@ -167,13 +167,35 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     else
     {
         // Drawing Clock on Screen, should be Top Layer Drawing
-        mClock->Draw(graphics);
+        if(!mLevelWon)
+        {
+            mClock->Draw(graphics);
+        }
     }
 
-    // If (player won):
+    if(mLevelWon)
+    {
+        DrawEndScreen(graphics, WinText);
+        if(mVictoryTime == -1)
+        {
+            wxString victoryTimeStr = mClock->GetSeconds();
+            victoryTimeStr.ToLong(&mVictoryTime);
+            mVictoryTime += 3;
+        }
+        wxString currTimeStr = mClock->GetSeconds();
+        long currTime;
+        currTimeStr.ToLong(&currTime);
+        if(currTime == mVictoryTime)
+        {
+            mLevelWon = false;
+            SetLevel(L"LevelFiles/level2.xml");
+        }
+    }
+
+//    If (player won):
 //        DrawEndScreen(graphics, WinText);
-    // If (player lost):
-//        DrawEndScreen(graphics, LoseText);
+//    If (player lost):
+//    DrawEndScreen(graphics, LoseText);
 
     graphics->PopState();
 }
