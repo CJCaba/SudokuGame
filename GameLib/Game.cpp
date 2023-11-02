@@ -202,11 +202,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         }
     }
 
-//    If (player won):
-//        DrawEndScreen(graphics, WinText);
-//    If (player lost):
-//    DrawEndScreen(graphics, LoseText);
-
     graphics->PopState();
 }
 
@@ -837,6 +832,8 @@ void Game::Solve() {
     for(auto item : numbers){
         item->SetLocation(0,0);
     }
+
+    UpdateBoard();
 
     int startCol = point.x;
     int endCol = point.x + 9;
