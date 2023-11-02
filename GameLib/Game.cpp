@@ -26,10 +26,10 @@
 using namespace std;
 
 /// Path to Background Image (Hard Coded)
-std::wstring backgroundFileName = L"images/background.png";
+std::wstring const backgroundFileName = L"images/background.png";
 
 /// Level 1
-std::wstring level1 = L"LevelFiles/level1.xml";
+std::wstring const level1 = L"LevelFiles/level1.xml";
 
 /// Hard Coded Level 1 Attributes
 double gameWidth = 0;
@@ -147,7 +147,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     //
     // Checks if level is booting up
     //
-    if(mStartUp)
+    if(mStartUp && !mLevelWon)
     {
         //
         // Draws brief tutorial screen
@@ -177,6 +177,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
 
     if(mLevelWon)
     {
+        mStartUp = true;
         DrawEndScreen(graphics, WinText);
         if(mVictoryTime == -1)
         {
@@ -262,7 +263,7 @@ void Game::OnMouseMove(wxMouseEvent &event)
 void Game::OnLeftDown(wxMouseEvent &event)
 {
     // First 3 seconds of the game, don't do anything
-    if(mStartUp)
+    if(mStartUp || mLevelWon)
         return;
 
     double virtualX = ( event.GetX() - mXOffset ) / mScale;
@@ -413,7 +414,8 @@ void Game::XmlItem(wxXmlNode *node){
 
     if(name == "xray")
     {
-        item = std::make_shared<XRay>(this, itemDeclaration, node);
+        mXRay = std::make_shared<XRay>(this, itemDeclaration, node);
+        item = mXRay;
     }
 
     if(name == "sparty")
@@ -514,12 +516,10 @@ void Game::SetLevel(std::wstring filename)
  */
 void Game::OnKeyDown(wxKeyEvent &event)
 {
-    int keyCode = event.GetKeyCode();
+    if(mStartUp || mLevelWon)
+        return;
 
-    // Visitor finding xray
-    XRayVisitor visitorXRay;
-    Accept(&visitorXRay);
-    auto xRay = visitorXRay.XRayFound();
+    int keyCode = event.GetKeyCode();
 
     if (keyCode == WXK_SPACE)
     {
@@ -535,20 +535,20 @@ void Game::OnKeyDown(wxKeyEvent &event)
             Accept(&visitorRed);
             auto redNumbers = visitorRed.InteractFound();
 
-            if (xRay->IsFull())
+            if (mXRay->IsFull())
                 mErrorMessages.push_back(make_shared<ImFullErrorMessage>(wxPoint(GetWidth() / 2, GetHeight())));
             else
             {
                 for(auto &item : redNumbers)
                 {
                     // if item is found, add to xray and break
-                    if(xRay->Check(item))
+                    if(mXRay->Check(item))
                     {
                         continue;
                     }
                     if(item->HitTest(x, y))
                     {
-                        xRay->Add(item);
+                        mXRay->Add(item);
                         break;
                     }
                 }
@@ -569,7 +569,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
             int col = dest.x * mTileWidth;
             int row = dest.y * mTileHeight;
 
-            auto item = xRay->Find(keyCode - numberKeyOffset);
+            auto item = mXRay->Find(keyCode - numberKeyOffset);
             if (item != nullptr)
             {
                 VisitorNumbers numVisitor;
@@ -606,7 +606,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
                     item->SetLocation(x,y);
                 }
 
-                xRay->Remove(item);
+                mXRay->Remove(item);
             }
         }
     }
