@@ -779,7 +779,7 @@ void Game::LevelSolutionCorrect() {
 }
 
 /**
- * Solve the board with current numbers in mItems
+ * Solve the board with current interactive numbers in mItems
  */
 void Game::Solve() {
     // Obtain the starting point for the Sudoku Board
@@ -790,6 +790,11 @@ void Game::Solve() {
     Accept(&visitor);
 
     auto numbers = visitor.InteractFound();
+
+    // Move all Interactable Numbers off of the virtual board
+    for(auto item : numbers){
+        item->SetLocation(0,0);
+    }
 
     int startCol = point.x;
     int endCol = point.x + 9;
@@ -812,7 +817,7 @@ void Game::Solve() {
                 }
             }
             point.x++;
-            if (point.x >= endCol){point.x = startCol;}
+            if (point.x >= endCol){ point.x = startCol; }
         }
         point.y++;
     }

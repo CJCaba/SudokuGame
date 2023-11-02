@@ -38,7 +38,7 @@ TEST_F(SolutionTest, LoadSolutionTest) {
     wxXmlDocument doc;
     ASSERT_TRUE(doc.Load(tempFilePath));
 
-    Solution solutionInstance;
+    Solution solutionInstance(nullptr);
     wxXmlNode* rootNode = doc.GetRoot();
     if (rootNode->GetName() == wxT("game")) {
         solutionInstance.LoadSolution(rootNode);
