@@ -84,7 +84,7 @@ private:
 
     bool mStartUp = true;
 
-    std::wstring mCurrentLevel;
+    int mCurrentLevel;
 
     int mTileWidth;
     int mTileHeight;
