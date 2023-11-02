@@ -810,7 +810,8 @@ void Game::LevelSolutionCorrect() {
             }
         }
     }
-    if (arraysAreIdentical) {
+    if (arraysAreIdentical)
+    {
         mLevelWon = true;
     }
 }
