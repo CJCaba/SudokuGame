@@ -19,7 +19,7 @@
 		<given id="i160" width="48" height="48" image="8b.png" value="8" />
 		<digit id="i161" width="48" height="48" image="8r.png" value="8" />
 		<digit id="i164" width="48" height="48" image="3r.png" value="3" />
-		<sparty id="i165" width="96" height="96" front="2" head-pivot-angle="0.8" head-pivot-x="30" head-pivot-y="86" image1="sparty-1.png" image2="sparty-2.png" mouth-pivot-angle="1" mouth-pivot-x="39" mouth-pivot-y="86" target-x="72" target-y="24" />
+		<sparty id="i165" width="370" height="379" front="2" head-pivot-angle="0.8" head-pivot-x="30" head-pivot-y="86" image1="luigi-1.png" image2="luigi-2.png" mouth-pivot-angle="1" mouth-pivot-x="45" mouth-pivot-y="86" target-x="85" target-y="0" />
 		<background id="i169" width="528" height="528" image="sudoku.png" />
 		<background id="i166" width="1440" height="960" image="luigibackground.png" />
 		<xray id="i167" width="144" height="144" image="xray.png" capacity="7" />
