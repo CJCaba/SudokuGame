@@ -188,7 +188,16 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         if(currTime == mVictoryTime)
         {
             mLevelWon = false;
-            SetLevel(L"LevelFiles/level2.xml");
+            if(mCurrentLevel == 1)
+            {
+                SetLevel(L"LevelFiles/level2.xml");
+                mCurrentLevel = 2;
+            }
+            else
+            {
+                SetLevel(L"LevelFiles/level3.xml");
+                mCurrentLevel = 3;
+            }
         }
     }
 
