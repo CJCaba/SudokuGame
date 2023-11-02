@@ -180,15 +180,13 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         DrawEndScreen(graphics, WinText);
         if(mVictoryTime == -1)
         {
-            wxString victoryTimeStr = mClock->GetSeconds();
-            victoryTimeStr.ToLong(&mVictoryTime);
+            mVictoryTime = stoi(mClock->GetSeconds());
             mVictoryTime += 3;
         }
-        wxString currTimeStr = mClock->GetSeconds();
-        long currTime;
-        currTimeStr.ToLong(&currTime);
+        int currTime = stoi(mClock->GetSeconds());
         if(currTime == mVictoryTime)
         {
+            mVictoryTime = -1;
             mLevelWon = false;
             if(mCurrentLevel == 1)
             {
