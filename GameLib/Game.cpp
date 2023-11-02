@@ -201,11 +201,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         }
     }
 
-//    If (player won):
-//        DrawEndScreen(graphics, WinText);
-//    If (player lost):
-//    DrawEndScreen(graphics, LoseText);
-
     graphics->PopState();
 }
 
