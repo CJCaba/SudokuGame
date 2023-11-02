@@ -830,6 +830,10 @@ void Game::Solve() {
 
     // Move all Interactable Numbers off of the virtual board
     for(auto item : numbers){
+        if(mXRay->Check(item))
+        {
+            continue;
+        }
         item->SetLocation(0,0);
     }
 
@@ -849,6 +853,10 @@ void Game::Solve() {
                         // Ensure the current item isn't already placed on the board
                         if(!item->OnBoard(mGameSolution->GetBoardPosition()))
                         {
+                            if(mXRay->Check(item))
+                            {
+                                continue;
+                            }
                             item->SetLocation(point.x * 48, point.y * 48);
                             break;
                         }
