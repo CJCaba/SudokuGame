@@ -44,6 +44,8 @@ const wxString LoseText("Incorrect!");
 /// Green colour for popup messages
 const wxColour GreenColour(77, 167, 57);
 
+const int numberKeyOffset = 48;
+
 /**
  * Constructor for the game object
  */
@@ -559,7 +561,6 @@ void Game::OnKeyDown(wxKeyEvent &event)
         // Handler for 0 - 9 number keys
     else if (keyCode >= 48 && keyCode <= 57)
     {
-        mSparty->MakeEat();
         if (!mSparty->IsMoving())
         {
             auto target = mSparty->GetTargetPoint();
@@ -570,10 +571,44 @@ void Game::OnKeyDown(wxKeyEvent &event)
             int col = dest.x * mTileWidth;
             int row = dest.y * mTileHeight;
 
-            auto item = xRay->Find(keyCode - 48);
+            auto item = xRay->Find(keyCode - numberKeyOffset);
             if (item != nullptr)
             {
-                xRay->Remove(item, x, y, col, row);
+                VisitorNumbers numVisitor;
+                Accept(&numVisitor);
+                auto numbers = numVisitor.FoundItems();
+
+                for (auto num : numbers)
+                {
+                    if(num->HitTest(x,y))
+                        return;
+                }
+
+                mSparty->MakeEat();
+
+                if (x >= col && y >= row
+                    && x <= col + (GetTileWidth() * 9)
+                    && y <= row + (GetTileHeight() * 9))
+                {
+                    x /= GetTileWidth();
+                    y /= GetTileHeight();
+
+                    int newX = x;
+                    int newY = y;
+
+                    newX *= GetTileWidth();
+                    newY *= GetTileHeight();
+
+                    VisitorNumbers visitor;
+
+                    item->SetLocation(newX,newY);
+                }
+                else
+                {
+                    item->SetLocation(x,y);
+                }
+
+                xRay->Remove(item);
             }
         }
     }
@@ -788,7 +823,7 @@ void Game::LevelSolutionCorrect() {
 }
 
 /**
- * Solve the board with current numbers in mItems
+ * Solve the board with current interactive numbers in mItems
  */
 void Game::Solve() {
     // Obtain the starting point for the Sudoku Board
@@ -799,6 +834,11 @@ void Game::Solve() {
     Accept(&visitor);
 
     auto numbers = visitor.InteractFound();
+
+    // Move all Interactable Numbers off of the virtual board
+    for(auto item : numbers){
+        item->SetLocation(0,0);
+    }
 
     int startCol = point.x;
     int endCol = point.x + 9;
@@ -821,7 +861,7 @@ void Game::Solve() {
                 }
             }
             point.x++;
-            if (point.x >= endCol){point.x = startCol;}
+            if (point.x >= endCol){ point.x = startCol; }
         }
         point.y++;
     }

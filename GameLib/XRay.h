@@ -42,7 +42,7 @@ public:
 
     void Add(InteractNumber* interact);
 
-    void Remove(InteractNumber* item, double x, double y, double col, double row);
+    void Remove(InteractNumber* item);
 
     InteractNumber* Find(int value);
 
@@ -52,7 +52,7 @@ public:
      * Checks if the XRay is full
      * @return true if full, else return false
      */
-    bool IsFull() const { return mStomachItems.size() == mCapacity; }
+    bool IsFull() { return mStomachItems.size() == mCapacity; }
 
 
 
