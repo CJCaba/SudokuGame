@@ -840,6 +840,8 @@ void Game::Solve() {
         item->SetLocation(0,0);
     }
 
+    UpdateBoard();
+
     int startCol = point.x;
     int endCol = point.x + 9;
     // Iterate through the virtual board to see if we need to place a number there.
