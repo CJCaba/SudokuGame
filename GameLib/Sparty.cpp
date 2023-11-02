@@ -27,6 +27,7 @@ Sparty::Sparty(Game *game, wxXmlNode * dec, wxXmlNode* item) : Item(game, dec, i
     dec->GetAttribute("mouth-pivot-y", "0").ToInt(&mMouthPivot.y);
     dec->GetAttribute("target-x", "0").ToInt(&mTargetOffset.x);
     dec->GetAttribute("target-y", "0").ToInt(&mTargetOffset.y);
+    dec->GetAttribute("front", "1").ToInt(&mFront);
 }
 
 /**
@@ -55,7 +56,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     graphics->Translate(-headPivotX, -headPivotY);
 
     // Head gets drawn first if 1
-    if (mFront == 1)
+    if (mFront == 2)
     {
         Item::Draw(graphics);
     }
@@ -71,7 +72,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     graphics->PopState();
 
     // Head gets drawn last if 2
-    if (mFront == 2)
+    if (mFront == 1)
     {
         Item::Draw(graphics);
     }
