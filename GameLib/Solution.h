@@ -8,21 +8,34 @@
 #ifndef ARES_GAMELIB_SOLUTION_H
 #define ARES_GAMELIB_SOLUTION_H
 
+#include "Game.h"
+
 /**
  * Implements a solution class
  */
 class Solution
 {
 private:
+    Game *mGame;
 
-    wxPoint mPoint;
+    wxPoint mPoint = wxPoint(0,0);
 
     /// A collection of Numbers that represents the game's solution
-    int mSolutionNumbers[9][9];
+    int mSolutionNumbers[9][9]{};
 
 public:
+    Solution(Game *game);
 
-    Solution();
+    /// Default constructor (disabled)
+    Solution() = delete;
+
+    /// Copy constructor (disabled)
+    Solution(const Solution &) = delete;
+
+    /// Assignment operator
+    void operator=(const Solution &) = delete;
+
+    ~Solution();
 
     void LoadSolution(wxXmlNode *node);
 

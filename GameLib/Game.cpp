@@ -21,6 +21,8 @@
 #include "XRayVisitor.h"
 #include "ContainerVisitor.h"
 
+#include <algorithm>
+
 using namespace std;
 
 /// Path to Background Image (Hard Coded)
@@ -30,9 +32,8 @@ std::wstring backgroundFileName = L"images/background.png";
 std::wstring level1 = L"LevelFiles/level1.xml";
 
 /// Hard Coded Level 1 Attributes
-double gameWidth = 20;
-double gameHeight = 15;
-const double tileSize = 48;
+double gameWidth = 0;
+double gameHeight = 0;
 
 /// Text displayed when the player wins the game
 const wxString WinText("Level Complete!");
@@ -49,10 +50,9 @@ const wxColour GreenColour(77, 167, 57);
 Game::Game()
 {
     mBackgroundImage = std::make_shared<wxImage>(backgroundFileName, wxBITMAP_TYPE_ANY);
-    mGameSolution = std::make_shared<Solution>();
+    mGameSolution = std::make_shared<Solution>(this);
     mClock = std::make_shared<Clock>(this);
     mClock->Reset();
-
     mCurrentLevel = L"LevelFiles/level1.xml";
 }
 
@@ -77,8 +77,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
 {
     // Determine the size of the playing area in pixels
     // This is up to you...
-    mPixelWidth = gameWidth * tileSize;
-    mPixelHeight = gameHeight * tileSize;
+    mPixelWidth = gameWidth * mTileWidth;
+    mPixelHeight = gameHeight * mTileHeight;
 
     //
     // Automatic Scaling
@@ -122,7 +122,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                          backgroundHeight);
 
     // Drawing the Spotlight
-    if (mSpotlight != NULL)
+    if (mSpotlight != nullptr)
     {
         mSpotlight->SetLocation((mSpotlightLocation.x - (mSpotlight->GetWidth() / 2)),
                                 (mSpotlightLocation.y - (mSpotlight->GetHeight() / 2)));
@@ -154,14 +154,14 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         // Draw tutorial box
         TutorialPrompt(graphics);
 
+        if (mItems.empty())
+            Load(level1);
+
         // After 3 seconds, remove tutorial and start game
         if(mClock->GetSeconds() == "03")
         {
             mStartUp = false;
             mClock->Reset();
-
-            if (mItems.empty())
-                Load(level1);
         }
     }
     else
@@ -230,12 +230,17 @@ void Game::OnMouseMove(wxMouseEvent &event)
 
 void Game::OnLeftDown(wxMouseEvent &event)
 {
+    // First 3 seconds of the game, don't do anything
+    if(mStartUp)
+        return;
+
     double virtualX = ( event.GetX() - mXOffset ) / mScale;
     double virtualY = ( event.GetY() - mYOffset ) / mScale;
 
     if (mSparty && WithinWidth(virtualX) && WithinHeight(virtualY))
         mSparty->MoveToPoint( wxPoint(virtualX, virtualY) );
 }
+
 /**
  * Save the game as a .game XML file.
  *
@@ -303,6 +308,9 @@ void Game::Load(const wxString &filename)
             mGameSolution->LoadSolution(child);
         }
     }
+
+    // Restart boot up sequence, makes the game load for 3 seconds
+    mStartUp = true;
 }
 
 /**
@@ -468,32 +476,37 @@ void Game::OnKeyDown(wxKeyEvent &event)
 {
     int keyCode = event.GetKeyCode();
 
+    // Visitor finding xray
+    XRayVisitor visitorXRay;
+    Accept(&visitorXRay);
+    auto xRay = visitorXRay.XRayFound();
+
     if (keyCode == WXK_SPACE)
     {
         mSparty->MakeEat();
         if (!mSparty->IsMoving())
         {
             auto target = mSparty->GetTargetPoint();
+            double x = target.x;
+            double y = target.y;
 
             // Visitor creating an array of interact numbers
-            InteractiveItems visitorOne;
-            Accept(&visitorOne);
-
-            // Visitor finding xray
-            XRayVisitor visitorTwo;
-            Accept(&visitorTwo);
-
-            auto redNumbers = visitorOne.InteractFound();
-            auto xRay = visitorTwo.XRayFound();
+            InteractiveItems visitorRed;
+            Accept(&visitorRed);
+            auto redNumbers = visitorRed.InteractFound();
 
             if (xRay->IsFull())
                 mErrorMessages.push_back(make_shared<ImFullErrorMessage>(wxPoint(GetWidth() / 2, GetHeight())));
             else
             {
-                for(const auto &item : redNumbers)
+                for(auto &item : redNumbers)
                 {
                     // if item is found, add to xray and break
-                    if(item->HitTest(target))
+                    if(xRay->Check(item))
+                    {
+                        continue;
+                    }
+                    if(item->HitTest(x, y))
                     {
                         xRay->Add(item);
                         break;
@@ -502,12 +515,37 @@ void Game::OnKeyDown(wxKeyEvent &event)
             }
         }
     }
+
+        // Handler for 0 - 9 number keys
+    else if (keyCode >= 48 && keyCode <= 57)
+    {
+        mSparty->MakeEat();
+        if (!mSparty->IsMoving())
+        {
+            auto target = mSparty->GetTargetPoint();
+            int x = target.x;
+            int y = target.y;
+
+            auto dest = mGameSolution->GetBoardPosition();
+            int col = dest.x * mTileWidth;
+            int row = dest.y * mTileHeight;
+
+            auto item = xRay->Find(keyCode - 48);
+            if (item != nullptr)
+            {
+                xRay->Remove(item, x, y, col, row);
+            }
+        }
+    }
+
     else if (keyCode == 66) // ASCII 66 = B
     {
         mSparty->MakeHeadButt();
         if (!mSparty->IsMoving())
         {
             auto target = mSparty->GetTargetPoint();
+            double x = target.x;
+            double y = target.y;
 
             // Visitor finding
             ContainerVisitor visitor;
@@ -516,7 +554,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
             auto container = visitor.ContainerFound();
 
             for (auto item : container) {
-                if (item->HitTest(target))
+                if (item->HitTest(x, y))
                 {
                     item->Release();
                 }
@@ -678,7 +716,7 @@ void Game::UpdateBoard()
             mSolution[row][col] = 9;
             for(auto item : numbers){
                 // If a number is present on the point, add it to the board
-                if (item->HitTest(point * 48)){
+                if (item->HitTest(point.x * mTileWidth, point.y * mTileHeight)){
                     mSolution[row][col] = item->GetValue();
                 }
             }

@@ -26,8 +26,6 @@ public:
      * @param visitor The visitor we accept
      */
     void Accept(Visitor* visitor) override { visitor->VisitInteract(this); }
-
-    void Scale(double scale);
 };
 
 #endif //ARES_GAMELIB_INTERACTNUMBER_H

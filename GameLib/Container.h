@@ -92,11 +92,11 @@ public:
       * @param point point to check
       * @return boolean representing yes/no
       */
-    virtual bool HitTest(wxPoint point) const override
+    virtual bool HitTest(double x, double y) const override
     {
-        return (point.x > mX &&
-            point.x < (mX + mFrontImage->GetWidth()) &&
-            point.y > mY && point.y < (mY + mFrontImage->GetHeight()));
+        return (x > mX &&
+            x < (mX + mFrontImage->GetWidth()) &&
+            y > mY && y < (mY + mFrontImage->GetHeight()));
     }
 
     /**

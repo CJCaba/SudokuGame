@@ -9,9 +9,8 @@
 
 using namespace std;
 
-Solution::Solution()
+Solution::Solution(Game *game) : mGame(game)
 {
-    mPoint = wxPoint(0,0);
 }
 
 /**
@@ -47,6 +46,13 @@ void Solution::LoadSolution(wxXmlNode* node)
             currentRow++;
         }
     }
+}
+
+/**
+ * Destructor
+ */
+Solution::~Solution()
+{
 }
 
 

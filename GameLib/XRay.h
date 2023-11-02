@@ -26,6 +26,15 @@ private:
     std::vector<InteractNumber*> mStomachItems;
 
 public:
+    /// Default constructor (disabled)
+    XRay() = delete;
+
+    /// Copy constructor (disabled)
+    XRay(const XRay &) = delete;
+
+    /// Assignment operator
+    void operator=(const XRay &) = delete;
+
     /// Constructor
     XRay(Game *game, wxXmlNode * dec, wxXmlNode* item);
 
@@ -33,15 +42,25 @@ public:
 
     void Add(InteractNumber* interact);
 
-    void Remove();
+    void Remove(InteractNumber* item, double x, double y, double col, double row);
 
+    InteractNumber* Find(int value);
+
+    bool Check(InteractNumber* item);
+
+    /**
+     * Checks if the XRay is full
+     * @return true if full, else return false
+     */
     bool IsFull() const { return mStomachItems.size() == mCapacity; }
+
+
 
     /**
      * Accept a visitor
      * @param visitor The visitor we accept
      */
-    void Accept(Visitor* visitor) override { visitor->VisitXRay(this); }
+    void Accept(Visitor* visitor) override {visitor->VisitXRay(this); };
 };
 
 #endif //ARES_GAMELIB_XRAY_H

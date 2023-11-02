@@ -58,13 +58,16 @@ void Item::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     double itemHeight = GetHeight();
     graphics->DrawBitmap(mItemBitmap, GetX(), GetY(), itemWid, itemHeight);
 }
+
 bool Item::OnBoard(wxPoint point)
 {
+    auto game = GetGame();
+
     int startCol = point.x;
     int endCol = point.x + 9;
     for(int row = 0; row < 9; row++){
         for(int col = 0; col < 9; col++){
-            if(HitTest(point*48)){
+            if(HitTest(point.x * game->GetTileWidth(), point.y * game->GetTileHeight() )){
                 return true;
             }
             point.x++;

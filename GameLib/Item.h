@@ -61,6 +61,13 @@ public:
       */
      virtual double GetY() const { return mY; }
 
+
+     /**
+      * The bitmap for this Item
+      * @return  bitmap of item image
+      */
+     virtual wxGraphicsBitmap GetBitMap() {return mItemBitmap;}
+
      /**
       * Set the item location
       * @param x X location in pixels
@@ -104,11 +111,12 @@ public:
       * @param point point to check
       * @return boolean representing yes/no
       */
-     virtual bool HitTest(wxPoint point) const
+     virtual bool HitTest(double x, double y) const
      {
-         return (point.x >= mX &&
-                    point.x < (mX + GetWidth()) &&
-                    point.y >= mY && point.y < (mY + GetHeight()));
+         return (x >= mX &&
+                    x < (mX + GetWidth()) &&
+                    y >= mY &&
+                    y < (mY + GetHeight()));
      }
 
      virtual void Accept(Visitor* visitor) = 0;

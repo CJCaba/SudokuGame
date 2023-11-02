@@ -49,7 +49,7 @@ private:
     wxPoint mSpotlightLocation;
 
     /// Solution to the game
-    std::shared_ptr<Solution> mGameSolution;
+    std::shared_ptr<Solution> mGameSolution = nullptr;
 
     std::shared_ptr<wxImage> mBackgroundImage;  ///< Background image to use
 
@@ -159,11 +159,6 @@ public:
 
     void UpdateBoard();
     void LevelSolutionCorrect();
-
-    void Add(std::shared_ptr<Item> item)
-    {
-        mItems.push_back(item);
-    }
 
     void Solve();
     void DrawEndScreen(std::shared_ptr<wxGraphicsContext> graphics, wxString EndText);
