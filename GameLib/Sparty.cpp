@@ -113,9 +113,9 @@ void Sparty::Update(double elapsed)
             newX = double(game->GetWidth() - (GetWidth()/2) );
         }
 
-        if (newY > double(game->GetHeight() - GetHeight()) )
+        if (newY > double(game->GetHeight() - GetHeight()/2) )
         {
-            newY = double(game->GetHeight() - GetHeight());
+            newY = double(game->GetHeight() - GetHeight()/2);
         }
 
         SetLocation(newX, newY);

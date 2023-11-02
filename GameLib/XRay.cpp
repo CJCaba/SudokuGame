@@ -7,6 +7,7 @@
 
 #include "pch.h"
 #include "XRay.h"
+#include "VisitorNumbers.h"
 
 using namespace std;
 
@@ -93,29 +94,8 @@ bool XRay::Check(InteractNumber* item)
     }
 }
 
-void XRay::Remove(InteractNumber* item, double x, double y, double col, double row)
+void XRay::Remove(InteractNumber* item)
 {
-    auto game = GetGame();
-    if (x >= col && y >= row
-        && x <= col + (game->GetTileWidth() * 9)
-        && y <= row + (game->GetTileHeight() * 9))
-    {
-        x /= game->GetTileWidth();
-        y /= game->GetTileHeight();
-
-        int newX = x;
-        int newY = y;
-
-        newX *= game->GetTileWidth();
-        newY *= game->GetTileHeight();
-
-        item->SetLocation(newX,newY);
-    }
-    else
-    {
-        item->SetLocation(x,y);
-    }
-
     auto loc = find(begin(mStomachItems), end(mStomachItems), item);
     if (loc != std::end(mStomachItems))
     {
