@@ -166,6 +166,7 @@ public:
     }
 
     void Solve();
+    void DrawEndScreen(std::shared_ptr<wxGraphicsContext> graphics, wxString EndText);
 };
 
 #endif //ARES_GAMELIB_GAME_H

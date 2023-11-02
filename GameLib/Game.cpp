@@ -23,16 +23,25 @@
 
 using namespace std;
 
-// Path to Background Image (Hard Coded)
+/// Path to Background Image (Hard Coded)
 std::wstring backgroundFileName = L"images/background.png";
 
-// Level 1
+/// Level 1
 std::wstring level1 = L"LevelFiles/level1.xml";
 
-// Hard Coded Level 1 Attributes
+/// Hard Coded Level 1 Attributes
 double gameWidth = 20;
 double gameHeight = 15;
 const double tileSize = 48;
+
+/// Text displayed when the player wins the game
+const wxString WinText("Level Complete!");
+
+/// Text displayed when the player loses the game
+const wxString LoseText("Incorrect!");
+
+/// Green colour for popup messages
+const wxColour GreenColour(77, 167, 57);
 
 /**
  * Constructor for the game object
@@ -160,6 +169,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         // Drawing Clock on Screen, should be Top Layer Drawing
         mClock->Draw(graphics);
     }
+
+    // If (player won):
+//        DrawEndScreen(graphics, WinText);
+    // If (player lost):
+//        DrawEndScreen(graphics, LoseText);
 
     graphics->PopState();
 }
@@ -558,7 +572,7 @@ void Game::TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics)
                    wxFONTFAMILY_SWISS,
                    wxFONTSTYLE_NORMAL,
                    wxFONTWEIGHT_BOLD);
-    graphics->SetFont(bigFont, wxColour(78,91,49));
+    graphics->SetFont(bigFont, GreenColour);
 
     // Determines which level to display in text box
     std::wstring displayText = DetermineStartupText();
@@ -594,6 +608,30 @@ void Game::TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics)
     graphics->DrawText(L"B = Headbutt",
                        rectX + (rectWidth/2) - (textWidth/2),
                        rectY + titleHeight + (textHeight * 2));
+}
+
+/**
+ * Draw the Tutorial Prompt for our game
+ * @param graphics The context to draw on
+ */
+void Game::DrawEndScreen(std::shared_ptr<wxGraphicsContext> graphics, wxString EndText)
+{
+    // Rectangle properties
+    wxPoint topLeft(0, 0);
+    wxPoint bottomRight(GetWidth(), GetHeight());
+
+    // Create a font and set it
+    wxFont font(96, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+    wxColour textColor(GreenColour);
+    graphics->SetFont(font, textColor);
+
+    // Calculate the text position to center it within the rectangle
+    double textWidth, textHeight;
+    graphics->GetTextExtent(EndText, &textWidth, &textHeight);
+    wxPoint textPosition(topLeft.x + (bottomRight.x - textWidth) / 2, topLeft.y + (bottomRight.y - textHeight) / 2);
+
+    // Draw the red text in the center of the rectangle
+    graphics->DrawText(EndText, textPosition.x, textPosition.y);
 }
 
 /**
