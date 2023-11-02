@@ -53,7 +53,7 @@ Game::Game()
     mGameSolution = std::make_shared<Solution>(this);
     mClock = std::make_shared<Clock>(this);
     mClock->Reset();
-    mCurrentLevel = L"LevelFiles/level1.xml";
+    mCurrentLevel = 1;
 }
 
 /**
@@ -485,10 +485,19 @@ void Game::SetLevel(std::wstring filename)
 {
     Clear();
     mStartUp = true;
-    mCurrentLevel = filename;
+
+    // Find the digit in the filename and convert it to an integer
+    for (wchar_t wc : filename) {
+        if (isdigit(wc)) {
+            mCurrentLevel = wc - L'0';
+            break;
+        }
+    }
+
     mClock->Reset();
     Load(filename);
 }
+
 
 /**
  * Handle the key down event
@@ -591,15 +600,15 @@ void Game::OnKeyDown(wxKeyEvent &event)
  */
 wstring Game::DetermineStartupText()
 {
-    if (mCurrentLevel == L"LevelFiles/level1.xml")
+    if (mCurrentLevel == 1)
     {
         return L"Level 1 Begin";
     }
-    else if (mCurrentLevel == L"LevelFiles/level2.xml")
+    else if (mCurrentLevel == 2)
     {
         return L"Level 2 Begin";
     }
-    else if (mCurrentLevel == L"LevelFiles/level3.xml")
+    else if (mCurrentLevel == 3)
     {
         return L"Level 3 Begin";
     }

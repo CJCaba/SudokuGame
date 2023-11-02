@@ -74,7 +74,7 @@ void GameView::OnPaint(wxPaintEvent &event) {
     if(minDimension == 0)
     {
         // No reason to draw if the window is size zero
-        // and this avoids any divid by zero errors
+        // and this avoids any divide by zero errors
         return;
     }
     gc->PushState();
