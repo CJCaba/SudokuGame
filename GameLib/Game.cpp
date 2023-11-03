@@ -227,7 +227,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
  */
 void Game::OnUpdate(double elapsed)
 {
-    if (mClock != nullptr || !mLevelWon)
+    if (mClock != nullptr)
     {
         mClock->AddTime(elapsed);
     }
