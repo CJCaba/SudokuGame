@@ -4,7 +4,6 @@
  */
 
 #include "pch.h"
-
 #include "AudioPlayer.h"
 
 /**
@@ -27,7 +26,7 @@ void AudioPlayer::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     if (mAudio->IsOk())
     {
-        if (!mAudio->IsPlaying())
+        if (!mAudio->)
         {
             mAudio->Play();
         }

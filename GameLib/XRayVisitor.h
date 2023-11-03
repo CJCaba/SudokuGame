@@ -2,7 +2,7 @@
  * @file XRayVisitor.h
  * @author linja
  *
- *
+ * Search for the XRay in the list of items
  */
 
 #ifndef ARES_GAMELIB_XRAYVISITOR_H
@@ -11,6 +11,9 @@
 #include "Visitor.h"
 #include "XRay.h"
 
+/**
+ * Visitor Class for Xrays
+ */
 class XRayVisitor : public Visitor
 {
 private:

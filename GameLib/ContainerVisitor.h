@@ -2,7 +2,7 @@
  * @file ContainerVisitor.h
  * @author linja
  *
- *
+ * Visit and Collect all Containers
  */
 
 #ifndef ARES_GAMELIB_CONTAINERVISITOR_H
@@ -10,6 +10,9 @@
 
 #include "Visitor.h"
 
+/**
+ * Visitor Class for Containers
+ */
 class ContainerVisitor : public Visitor
 {
 private:
