@@ -19,8 +19,7 @@ Solution::Solution(Game *game) : mGame(game)
 
 /**
  * Handles loading the game's solution
- * @param node
- * @return
+ * @param node XML node being loaded
  */
 void Solution::LoadSolution(wxXmlNode* node)
 {
