@@ -15,6 +15,29 @@
  */
 AudioPlayer::AudioPlayer(Game *game, wxXmlNode * dec, wxXmlNode* item) : Item(game, dec, item)
 {
-
+    std::wstring filename = L"audio/" + dec->GetAttribute("file", "").ToStdWstring();
+    mAudio = std::make_shared<wxSound>(filename);
 }
 
+/**
+ * Override draw to play audio instead
+ * @param graphics graphics context of the game
+ */
+void AudioPlayer::Draw(std::shared_ptr<wxGraphicsContext> graphics)
+{
+    if (mAudio->IsOk())
+    {
+        if (!mAudio->IsPlaying())
+        {
+            mAudio->Play();
+        }
+    }
+}
+
+/**
+* Stops the audio
+*/
+void AudioPlayer::Stop()
+{
+    mAudio->Stop();
+}

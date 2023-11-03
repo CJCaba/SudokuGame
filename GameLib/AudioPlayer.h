@@ -17,13 +17,15 @@
 class AudioPlayer : public Item
 {
 private:
-    wxSound mAudio;
+    std::shared_ptr<wxSound> mAudio;
 public:
     /// Constructor
     AudioPlayer(Game *game, wxXmlNode * dec, wxXmlNode* item);
 
     // Disables drawing because it is audio not an image
-    void Draw(std::shared_ptr<wxGraphicsContext> graphics) override {};
+    void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
+
+    void Stop();
 
     /**
      * Accept a visitor

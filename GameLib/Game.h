@@ -81,9 +81,6 @@ private:
     /// Map of Image pointers to IDs
     std::map<std::string, std::shared_ptr<wxImage>> mImages;
 
-    /// Map of Audio pointers to IDs
-    std::map<std::string, std::shared_ptr<wxSound>> mAudios;
-
     int mSolution[9][9] = {0};
 
     bool mStartUp = true;

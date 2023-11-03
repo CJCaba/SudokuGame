@@ -46,6 +46,8 @@ set(SOURCE_FILES
         Spotlight.h
         AudioPlayer.cpp
         AudioPlayer.h
+        VisitorAudio.cpp
+        VisitorAudio.h
 )
 
 set(wxBUILD_PRECOMP OFF)

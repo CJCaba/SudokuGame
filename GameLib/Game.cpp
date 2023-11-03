@@ -21,6 +21,7 @@
 #include "VisitorNumbers.h"
 #include "XRayVisitor.h"
 #include "ContainerVisitor.h"
+#include "VisitorAudio.h"
 
 #include <algorithm>
 
@@ -355,6 +356,14 @@ void Game::Load(const wxString &filename)
 void Game::Clear()
 {
     mDeclarations.clear();
+
+    VisitorAudio visitAudio;
+
+    Accept(&visitAudio);
+    auto audio = visitAudio.AudioFound();
+    if (audio != nullptr)
+        audio->Stop();
+
     mItems.clear();
     mBackgroundImage->Clear();
     mBackgroundBitmap.UnRef();
@@ -386,18 +395,9 @@ void Game::XmlDeclare(wxXmlNode *node){
     mDeclarations[id] = node;
 
 
-    if (name == "audio")
-    {
-        auto audio = make_shared<wxSound>(filename);
-        if (audio->IsOk())
-        {
-            mAudios[id] = audio;
-        }
-    }
-    else
+    if (name != "audio")
     {
         mImages[id] = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
-
     }
 }
 
