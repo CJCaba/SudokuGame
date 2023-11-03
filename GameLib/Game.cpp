@@ -28,13 +28,15 @@
 using namespace std;
 
 /// Path to Background Image (Hard Coded)
-std::wstring const backgroundFileName = L"images/background.png";
+std::wstring const BackgroundFileName = L"images/background.png";
 
 /// Level 1
-std::wstring const level1 = L"LevelFiles/level1.xml";
+std::wstring const Level1 = L"LevelFiles/Level1.xml";
 
-/// Hard Coded Level 1 Attributes
+/// Hard Coded Game Width
 double gameWidth = 0;
+
+/// Hard Coded Game Height
 double gameHeight = 0;
 
 /// Text displayed when the player wins the game
@@ -55,7 +57,7 @@ const int NumberKeyOffset = 48;
 */
 Game::Game()
 {
-    mBackgroundImage = std::make_shared<wxImage>(backgroundFileName, wxBITMAP_TYPE_ANY);
+    mBackgroundImage = std::make_shared<wxImage>(BackgroundFileName, wxBITMAP_TYPE_ANY);
     mGameSolution = std::make_shared<Solution>(this);
     mClock = std::make_shared<Clock>(this);
     mClock->Reset();
@@ -170,7 +172,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         TutorialPrompt(graphics);
 
         if (mItems.empty())
-            Load(level1);
+            Load(Level1);
 
         // After 3 seconds, remove tutorial and start game
         if(mClock->GetSeconds() == "03")
@@ -205,7 +207,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                     SetLevel(L"LevelFiles/level2.xml");
                     mCurrentLevel = 2;
                 }
-                else {SetLevel(L"LevelFiles/level1.xml");}
+                else {SetLevel(L"LevelFiles/Level1.xml");}
             }
 
             else if (mCurrentLevel == 2)

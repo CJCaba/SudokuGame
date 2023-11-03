@@ -162,7 +162,7 @@ void GameView::OnFileOpen(wxCommandEvent& event)
  */
  void GameView::OnLevel1(wxCommandEvent &event)
  {
-    mGame.SetLevel(L"LevelFiles/level1.xml");
+    mGame.SetLevel(L"LevelFiles/Level1.xml");
  }
 
 /**

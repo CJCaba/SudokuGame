@@ -7,7 +7,7 @@
 #include "pch.h"
 #include "Item.h"
 
-// Hard Coded Attributes
+/// Hard Coded Attributes
 const double tileOffset = 96;
 
 using namespace std;
