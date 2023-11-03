@@ -16,6 +16,11 @@ InteractNumber::InteractNumber(Game *game, wxXmlNode * dec, wxXmlNode* item) :
     Number(game, dec, item)
 {
 }
+
+/**
+ * Draws the InteractNumber
+ * @param graphics wxGraphicsContext pointer
+ */
 void InteractNumber::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     if (mXRayFlag)

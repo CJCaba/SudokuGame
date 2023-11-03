@@ -30,7 +30,10 @@ public:
     /// Assignment operator
     void operator=(const Number &) = delete;
 
-    /// Sets number's value
+    /**
+     * Value setter
+     * @param i value to set
+     */
     void SetValue(int i) { mValue = i; }
 
     /**
