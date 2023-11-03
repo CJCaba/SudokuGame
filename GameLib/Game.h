@@ -164,7 +164,7 @@ public:
     void Accept(Visitor* visitor);
 
     void UpdateBoard();
-    void LevelSolutionCorrect();
+    void CheckSolution();
 
     void Solve();
     void DrawEndScreen(std::shared_ptr<wxGraphicsContext> graphics, wxString EndText);

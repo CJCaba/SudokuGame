@@ -254,7 +254,7 @@ void Game::OnUpdate(double elapsed)
     // Implement Building the Virtual Solution Board
     if (!mStartUp){
         UpdateBoard();
-        LevelSolutionCorrect();
+        CheckSolution();
     }
 }
 
@@ -815,9 +815,9 @@ void Game::UpdateBoard()
 
 /**
   * Compares the expected solution to the current solution.
-  * If solution matches, mLevelWon set to True.
+  * If solution matches, mLevelWon set to True. If not mLevelLost is set to True.
   */
-void Game::LevelSolutionCorrect() {
+void Game::CheckSolution() {
     int (*expectedSolution)[9] = mGameSolution->GetSolutionNumbers();
     bool arraysAreIdentical = true;
     bool boardFull = true;
