@@ -147,7 +147,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     //
     // Checks if level is booting up
     //
-    if(mStartUp && !mLevelWon)
+    if(mStartUp && !mLevelWon && !mLevelLost)
     {
         //
         // Draws brief tutorial screen
@@ -175,30 +175,41 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         }
     }
 
-    if(mLevelWon)
+    if(mLevelWon || mLevelLost)
     {
         mStartUp = true;
-        DrawEndScreen(graphics, WinText);
-        if(mVictoryTime == -1)
+        DrawEndScreen(graphics, mLevelWon ? WinText : LoseText);
+        if(mFinishTime == -1)
         {
-            mVictoryTime = stoi(mClock->GetSeconds());
-            mVictoryTime += 3;
+            mFinishTime = stoi(mClock->GetSeconds());
+            mFinishTime += 3;
         }
         int currTime = stoi(mClock->GetSeconds());
-        if(currTime == mVictoryTime)
+        if(currTime == mFinishTime)
         {
-            mVictoryTime = -1;
-            mLevelWon = false;
+            mFinishTime = -1;
+            mLevelLost = false;
             if(mCurrentLevel == 1)
             {
-                SetLevel(L"LevelFiles/level2.xml");
-                mCurrentLevel = 2;
+                if(mLevelWon)
+                {
+                    SetLevel(L"LevelFiles/level2.xml");
+                    mCurrentLevel = 2;
+                }
+                else {SetLevel(L"LevelFiles/level1.xml");}
             }
-            else
+
+            else if (mCurrentLevel == 2)
             {
-                SetLevel(L"LevelFiles/level3.xml");
-                mCurrentLevel = 3;
+                if(mLevelWon)
+                {
+                    SetLevel(L"LevelFiles/level3.xml");
+                    mCurrentLevel = 3;
+                }
+                else {SetLevel(L"LevelFiles/level2.xml");}
             }
+
+            else {SetLevel(L"LevelFiles/level3.xml");}
         }
     }
 
@@ -351,6 +362,8 @@ void Game::Clear()
     mItems.clear();
     mBackgroundImage->Clear();
     mBackgroundBitmap.UnRef();
+    mLevelWon = false;
+    mLevelLost = false;
 }
 
 /**
@@ -802,10 +815,13 @@ void Game::UpdateBoard()
 void Game::LevelSolutionCorrect() {
     int (*expectedSolution)[9] = mGameSolution->GetSolutionNumbers();
     bool arraysAreIdentical = true;
+    bool boardFull = true;
     for (int i = 0; i < 9 && arraysAreIdentical; ++i) {
         for (int j = 0; j < 9; ++j) {
-            if (expectedSolution[i][j] != mSolution[i][j]) {
+            if (expectedSolution[i][j] != mSolution[i][j])
+            {
                 arraysAreIdentical = false;
+                if(mSolution[i][j] == 9) {boardFull = false;}
                 break;
             }
         }
@@ -813,6 +829,10 @@ void Game::LevelSolutionCorrect() {
     if (arraysAreIdentical)
     {
         mLevelWon = true;
+    }
+    if(boardFull && !arraysAreIdentical)
+    {
+        mLevelLost = true;
     }
 }
 

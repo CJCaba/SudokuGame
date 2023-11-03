@@ -89,11 +89,14 @@ private:
     int mTileWidth;
     int mTileHeight;
 
+    /// True if level is lost
+    bool mLevelLost = false;
+
     /// True if level is won
     bool mLevelWon = false;
 
     /// Records time of level victory
-    int mVictoryTime = -1;
+    int mFinishTime = -1;
 
 public:
     Game();
