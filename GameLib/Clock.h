@@ -43,15 +43,33 @@ public:
 
     ~Clock();
 
-    std::string GetMinutes();
     std::string GetSeconds();
 
     void SetTime(long time);
     void AddTime(double elapsed);
-    void Reset();
     void Draw(std::shared_ptr<wxGraphicsContext> graphics, bool final = false);
-    void SetScore();
-    std::string GetScore();
+
+    /**
+     * Converts analog minutes to a string
+     * @return minutes as type string
+     */
+    std::string GetMinutes() { std::string mins = std::to_string(int(mMinutes)); return mins; }
+
+    /**
+     * Reset clock to zero
+     */
+    void Reset() { mMinutes = 0; mSeconds = 0; }
+
+    /**
+     * Set the final score of the game
+     */
+    void SetScore() { mFinalScore = GetMinutes() + ":" + GetSeconds(); }
+
+    /**
+     * Return the final score in string form
+     * @return final score
+     */
+    std::string GetScore() { return mFinalScore; }
 };
 
 #endif //ARES_GAMELIB_CLOCK_H

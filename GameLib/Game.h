@@ -102,7 +102,10 @@ private:
     /// Tile Height of the Game
     int mTileHeight;
 
+    /// Width of the game
     double mGameWidth = 0;
+
+    /// Height of the game
     double mGameHeight = 0;
 
     /// True if level is lost
@@ -193,6 +196,10 @@ public:
 
     void Accept(Visitor* visitor);
 
+    /**
+     * Getter for Clock instance
+     * @return the clock
+     */
     std::shared_ptr<Clock> GetClock() { return mClock; };
 
     void UpdateBoard();

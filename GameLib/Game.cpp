@@ -41,8 +41,7 @@ const wxString LoseText = wxString("Incorrect!");
 /// Green colour for popup messages
 const wxColour GreenColour = wxColour(77, 167, 57);
 
-/// Offset for number keys, to make 0 in ACII, zero
-/// ASCII offset for numbers
+/// Offset for number keys, to make 0 in ACII, zero ASCII offset for numbers
 const int NumberKeyOffset = 48;
 
 /**
@@ -100,11 +99,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     graphics->Scale(mScale, mScale);
 
     //
-    // Draw in virtual pixels on the graphics context
-    //
-    // INSERT YOUR DRAWING CODE HERE
-
-    //
     // Take Background Bitmap and Load Width & Height
     //
     if (mBackgroundBitmap.IsNull())
@@ -129,9 +123,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                                 (mSpotlightLocation.y - (mSpotlight->GetHeight() / 2)));
     }
 
-    // loop through items
-    // if item is not in any containers
-    // draw item
     for (auto item : mItems)
     {
         if (item == mSparty || item == mSpotlight)
@@ -157,10 +148,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     //
     if(mStartUp && !mLevelWon && !mLevelLost)
     {
-        //
-        // Draws brief tutorial screen
-        //
-
         // Draw tutorial box
         TutorialPrompt(graphics);
 
@@ -685,7 +672,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
 
 /**
  * Determines display text based on level
- * @param currentLevel level to display
+ * @return Tutorial header text as wstring
  */
 wstring Game::DetermineStartupText()
 {
@@ -771,6 +758,7 @@ void Game::TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics)
 /**
  * Draw the Tutorial Prompt for our game
  * @param graphics The context to draw on
+ * @param EndText The text to display
  */
 void Game::DrawEndScreen(std::shared_ptr<wxGraphicsContext> graphics, wxString EndText)
 {
