@@ -2,12 +2,16 @@
  * @file Background.h
  * @author jadec
  *
- *
+ * Class for all background items in the Xml file
  */
 
 #ifndef ARES_GAMELIB_BACKGROUND_H
 #define ARES_GAMELIB_BACKGROUND_H
 #include "Item.h"
+
+/**
+ * Base class for Background
+ */
 class Background : public Item
 {
 private:

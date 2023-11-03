@@ -26,11 +26,7 @@ private:
     /// Seconds that have past since level start
     double mSeconds = 0;
 
-    bool mStartUp = true;
-
 public:
-    Clock(Game *game);
-
     /// Default constructor (disabled)
     Clock() = delete;
 
@@ -39,6 +35,8 @@ public:
 
     /// Assignment operator
     void operator=(const Clock &) = delete;
+
+    Clock(Game *game);
 
     ~Clock();
 
