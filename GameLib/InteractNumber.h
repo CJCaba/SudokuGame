@@ -27,7 +27,13 @@ public:
      * @param visitor The visitor we accept
      */
     void Accept(Visitor* visitor) override { visitor->VisitInteract(this); }
+
+    /**
+     * Setter for X-Ray flag
+     * @param b boolean to set
+     */
     void SetXRayFlag(bool b) { mXRayFlag = b; }
+
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 };
 
