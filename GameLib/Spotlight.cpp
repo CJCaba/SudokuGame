@@ -18,12 +18,4 @@ Spotlight::Spotlight(Game *game, wxXmlNode * dec, wxXmlNode* item) : Item(game, 
 
 }
 
-/**
-  * Draw this item
-  * @param gc Device context to draw on
-  */
-void Spotlight::Draw(std::shared_ptr<wxGraphicsContext> graphics)
-{
-
-}
 

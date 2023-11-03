@@ -22,12 +22,6 @@ public:
     Spotlight(Game *game, wxXmlNode * dec, wxXmlNode* item);
 
     /**
-      * Draw this item
-      * @param gc Device context to draw on
-      */
-    void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
-
-    /**
      * Accept a visitor
      * @param visitor The visitor we accept
      */
