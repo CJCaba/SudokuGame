@@ -16,6 +16,12 @@ const double EatingTime = 0.5;
 /// The time for a headbutt cycle in seconds
 const double HeadbuttTime = 0.5;
 
+/**
+ * Constructor for Sparty object
+ * @param game game this sparty is a party of
+ * @param dec declaration node
+ * @param item item node
+ */
 Sparty::Sparty(Game *game, wxXmlNode * dec, wxXmlNode* item) : Item(game, dec, item)
 {
     std::wstring filename2 = L"images/" + dec->GetAttribute("image2", "").ToStdWstring();
