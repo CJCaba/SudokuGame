@@ -13,7 +13,7 @@
 const int ScoreboardTextSize = 64;
 
 /// Top left corner of the scoreboard in virtual pixels
-const wxPoint ScoreboardTopLeft(10, 10);
+const wxPoint ScoreboardTopLeft = wxPoint(10, 10);
 
 /**
  * Constructor

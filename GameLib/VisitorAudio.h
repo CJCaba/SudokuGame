@@ -11,7 +11,7 @@
 #include "Visitor.h"
 
 /**
- * Visitor class to search for Audio Player item
+ * Visitor that identifies and retrieves a AudioPlayer instance
  */
 class VisitorAudio : public Visitor
 {
@@ -19,6 +19,12 @@ private:
     /// Pointer for AudioPlayer item
     AudioPlayer* mAudio = nullptr;
 public:
+    /**
+     * Visits AudioPlayer instance
+     * @param audio instance of AudioPlayer
+     */
+    void VisitAudioPlayer(AudioPlayer* audio) { mAudio = audio; }
+
     /**
      * Visit an AudioPlayer item
      * @param audio Pointer to an AudioPlayer

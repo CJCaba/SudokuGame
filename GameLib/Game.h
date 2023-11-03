@@ -102,6 +102,9 @@ private:
     /// Tile Height of the Game
     int mTileHeight;
 
+    double mGameWidth = 0;
+    double mGameHeight = 0;
+
     /// True if level is lost
     bool mLevelLost = false;
 
