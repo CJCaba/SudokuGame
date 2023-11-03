@@ -18,14 +18,22 @@
 class AudioPlayer : public Item
 {
 private:
+    /// Pointer to the audio
     std::shared_ptr<wxSound> mAudio;
+
+    /// Length of the audio
     double mAudioLength = 0;
+
+    /// Clock used for timing the audio loop
     std::shared_ptr<Clock> mClock;
 
+    /// Holds the start time for each audio loop
     int mStartTime = -1;
+
+    /// Holds the end time for each audio loop
     int mEndTime = -1;
+
 public:
-    /// Constructor
     AudioPlayer(Game *game, wxXmlNode * dec, wxXmlNode* item);
 
     // Disables drawing because it is audio not an image
