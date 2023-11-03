@@ -64,7 +64,7 @@ public:
 
      /**
       * The bitmap for this Item
-      * @return  bitmap of item image
+      * @return bitmap of item image
       */
      virtual wxGraphicsBitmap GetBitMap() {return mItemBitmap;}
 
@@ -87,10 +87,6 @@ public:
        */
      double GetHeight() const { return mGame->GetImage(mID)->GetHeight(); }
 
-     /**
-       * Draw this item
-       * @param gc Device context to draw on
-       */
      virtual void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
      /**
@@ -99,24 +95,17 @@ public:
       */
      Game* GetGame() { return mGame; }
 
-     /**
-      * Ensure that the item isn't on the sudoku board
-      * @param point The starting point of the board
-      * @return bool value
-      */
      bool OnBoard(wxPoint point);
 
      /**
-      * Check whether the point is within the bounds of this item
-      * @param point point to check
-      * @return boolean representing yes/no
+      * Check whether the point is within bounds of this item
+      * @param x coordinate as double
+      * @param y coordinate as double
+      * @return boolean representing true/false
       */
      virtual bool HitTest(double x, double y) const
      {
-         return (x >= mX &&
-                    x < (mX + GetWidth()) &&
-                    y >= mY &&
-                    y < (mY + GetHeight()));
+         return (x >= mX && x < (mX + GetWidth()) && y >= mY && y < (mY + GetHeight()));
      }
 
      /**

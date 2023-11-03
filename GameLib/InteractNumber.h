@@ -17,6 +17,7 @@ class InteractNumber : public Number
 {
 protected:
 private:
+    /// Flag representing whether this number resides in a X-Ray
     bool mXRayFlag = false;
 
 public:

@@ -7,9 +7,6 @@
 #include "pch.h"
 #include "Item.h"
 
-/// Hard Coded Attributes
-const double tileOffset = 96;
-
 using namespace std;
 
 /**
@@ -38,8 +35,8 @@ Item::Item(Game *game, wxXmlNode * dec, wxXmlNode* item) : mGame(game)
 }
 
 /**
-* Destructor
-*/
+ * Destructor
+ */
 Item::~Item()
 {
 
