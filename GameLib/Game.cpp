@@ -822,12 +822,12 @@ void Game::LevelSolutionCorrect() {
     int (*expectedSolution)[9] = mGameSolution->GetSolutionNumbers();
     bool arraysAreIdentical = true;
     bool boardFull = true;
-    for (int i = 0; i < 9 && arraysAreIdentical; ++i) {
-        for (int j = 0; j < 9; ++j) {
-            if (expectedSolution[i][j] != mSolution[i][j])
+    for (int row = 0; row < 9; row++) {
+        for (int col = 0; col < 9; col++) {
+            if (expectedSolution[row][col] != mSolution[row][col])
             {
                 arraysAreIdentical = false;
-                if(mSolution[i][j] == 9) {boardFull = false;}
+                if(mSolution[row][col] == 9) {boardFull = false;}
                 break;
             }
         }
