@@ -23,11 +23,19 @@ const double ErrorMessageWidth = 100;
 /// Height of the error message
 const double ErrorMessageHeight = 50;
 
+/**
+ * Constructor
+ * @param position The Starting Position of the Error Message
+ */
 ImFullErrorMessage::ImFullErrorMessage(wxPoint position)
 {
     mPosition = position;
 }
 
+/**
+ * Update the Error Message Position
+ * @param elapsed The current time
+ */
 void ImFullErrorMessage::Update(double elapsed)
 {
     // Update vertical position
@@ -37,6 +45,10 @@ void ImFullErrorMessage::Update(double elapsed)
         mDeleteMeFlag = true;
 }
 
+/**
+ * Draw the Message on the game
+ * @param graphics The Graphics Context to draw on
+ */
 void ImFullErrorMessage::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     // Rectangle properties

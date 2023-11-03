@@ -116,24 +116,29 @@ public:
 
     void Clear();
 
-    /**
-     * Get the random number generator
-     * @return Pointer to the random number generator
-     */
-    std::mt19937 &GetRandom() { return mRandom; }
-
     void Save(const wxString &filename);
 
     bool WithinWidth(double x);
 
     bool WithinHeight(double y);
 
+    /**
+     * Get the random number generator
+     * @return Pointer to the random number generator
+     */
+    std::mt19937 &GetRandom() { return mRandom; }
+
+    /**
+     * Return the Pixel Width
+     * @return mPixelWidth
+     */
     double GetWidth() const { return mPixelWidth; }
 
+    /**
+     * Return the Pixel Width
+     * @return mPixelHeight
+     */
     double GetHeight() const { return mPixelHeight; }
-
-    std::wstring DetermineStartupText();
-
 
     /**
      * Getter for items.
@@ -147,28 +152,41 @@ public:
      */
     std::map<std::string, wxXmlNode*> GetDec() const { return mDeclarations; }
 
+    /**
+     * Get the Tile Width
+     * @return mTileWidth
+     */
     int GetTileWidth() const { return mTileWidth; }
+
+    /**
+     * Get the Tile Height
+     * @return mTileHeight
+     */
     int GetTileHeight() const { return mTileHeight; }
 
     void XmlDeclare(wxXmlNode *node);
+
     void XmlItem(wxXmlNode *node);
+
     void SetLevel(std::wstring filename);
+
     void OnKeyDown(wxKeyEvent &event);
+
     void TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics);
 
     std::shared_ptr<wxImage> GetImage(const std::string& id);
 
-    /**
-     * Game accepts visitor to view mItems list
-     * @param visitor
-     */
     void Accept(Visitor* visitor);
 
     void UpdateBoard();
+
     void CheckSolution();
 
     void Solve();
+
     void DrawEndScreen(std::shared_ptr<wxGraphicsContext> graphics, wxString EndText);
+
+    std::wstring DetermineStartupText();
 };
 
 #endif //ARES_GAMELIB_GAME_H

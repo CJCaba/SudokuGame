@@ -9,6 +9,10 @@
 
 using namespace std;
 
+/**
+ * Constructor
+ * @param game The game this solution is a part of
+ */
 Solution::Solution(Game *game) : mGame(game)
 {
 }

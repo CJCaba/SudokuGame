@@ -1,6 +1,6 @@
 /**
  * @file Game.cpp
- * @author Daniel Flanagan, Tyler Przybylo, and Jason Lin
+ * @author Daniel Flanagan, Tyler Przybylo, Jason Lin, Jaden Cabansag, and Jerry Hoskins
  */
 
 #include "pch.h"
@@ -47,11 +47,12 @@ const wxString LoseText("Incorrect!");
 const wxColour GreenColour(77, 167, 57);
 
 /// Offset for number keys, to make 0 in ACII, zero
-const int numberKeyOffset = 48;
+/// ASCII offset for numbers
+const int NumberKeyOffset = 48;
 
 /**
- * Constructor for the game object
- */
+* Constructor for the game object
+*/
 Game::Game()
 {
     mBackgroundImage = std::make_shared<wxImage>(backgroundFileName, wxBITMAP_TYPE_ANY);
@@ -261,6 +262,10 @@ void Game::OnUpdate(double elapsed)
     }
 }
 
+/**
+ * Move the Spotlight Item when the mouse is moved
+ * @param event The Mouse move event
+ */
 void Game::OnMouseMove(wxMouseEvent &event)
 {
     double virtualX = ( event.GetX() - mXOffset ) / mScale;
@@ -274,6 +279,10 @@ void Game::OnMouseMove(wxMouseEvent &event)
 
 }
 
+/**
+ * Move Sparty on a left mouse click
+ * @param event The Mouse click event
+ */
 void Game::OnLeftDown(wxMouseEvent &event)
 {
     // First 3 seconds of the game, don't do anything
@@ -296,7 +305,6 @@ void Game::OnLeftDown(wxMouseEvent &event)
  */
 void Game::Save(const wxString &filename)
 {
-
 }
 
 /**
@@ -613,7 +621,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
             int col = dest.x * mTileWidth;
             int row = dest.y * mTileHeight;
 
-            auto item = mXRay->Find(keyCode - numberKeyOffset);
+            auto item = mXRay->Find(keyCode - NumberKeyOffset);
             if (item != nullptr)
             {
                 VisitorNumbers numVisitor;

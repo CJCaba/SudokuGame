@@ -14,13 +14,22 @@
 class XRayVisitor : public Visitor
 {
 private:
+    /// Pointer to XRay
     XRay* mXRay = nullptr;
 public:
+    /**
+     * Visit an XRay item
+     * @param xray Pointer to an XRay
+     */
     void VisitXRay(XRay* xray)
     {
         mXRay = xray;
     }
 
+    /**
+     * Return the XRay Item
+     * @return Pointer to XRay
+     */
     XRay* XRayFound()
     {
         return mXRay;

@@ -38,7 +38,10 @@ Container::Container(Game *game, wxXmlNode *dec, wxXmlNode* item) : Item(game, d
     }
 }
 
-
+/**
+ * Add an item to the Container at a random position
+ * @param item The item to add
+ */
 void Container::Add(const shared_ptr<Item>& item)
 {
     mItems.push_back(item);
@@ -50,7 +53,9 @@ void Container::Add(const shared_ptr<Item>& item)
     item->SetLocation(distributionX(randomSeed), distributionY(randomSeed));
 }
 
-
+/**
+ * Release all items form the container and add them to the main game.
+ */
 void Container::Release()
 {
     auto game = GetGame();
@@ -71,6 +76,10 @@ void Container::Release()
     mItems.clear();
 }
 
+/**
+ * Draw the Container and its items onto the game board
+ * @param graphics The Graphics context to draw on
+ */
 void Container::Draw(shared_ptr<wxGraphicsContext> graphics)
 {
 

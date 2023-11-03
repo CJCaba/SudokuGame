@@ -26,6 +26,10 @@ public:
         mContainers.push_back(container);
     }
 
+    /**
+     * Return the vector of Containers
+     * @return The vector of Containers
+     */
     std::vector<Container*> ContainerFound()
     {
         return mContainers;

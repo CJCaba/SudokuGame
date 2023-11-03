@@ -62,6 +62,11 @@ void Item::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     graphics->DrawBitmap(mItemBitmap, GetX(), GetY(), itemWid, itemHeight);
 }
 
+/**
+ * Determine whether an item is on the Sudoku Board or not
+ * @param point The wxPoint where the Sudoku Board begins at
+ * @return bool of whether the item is on the board or not
+ */
 bool Item::OnBoard(wxPoint point)
 {
     auto game = GetGame();

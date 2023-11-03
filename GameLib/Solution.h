@@ -47,7 +47,10 @@ public:
         return mSolutionNumbers;
     }
 
-
+    /**
+     * The starting position for the board
+     * @return
+     */
     wxPoint GetBoardPosition()
     {
         return mPoint;

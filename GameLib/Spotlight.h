@@ -10,6 +10,9 @@
 
 #include "Item.h"
 
+/**
+ * Base Class for the spotlight
+ */
 class Spotlight : public Item
 {
 private:
