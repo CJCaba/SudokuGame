@@ -836,7 +836,7 @@ void Game::LevelSolutionCorrect() {
     {
         mLevelWon = true;
     }
-    if(boardFull && !arraysAreIdentical)
+    if(boardFull && arraysAreIdentical)
     {
         mLevelLost = true;
     }
