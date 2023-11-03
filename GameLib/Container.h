@@ -83,7 +83,8 @@ public:
 
     /**
       * Check whether the point is within the bounds of this item
-      * @param point point to check
+      * @param x The x position to test for
+      * @param y The y position to test for
       * @return boolean representing yes/no
       */
     virtual bool HitTest(double x, double y) const override
