@@ -15,6 +15,7 @@
 #include "Background.h"
 #include "ImFullErrorMessage.h"
 #include "Spotlight.h"
+#include "AudioPlayer.h"
 
 #include "InteractiveItems.h"
 #include "VisitorNumbers.h"
@@ -373,13 +374,31 @@ void Game::XmlDeclare(wxXmlNode *node){
     {
         filename = L"images/" + node->GetAttribute("image1", "").ToStdWstring();
     }
+    else if (name == "audio")
+    {
+        filename = L"audio/" + node->GetAttribute("file", "").ToStdWstring();
+    }
     else
     {
         filename = L"images/" + node->GetAttribute("image", "").ToStdWstring();
     }
 
     mDeclarations[id] = node;
-    mImages[id] = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
+
+
+    if (name == "audio")
+    {
+        auto audio = make_shared<wxSound>(filename);
+        if (audio->IsOk())
+        {
+            mAudios[id] = audio;
+        }
+    }
+    else
+    {
+        mImages[id] = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
+
+    }
 }
 
 /**
@@ -395,7 +414,6 @@ void Game::XmlItem(wxXmlNode *node){
     if(name == "given")
     {
         item = std::make_shared<GivenNumber>(this, itemDeclaration, node);
-
     }
 
     if(name == "digit")
@@ -430,7 +448,12 @@ void Game::XmlItem(wxXmlNode *node){
         item = mSpotlight;
     }
 
-    if(item)
+    if(name == "audio")
+    {
+        item = std::make_shared<AudioPlayer>(this, itemDeclaration, node);
+    }
+
+    if(item && name != "audio")
     {
         double x, y, height;
 
@@ -450,6 +473,10 @@ void Game::XmlItem(wxXmlNode *node){
             }
         }
 
+        AddItem(item);
+    }
+    else if (item && name == "audio")
+    {
         AddItem(item);
     }
 }

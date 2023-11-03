@@ -9,6 +9,7 @@ set(APPLICATION_LIBRARY GameLib)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/images/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/images/)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/LevelFiles/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/LevelFiles/)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/audio/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/audio/)
 
 # Request the required wxWidgets libs
 # Turn off wxWidgets own precompiled header system, since

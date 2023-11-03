@@ -27,12 +27,15 @@ Item::Item(Game *game, wxXmlNode * dec, wxXmlNode* item) : mGame(game)
     {
         filename = L"images/" + dec->GetAttribute("image1", "").ToStdWstring();;
     }
-    else
+    else if (name != "audio")
     {
         filename = L"images/" + dec->GetAttribute("image", "").ToStdWstring();
     }
-
-};
+    else
+    {
+        filename = L"audio/" + dec->GetAttribute("file", "").ToStdWstring();
+    }
+}
 
 /**
 * Destructor

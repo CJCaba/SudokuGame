@@ -16,6 +16,7 @@ class Container;
 class XRay;
 class Spotlight;
 class Sparty;
+class AudioPlayer;
 
 /**
  * Item visitor base class
@@ -41,6 +42,8 @@ public:
     virtual void VisitXRay(XRay* xray) {}
 
     virtual void VisitSparty(Sparty* sparty) {}
+
+    virtual void VisitAudioPlayer(AudioPlayer* audio) {}
 
     virtual void VisitSpotlight(Spotlight* spotlight) {}
 };

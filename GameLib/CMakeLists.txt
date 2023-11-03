@@ -44,6 +44,8 @@ set(SOURCE_FILES
         ImFullErrorMessage.h
         Spotlight.cpp
         Spotlight.h
+        AudioPlayer.cpp
+        AudioPlayer.h
 )
 
 set(wxBUILD_PRECOMP OFF)

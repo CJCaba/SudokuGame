@@ -13,6 +13,7 @@
 #include <memory>
 #include <map>
 #include <wx/graphics.h>
+#include <wx/sound.h>
 
 class Declaration;
 class Clock;
@@ -79,6 +80,9 @@ private:
 
     /// Map of Image pointers to IDs
     std::map<std::string, std::shared_ptr<wxImage>> mImages;
+
+    /// Map of Audio pointers to IDs
+    std::map<std::string, std::shared_ptr<wxSound>> mAudios;
 
     int mSolution[9][9] = {0};
 
