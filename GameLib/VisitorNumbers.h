@@ -38,6 +38,10 @@ public:
         mFoundItems.push_back(given);
     }
 
+    /**
+     * Returns the vector of number pointers
+     * @return vector of number pointers
+     */
     std::vector<Number*> FoundItems() { return mFoundItems; }
 };
 
