@@ -75,16 +75,22 @@ public:
       */
     double GetHeight() { return mBackImage->GetHeight(); }
 
+    /**
+    * Adds an item to the container
+    * @param item to add
+    */
     void Add(const std::shared_ptr<Item>& item);
+
+    /**
+    * Moves contained items to random locations
+    * across the screen, then clears the container.
+    */
     void Release();
 
     /**
-     * Is the item in the container?
-     * @param item The item in question.
-     * @return bool representing yes/no.
-     */
-    bool Contains(const std::shared_ptr<Item>& item) { return std::find(mItems.begin(), mItems.end(), item) != mItems.end(); };
-
+    * Draw the container.
+    * @param graphics Graphics context to draw the container on.
+    */
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
     /**

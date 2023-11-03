@@ -829,15 +829,6 @@ void Game::Solve() {
 
     auto numbers = visitor.InteractFound();
 
-    // Move all Interactable Numbers off of the virtual board
-    for(auto item : numbers){
-        if(mXRay->Check(item))
-        {
-            continue;
-        }
-        item->SetLocation(0,0);
-    }
-
     UpdateBoard();
 
     int startCol = point.x;
@@ -847,8 +838,9 @@ void Game::Solve() {
         for(int col = 0; col < 9; col++){
             int boardValue = mSolution[row][col];
             int solValue = mGameSolution->GetValue(row, col);
-            // If they are not equal, find a number that can be placed there
-            if(!mGameSolution->IsEqual(boardValue, row, col)){
+            // If the current board value is nine (No Number Item present)
+            // Then the proper number should be placed there.
+            if(boardValue == 9){
                 for(auto item : numbers){
                     if(item->GetValue() == solValue){
                         // Ensure the current item isn't already placed on the board
