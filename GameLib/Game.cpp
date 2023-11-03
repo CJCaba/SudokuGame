@@ -408,7 +408,8 @@ void Game::XmlItem(wxXmlNode *node){
 
     if(name == "xray")
     {
-        item = std::make_shared<XRay>(this, itemDeclaration, node);
+        mXRay = std::make_shared<XRay>(this, itemDeclaration, node);
+        item = mXRay;
     }
 
     if(name == "sparty")
