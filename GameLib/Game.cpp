@@ -135,8 +135,17 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // draw item
     for (auto item : mItems)
     {
+        if (item == mSparty || item == mSpotlight)
+            continue;
+
         item->Draw(graphics);
     }
+
+    if (mSparty != nullptr)
+        mSparty->Draw(graphics);
+
+    if (mSpotlight != nullptr)
+        mSpotlight->Draw(graphics);
 
     for (auto errorMessage : mErrorMessages)
     {
@@ -169,10 +178,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     else
     {
         // Drawing Clock on Screen, should be Top Layer Drawing
-        if(!mLevelWon)
-        {
-            mClock->Draw(graphics);
-        }
+        mClock->Draw(graphics);
     }
 
     if(mLevelWon || mLevelLost)
@@ -221,7 +227,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
  */
 void Game::OnUpdate(double elapsed)
 {
-    if (mClock != nullptr)
+    if (mClock != nullptr || !mLevelWon)
     {
         mClock->AddTime(elapsed);
     }
@@ -815,12 +821,12 @@ void Game::LevelSolutionCorrect() {
     int (*expectedSolution)[9] = mGameSolution->GetSolutionNumbers();
     bool arraysAreIdentical = true;
     bool boardFull = true;
-    for (int i = 0; i < 9 && arraysAreIdentical; ++i) {
-        for (int j = 0; j < 9; ++j) {
-            if (expectedSolution[i][j] != mSolution[i][j])
+    for (int row = 0; row < 9; row++) {
+        for (int col = 0; col < 9; col++) {
+            if (expectedSolution[row][col] != mSolution[row][col])
             {
                 arraysAreIdentical = false;
-                if(mSolution[i][j] == 9) {boardFull = false;}
+                if(mSolution[row][col] == 9) {boardFull = false;}
                 break;
             }
         }
@@ -829,7 +835,7 @@ void Game::LevelSolutionCorrect() {
     {
         mLevelWon = true;
     }
-    if(boardFull && !arraysAreIdentical)
+    if(boardFull && arraysAreIdentical)
     {
         mLevelLost = true;
     }
