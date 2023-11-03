@@ -44,6 +44,7 @@ const wxString LoseText("Incorrect!");
 /// Green colour for popup messages
 const wxColour GreenColour(77, 167, 57);
 
+/// Offset for number keys, to make 0 in ACII, zero
 const int numberKeyOffset = 48;
 
 /**
@@ -369,6 +370,9 @@ void Game::Clear()
     mBackgroundBitmap.UnRef();
     mLevelWon = false;
     mLevelLost = false;
+    mSparty = nullptr;
+    mSpotlight = nullptr;
+    mXRay = nullptr;
 }
 
 /**
@@ -875,7 +879,7 @@ void Game::Solve() {
                             {
                                 continue;
                             }
-                            item->SetLocation(point.x * 48, point.y * 48);
+                            item->SetLocation(point.x * mTileWidth, point.y * mTileHeight);
                             break;
                         }
                     }
