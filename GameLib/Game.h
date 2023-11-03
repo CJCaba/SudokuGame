@@ -41,12 +41,16 @@ private:
     /// Collection of error messages within the game
     std::vector<std::shared_ptr<ImFullErrorMessage>> mErrorMessages;
 
+    /// Pointer to the Sparty Item
     std::shared_ptr<Sparty> mSparty = nullptr;
 
+    /// Pointer to the XRay Item
     std::shared_ptr<XRay> mXRay = nullptr;
 
+    /// Pointer to the Spotlight Item
     std::shared_ptr<Spotlight> mSpotlight = nullptr;
 
+    /// Location of the Spotlight Item
     wxPoint mSpotlightLocation;
 
     /// Solution to the game
@@ -65,8 +69,10 @@ private:
     /// The amount to shift the graphics object in the y direction
     double mYOffset = 0;
 
+    /// The Pixel Width of the Game
     double mPixelWidth = 0;
 
+    /// The Pixel Height of the Game
     double mPixelHeight = 0;
 
     /// Random number generator
@@ -81,13 +87,19 @@ private:
     /// Map of Image pointers to IDs
     std::map<std::string, std::shared_ptr<wxImage>> mImages;
 
+    /// 2D Map of the Virtual Board State
     int mSolution[9][9] = {0};
 
+    /// Bool Value to determine whether game is starting up or not
     bool mStartUp = true;
 
+    /// Int value for level playing currently
     int mCurrentLevel;
 
+    /// Tile Width of the Game
     int mTileWidth;
+
+    /// Tile Height of the Game
     int mTileHeight;
 
     double mGameWidth = 0;

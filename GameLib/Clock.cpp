@@ -104,7 +104,7 @@ void Clock::Reset()
  * Draw the clock onto the Game
  * @param graphics The graphics context to draw on
  */
-void Clock::Draw(std::shared_ptr<wxGraphicsContext> graphics)
+void Clock::Draw(std::shared_ptr<wxGraphicsContext> graphics, bool final)
 {
     wxFont font(wxSize(ScoreboardTextSize, ScoreboardTextSize),
                 wxFONTFAMILY_SCRIPT,
@@ -112,6 +112,23 @@ void Clock::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                 wxFONTWEIGHT_BOLD);
     graphics->SetFont(font, wxColour(*wxWHITE));
 
-    std::string analog = GetMinutes() + ":" + GetSeconds();
-    graphics->DrawText(analog, ScoreboardTopLeft.x, ScoreboardTopLeft.y);
+    if(!final)
+    {
+        std::string analog = GetMinutes() + ":" + GetSeconds();
+        graphics->DrawText(analog, ScoreboardTopLeft.x, ScoreboardTopLeft.y);
+    }
+    else
+    {
+        graphics->DrawText(GetScore(), ScoreboardTopLeft.x, ScoreboardTopLeft.y);
+    }
+}
+
+void Clock::SetScore()
+{
+    mFinalScore = GetMinutes() + ":" + GetSeconds();
+}
+
+std::string Clock::GetScore()
+{
+    return mFinalScore;
 }

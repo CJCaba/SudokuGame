@@ -2,7 +2,7 @@
  * @file VisitorAudio.h
  * @author Tyler Przybylo
  *
- *
+ * Visitor for Audio Player
  */
 
 #ifndef ARES_GAMELIB_VISITORAUDIO_H
@@ -16,6 +16,7 @@
 class VisitorAudio : public Visitor
 {
 private:
+    /// Pointer for AudioPlayer item
     AudioPlayer* mAudio = nullptr;
 public:
     /**
@@ -25,8 +26,17 @@ public:
     void VisitAudioPlayer(AudioPlayer* audio) { mAudio = audio; }
 
     /**
-     * Getter for AudioPLayer instance
-     * @return AudioPLayer instance
+     * Visit an AudioPlayer item
+     * @param audio Pointer to an AudioPlayer
+     */
+    void VisitAudioPlayer(AudioPlayer* audio)
+    {
+        mAudio = audio;
+    }
+
+    /**
+     * Return AudioPlayer pointer
+     * @return mAudio
      */
     AudioPlayer* AudioFound()
     {

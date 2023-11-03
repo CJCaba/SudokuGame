@@ -178,7 +178,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     else
     {
         // Drawing Clock on Screen, should be Top Layer Drawing
-        mClock->Draw(graphics);
+        mClock->Draw(graphics, mStartUp);
     }
 
     if(mLevelWon || mLevelLost)
@@ -874,6 +874,7 @@ void Game::CheckSolution() {
     {
         mLevelLost = true;
     }
+    mClock->SetScore();
 }
 
 /**
