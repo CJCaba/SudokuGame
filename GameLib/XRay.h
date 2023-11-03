@@ -1,6 +1,6 @@
 /**
  * @file XRay.h
- * @author linja
+ * @author Jason Lin
  *
  * Class for Xray item
  */

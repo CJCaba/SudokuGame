@@ -1,6 +1,6 @@
 /**
  * @file ContainerVisitor.h
- * @author linja
+ * @author Jason Lin
  *
  * Visit and Collect all Containers
  */

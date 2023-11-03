@@ -2,6 +2,7 @@
  * @file Sparty.h
  * @author Tyler Przybylo
  * @author Jerry Hoskins
+ * @author Jason Lin
  *
  * Class for Sparty
  */

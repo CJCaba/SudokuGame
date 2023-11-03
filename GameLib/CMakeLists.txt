@@ -34,8 +34,6 @@ set(SOURCE_FILES
         Visitor.h
         InteractiveItems.cpp
         InteractiveItems.h
-        XRayVisitor.cpp
-        XRayVisitor.h
         VisitorNumbers.cpp
         VisitorNumbers.h
         ContainerVisitor.cpp

@@ -123,11 +123,18 @@ void Clock::Draw(std::shared_ptr<wxGraphicsContext> graphics, bool final)
     }
 }
 
+/**
+ * Set the final score of the game
+ */
 void Clock::SetScore()
 {
     mFinalScore = GetMinutes() + ":" + GetSeconds();
 }
 
+/**
+ * Return the final score in string form
+ * @return final score
+ */
 std::string Clock::GetScore()
 {
     return mFinalScore;

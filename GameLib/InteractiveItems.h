@@ -1,6 +1,6 @@
 /**
  * @file InteractiveItems.h
- * @author linja
+ * @author Jason Lin
  *
  *
  */
