@@ -12,7 +12,7 @@
 using namespace std;
 
 /// Error Message Text
-const wxString ErrorMessage("I'm Full!");
+const wxString ErrorMessage = wxString("I'm Full!");
 
 /// Vertical speed in pixels per second
 const double ErrorMessageSpeed = 200;

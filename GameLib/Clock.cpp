@@ -62,16 +62,6 @@ void Clock::AddTime(double elapsed)
 }
 
 /**
- * Converts analog minutes to a string
- * @return minutes as type string
- */
-std::string Clock::GetMinutes()
-{
-    std::string mins = std::to_string(int(mMinutes));
-    return mins;
-}
-
-/**
  * Converts analog seconds to a string
  * @return seconds as type string
  */
@@ -92,17 +82,9 @@ std::string Clock::GetSeconds()
 }
 
 /**
- * Reset clock to zero
- */
-void Clock::Reset()
-{
-    mMinutes = 0;
-    mSeconds = 0;
-}
-
-/**
  * Draw the clock onto the Game
  * @param graphics The graphics context to draw on
+ * @param final Whether we are at the final part of the level
  */
 void Clock::Draw(std::shared_ptr<wxGraphicsContext> graphics, bool final)
 {
@@ -123,19 +105,5 @@ void Clock::Draw(std::shared_ptr<wxGraphicsContext> graphics, bool final)
     }
 }
 
-/**
- * Set the final score of the game
- */
-void Clock::SetScore()
-{
-    mFinalScore = GetMinutes() + ":" + GetSeconds();
-}
 
-/**
- * Return the final score in string form
- * @return final score
- */
-std::string Clock::GetScore()
-{
-    return mFinalScore;
-}
+
