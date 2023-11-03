@@ -188,7 +188,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         if(currTime == mFinishTime)
         {
             mFinishTime = -1;
-            mLevelLost = false;
             if(mCurrentLevel == 1)
             {
                 if(mLevelWon)
