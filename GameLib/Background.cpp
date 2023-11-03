@@ -3,6 +3,7 @@
  * @author jadec
  */
 
+#include "pch.h"
 #include "Background.h"
 
 /**

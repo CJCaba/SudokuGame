@@ -1,6 +1,6 @@
 /**
  * @file XRay.cpp
- * @author linja
+ * @author Jason Lin
  */
 
 #include <random>

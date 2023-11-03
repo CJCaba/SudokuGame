@@ -1,6 +1,6 @@
 /**
  * @file GameView.cpp
- * @author jadec, Daniel Flanagan
+ * @author jadec, Daniel Flanagan, Jason Lin
  */
 
 #include "pch.h"
