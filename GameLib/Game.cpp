@@ -839,7 +839,7 @@ void Game::CheckSolution() {
     {
         mLevelWon = true;
     }
-    if(boardFull && arraysAreIdentical)
+    if(boardFull && !arraysAreIdentical)
     {
         mLevelLost = true;
     }
