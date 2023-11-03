@@ -135,8 +135,17 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // draw item
     for (auto item : mItems)
     {
+        if (item == mSparty || item == mSpotlight)
+            continue;
+
         item->Draw(graphics);
     }
+
+    if (mSparty != nullptr)
+        mSparty->Draw(graphics);
+
+    if (mSpotlight != nullptr)
+        mSpotlight->Draw(graphics);
 
     for (auto errorMessage : mErrorMessages)
     {
@@ -169,10 +178,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     else
     {
         // Drawing Clock on Screen, should be Top Layer Drawing
-        if(!mLevelWon)
-        {
-            mClock->Draw(graphics);
-        }
+        mClock->Draw(graphics);
     }
 
     if(mLevelWon || mLevelLost)
@@ -222,7 +228,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
  */
 void Game::OnUpdate(double elapsed)
 {
-    if (mClock != nullptr)
+    if (mClock != nullptr || !mLevelWon)
     {
         mClock->AddTime(elapsed);
     }

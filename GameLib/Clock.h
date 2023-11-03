@@ -27,8 +27,6 @@ private:
     double mSeconds = 0;
 
 public:
-    Clock(Game *game);
-
     /// Default constructor (disabled)
     Clock() = delete;
 
@@ -37,6 +35,8 @@ public:
 
     /// Assignment operator
     void operator=(const Clock &) = delete;
+
+    Clock(Game *game);
 
     ~Clock();
 
