@@ -26,7 +26,7 @@ void AudioPlayer::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     if (mAudio->IsOk())
     {
-        if (!mAudio->)
+        if (!mAudio->IsPlaying())
         {
             mAudio->Play();
         }

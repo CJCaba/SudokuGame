@@ -67,6 +67,10 @@ public:
      */
     virtual void VisitSparty(Sparty* sparty) {}
 
+    /**
+     * Visit a AudioPlayer Item
+     * @param audio Pointer to the AudioPlayer
+     */
     virtual void VisitAudioPlayer(AudioPlayer* audio) {}
 
     /**

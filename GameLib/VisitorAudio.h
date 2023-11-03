@@ -10,16 +10,24 @@
 
 #include "Visitor.h"
 
+/**
+ * Visitor that identifies and retrieves a AudioPlayer instance
+ */
 class VisitorAudio : public Visitor
 {
 private:
     AudioPlayer* mAudio = nullptr;
 public:
-    void VisitAudioPlayer(AudioPlayer* audio)
-    {
-        mAudio = audio;
-    }
+    /**
+     * Visits AudioPlayer instance
+     * @param audio instance of AudioPlayer
+     */
+    void VisitAudioPlayer(AudioPlayer* audio) { mAudio = audio; }
 
+    /**
+     * Getter for AudioPLayer instance
+     * @return AudioPLayer instance
+     */
     AudioPlayer* AudioFound()
     {
         return mAudio;

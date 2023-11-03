@@ -28,23 +28,19 @@
 using namespace std;
 
 /// Path to Background Image (Hard Coded)
-std::wstring const backgroundFileName = L"images/background.png";
+const std::wstring backgroundFileName = L"images/background.png";
 
 /// Level 1
-std::wstring const level1 = L"LevelFiles/level1.xml";
-
-/// Hard Coded Level 1 Attributes
-double gameWidth = 0;
-double gameHeight = 0;
+const std::wstring level1 = L"LevelFiles/level1.xml";
 
 /// Text displayed when the player wins the game
-const wxString WinText("Level Complete!");
+const wxString WinText = wxString("Level Complete!");
 
 /// Text displayed when the player loses the game
-const wxString LoseText("Incorrect!");
+const wxString LoseText = wxString("Incorrect!");
 
 /// Green colour for popup messages
-const wxColour GreenColour(77, 167, 57);
+const wxColour GreenColour = wxColour(77, 167, 57);
 
 /// Offset for number keys, to make 0 in ACII, zero
 /// ASCII offset for numbers
@@ -83,8 +79,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
 {
     // Determine the size of the playing area in pixels
     // This is up to you...
-    mPixelWidth = gameWidth * mTileWidth;
-    mPixelHeight = gameHeight * mTileHeight;
+    mPixelWidth = mGameWidth * mTileWidth;
+    mPixelHeight = mGameHeight * mTileHeight;
 
     //
     // Automatic Scaling
@@ -330,8 +326,8 @@ void Game::Load(const wxString &filename)
 
     root->GetAttribute("tilewidth", "1").ToInt(&mTileWidth);
     root->GetAttribute("tileheight", "1").ToInt(&mTileHeight);
-    root->GetAttribute("width", "1").ToDouble(&gameWidth);
-    root->GetAttribute("height", "1").ToDouble(&gameHeight);
+    root->GetAttribute("width", "1").ToDouble(&mGameWidth);
+    root->GetAttribute("height", "1").ToDouble(&mGameHeight);
 
     //
     // Traverse the children of the root
