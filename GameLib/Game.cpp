@@ -28,10 +28,10 @@
 using namespace std;
 
 /// Path to Background Image (Hard Coded)
-std::wstring backgroundFileName = L"images/background.png";
+std::wstring const backgroundFileName = L"images/background.png";
 
 /// Level 1
-std::wstring level1 = L"LevelFiles/level1.xml";
+std::wstring const level1 = L"LevelFiles/level1.xml";
 
 /// Hard Coded Level 1 Attributes
 double gameWidth = 0;
@@ -46,6 +46,7 @@ const wxString LoseText("Incorrect!");
 /// Green colour for popup messages
 const wxColour GreenColour(77, 167, 57);
 
+/// Offset for number keys, to make 0 in ACII, zero
 const int numberKeyOffset = 48;
 
 /**
@@ -137,8 +138,17 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     // draw item
     for (auto item : mItems)
     {
+        if (item == mSparty || item == mSpotlight)
+            continue;
+
         item->Draw(graphics);
     }
+
+    if (mSparty != nullptr)
+        mSparty->Draw(graphics);
+
+    if (mSpotlight != nullptr)
+        mSpotlight->Draw(graphics);
 
     for (auto errorMessage : mErrorMessages)
     {
@@ -149,7 +159,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     //
     // Checks if level is booting up
     //
-    if(mStartUp)
+    if(mStartUp && !mLevelWon && !mLevelLost)
     {
         //
         // Draws brief tutorial screen
@@ -171,44 +181,45 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
     else
     {
         // Drawing Clock on Screen, should be Top Layer Drawing
-        if(!mLevelWon)
-        {
-            mClock->Draw(graphics);
-        }
+        mClock->Draw(graphics);
     }
 
-    if(mLevelWon)
+    if(mLevelWon || mLevelLost)
     {
-        DrawEndScreen(graphics, WinText);
-        if(mVictoryTime == -1)
+        mStartUp = true;
+        DrawEndScreen(graphics, mLevelWon ? WinText : LoseText);
+        if(mFinishTime == -1)
         {
-            wxString victoryTimeStr = mClock->GetSeconds();
-            victoryTimeStr.ToLong(&mVictoryTime);
-            mVictoryTime += 3;
+            mFinishTime = stoi(mClock->GetSeconds());
+            mFinishTime += 3;
         }
-        wxString currTimeStr = mClock->GetSeconds();
-        long currTime;
-        currTimeStr.ToLong(&currTime);
-        if(currTime == mVictoryTime)
+        int currTime = stoi(mClock->GetSeconds());
+        if(currTime == mFinishTime)
         {
-            mLevelWon = false;
+            mFinishTime = -1;
             if(mCurrentLevel == 1)
             {
-                SetLevel(L"LevelFiles/level2.xml");
-                mCurrentLevel = 2;
+                if(mLevelWon)
+                {
+                    SetLevel(L"LevelFiles/level2.xml");
+                    mCurrentLevel = 2;
+                }
+                else {SetLevel(L"LevelFiles/level1.xml");}
             }
-            else
+
+            else if (mCurrentLevel == 2)
             {
-                SetLevel(L"LevelFiles/level3.xml");
-                mCurrentLevel = 3;
+                if(mLevelWon)
+                {
+                    SetLevel(L"LevelFiles/level3.xml");
+                    mCurrentLevel = 3;
+                }
+                else {SetLevel(L"LevelFiles/level2.xml");}
             }
+
+            else {SetLevel(L"LevelFiles/level3.xml");}
         }
     }
-
-//    If (player won):
-//        DrawEndScreen(graphics, WinText);
-//    If (player lost):
-//    DrawEndScreen(graphics, LoseText);
 
     graphics->PopState();
 }
@@ -246,7 +257,7 @@ void Game::OnUpdate(double elapsed)
     // Implement Building the Virtual Solution Board
     if (!mStartUp){
         UpdateBoard();
-        LevelSolutionCorrect();
+        CheckSolution();
     }
 }
 
@@ -266,7 +277,7 @@ void Game::OnMouseMove(wxMouseEvent &event)
 void Game::OnLeftDown(wxMouseEvent &event)
 {
     // First 3 seconds of the game, don't do anything
-    if(mStartUp)
+    if(mStartUp || mLevelWon)
         return;
 
     double virtualX = ( event.GetX() - mXOffset ) / mScale;
@@ -367,6 +378,11 @@ void Game::Clear()
     mItems.clear();
     mBackgroundImage->Clear();
     mBackgroundBitmap.UnRef();
+    mLevelWon = false;
+    mLevelLost = false;
+    mSparty = nullptr;
+    mSpotlight = nullptr;
+    mXRay = nullptr;
 }
 
 /**
@@ -433,7 +449,8 @@ void Game::XmlItem(wxXmlNode *node){
 
     if(name == "xray")
     {
-        item = std::make_shared<XRay>(this, itemDeclaration, node);
+        mXRay = std::make_shared<XRay>(this, itemDeclaration, node);
+        item = mXRay;
     }
 
     if(name == "sparty")
@@ -543,12 +560,10 @@ void Game::SetLevel(std::wstring filename)
  */
 void Game::OnKeyDown(wxKeyEvent &event)
 {
-    int keyCode = event.GetKeyCode();
+    if(mStartUp || mLevelWon)
+        return;
 
-    // Visitor finding xray
-    XRayVisitor visitorXRay;
-    Accept(&visitorXRay);
-    auto xRay = visitorXRay.XRayFound();
+    int keyCode = event.GetKeyCode();
 
     if (keyCode == WXK_SPACE)
     {
@@ -564,20 +579,20 @@ void Game::OnKeyDown(wxKeyEvent &event)
             Accept(&visitorRed);
             auto redNumbers = visitorRed.InteractFound();
 
-            if (xRay->IsFull())
+            if (mXRay->IsFull())
                 mErrorMessages.push_back(make_shared<ImFullErrorMessage>(wxPoint(GetWidth() / 2, GetHeight())));
             else
             {
                 for(auto &item : redNumbers)
                 {
                     // if item is found, add to xray and break
-                    if(xRay->Check(item))
+                    if(mXRay->Check(item))
                     {
                         continue;
                     }
                     if(item->HitTest(x, y))
                     {
-                        xRay->Add(item);
+                        mXRay->Add(item);
                         break;
                     }
                 }
@@ -598,7 +613,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
             int col = dest.x * mTileWidth;
             int row = dest.y * mTileHeight;
 
-            auto item = xRay->Find(keyCode - numberKeyOffset);
+            auto item = mXRay->Find(keyCode - numberKeyOffset);
             if (item != nullptr)
             {
                 VisitorNumbers numVisitor;
@@ -635,7 +650,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
                     item->SetLocation(x,y);
                 }
 
-                xRay->Remove(item);
+                mXRay->Remove(item);
             }
         }
     }
@@ -831,21 +846,29 @@ void Game::UpdateBoard()
 
 /**
   * Compares the expected solution to the current solution.
-  * If solution matches, mLevelWon set to True.
+  * If solution matches, mLevelWon set to True. If not mLevelLost is set to True.
   */
-void Game::LevelSolutionCorrect() {
+void Game::CheckSolution() {
     int (*expectedSolution)[9] = mGameSolution->GetSolutionNumbers();
     bool arraysAreIdentical = true;
-    for (int i = 0; i < 9 && arraysAreIdentical; ++i) {
-        for (int j = 0; j < 9; ++j) {
-            if (expectedSolution[i][j] != mSolution[i][j]) {
+    bool boardFull = true;
+    for (int row = 0; row < 9; row++) {
+        for (int col = 0; col < 9; col++) {
+            if (expectedSolution[row][col] != mSolution[row][col])
+            {
                 arraysAreIdentical = false;
+                if(mSolution[row][col] == 9) {boardFull = false;}
                 break;
             }
         }
     }
-    if (arraysAreIdentical) {
+    if (arraysAreIdentical)
+    {
         mLevelWon = true;
+    }
+    if(boardFull && !arraysAreIdentical)
+    {
+        mLevelLost = true;
     }
 }
 
@@ -862,10 +885,7 @@ void Game::Solve() {
 
     auto numbers = visitor.InteractFound();
 
-    // Move all Interactable Numbers off of the virtual board
-    for(auto item : numbers){
-        item->SetLocation(0,0);
-    }
+    UpdateBoard();
 
     int startCol = point.x;
     int endCol = point.x + 9;
@@ -874,14 +894,19 @@ void Game::Solve() {
         for(int col = 0; col < 9; col++){
             int boardValue = mSolution[row][col];
             int solValue = mGameSolution->GetValue(row, col);
-            // If they are not equal, find a number that can be placed there
-            if(!mGameSolution->IsEqual(boardValue, row, col)){
+            // If the current board value is nine (No Number Item present)
+            // Then the proper number should be placed there.
+            if(boardValue == 9){
                 for(auto item : numbers){
                     if(item->GetValue() == solValue){
                         // Ensure the current item isn't already placed on the board
                         if(!item->OnBoard(mGameSolution->GetBoardPosition()))
                         {
-                            item->SetLocation(point.x * 48, point.y * 48);
+                            if(mXRay->Check(item))
+                            {
+                                continue;
+                            }
+                            item->SetLocation(point.x * mTileWidth, point.y * mTileHeight);
                             break;
                         }
                     }

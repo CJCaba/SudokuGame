@@ -17,6 +17,7 @@ class InteractNumber : public Number
 {
 protected:
 private:
+    bool mXRayFlag = false;
 
 public:
     InteractNumber(Game *game, wxXmlNode * dec, wxXmlNode* item);
@@ -26,6 +27,8 @@ public:
      * @param visitor The visitor we accept
      */
     void Accept(Visitor* visitor) override { visitor->VisitInteract(this); }
+    void SetXRayFlag(bool b) { mXRayFlag = b; }
+    void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 };
 
 #endif //ARES_GAMELIB_INTERACTNUMBER_H

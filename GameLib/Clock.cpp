@@ -36,6 +36,7 @@ Clock::~Clock()
  */
 void Clock::SetTime(long time)
 {
+    // Divides the number of seconds
     mSeconds = time / 1000;
     mMinutes = mSeconds / 60;
 

@@ -79,6 +79,7 @@ void XRay::Add(InteractNumber* interact)
     } while(overlap);
 
     mStomachItems.push_back(interact);
+    interact->SetXRayFlag(true);
 }
 
 bool XRay::Check(InteractNumber* item)
@@ -99,6 +100,7 @@ void XRay::Remove(InteractNumber* item)
     auto loc = find(begin(mStomachItems), end(mStomachItems), item);
     if (loc != std::end(mStomachItems))
     {
+        item->SetXRayFlag(false);
         mStomachItems.erase(loc);
     }
 }

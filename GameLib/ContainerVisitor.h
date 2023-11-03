@@ -13,8 +13,14 @@
 class ContainerVisitor : public Visitor
 {
 private:
+    /// Vector of pointers to Container Items
     std::vector<Container*> mContainers;
 public:
+
+    /**
+     *
+     * @param container Pointer to a container
+     */
     void VisitContainer(Container* container) override
     {
         mContainers.push_back(container);

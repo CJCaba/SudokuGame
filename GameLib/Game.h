@@ -90,11 +90,14 @@ private:
     int mTileWidth;
     int mTileHeight;
 
+    /// True if level is lost
+    bool mLevelLost = false;
+
     /// True if level is won
     bool mLevelWon = false;
 
     /// Records time of level victory
-    long mVictoryTime = -1;
+    int mFinishTime = -1;
 
 public:
     Game();
@@ -162,7 +165,7 @@ public:
     void Accept(Visitor* visitor);
 
     void UpdateBoard();
-    void LevelSolutionCorrect();
+    void CheckSolution();
 
     void Solve();
     void DrawEndScreen(std::shared_ptr<wxGraphicsContext> graphics, wxString EndText);
