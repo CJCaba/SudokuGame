@@ -40,7 +40,6 @@ void MainFrame::Initialize()
     menuBar->Append(helpMenu, L"&Help");
 
     fileMenu->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit this program");
-    fileMenu->Append(wxID_SAVEAS, "Save &As...\tCtrl-S", L"Save game as...");
     fileMenu->Append(wxID_OPEN, "Open &File...\tCtrl-F", L"Open game file...");
     fileMenu->Append(IDM_SOLVE, "&Solve\tCtrl-O", L"Solve the current puzzle");  // Add this line
     helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");

@@ -134,8 +134,6 @@ public:
 
     void Clear();
 
-    void Save(const wxString &filename);
-
     bool WithinWidth(double x);
 
     bool WithinHeight(double y);

@@ -70,25 +70,6 @@ TEST_F(GameTest, Construct){
 }
 
 /**
- * Test Save As
- */
-TEST_F(GameTest, Save) {
-    // Create a path to temporary files
-    auto path = TempPath();
-
-    // Create the game
-    Game game;
-
-    //
-    // First test, saving a new game file
-    //
-    auto file1 = path + L"/test1.game";
-    game.Save(file1);
-
-    TestNewGame(file1);
-}
-
-/**
  * File Traversal / Loading Test
  */
 TEST_F(GameTest, Load){

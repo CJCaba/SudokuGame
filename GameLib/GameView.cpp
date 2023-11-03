@@ -20,8 +20,6 @@ void GameView::Initialize(wxFrame *parent) {
     Create(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE);
 
     SetBackgroundStyle(wxBG_STYLE_PAINT);
-    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnFileSaveAs, this,
-                 wxID_SAVEAS);
     parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnFileOpen, this,
                  wxID_OPEN);
     parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevel1, this,
@@ -119,23 +117,6 @@ void GameView::OnKeyDown(wxKeyEvent &event)
  void GameView::OnMouseMove(wxMouseEvent &event)
 {
      mGame.OnMouseMove(event);
-}
-
-/**
- * Handle the File>Save As menu option
- * @param event The menu event
- */
-void GameView::OnFileSaveAs(wxCommandEvent& event)
-{
-    wxFileDialog saveFileDialog(this, L"Save Game file", L"", L"",
-                                L"Game Files (*.xml)|*.xml", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
-    if (saveFileDialog.ShowModal() == wxID_CANCEL)
-    {
-        return;
-    }
-
-    auto filename = saveFileDialog.GetPath();
-    mGame.Save(filename);
 }
 
 /**
