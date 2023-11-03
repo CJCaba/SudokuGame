@@ -8,6 +8,9 @@
 #ifndef ARES_GAMELIB_IMFULLERRORMESSAGE_H
 #define ARES_GAMELIB_IMFULLERRORMESSAGE_H
 
+/**
+ * Class used to display I'm Full error message
+ */
 class ImFullErrorMessage
 {
 private:

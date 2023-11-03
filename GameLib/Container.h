@@ -1,7 +1,7 @@
 /**
  * @file Container.h
  * @author Gerald Hoskins
- *
+ * @author Jaden Cabansag
  * This file implements `Container`
  */
 
@@ -75,27 +75,16 @@ public:
       */
     double GetHeight() { return mBackImage->GetHeight(); }
 
-    /**
-    * Adds an item to the container
-    * @param item to add
-    */
     void Add(const std::shared_ptr<Item>& item);
 
-    /**
-    * Moves contained items to random locations
-    * across the screen, then clears the container.
-    */
     void Release();
 
-    /**
-    * Draw the container.
-    * @param graphics Graphics context to draw the container on.
-    */
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
     /**
       * Check whether the point is within the bounds of this item
-      * @param point point to check
+      * @param x The x position to test for
+      * @param y The y position to test for
       * @return boolean representing yes/no
       */
     virtual bool HitTest(double x, double y) const override

@@ -41,12 +41,16 @@ private:
     /// Collection of error messages within the game
     std::vector<std::shared_ptr<ImFullErrorMessage>> mErrorMessages;
 
+    /// Pointer to the Sparty Item
     std::shared_ptr<Sparty> mSparty = nullptr;
 
+    /// Pointer to the XRay Item
     std::shared_ptr<XRay> mXRay = nullptr;
 
+    /// Pointer to the Spotlight Item
     std::shared_ptr<Spotlight> mSpotlight = nullptr;
 
+    /// Location of the Spotlight Item
     wxPoint mSpotlightLocation;
 
     /// Solution to the game
@@ -65,8 +69,10 @@ private:
     /// The amount to shift the graphics object in the y direction
     double mYOffset = 0;
 
+    /// The Pixel Width of the Game
     double mPixelWidth = 0;
 
+    /// The Pixel Height of the Game
     double mPixelHeight = 0;
 
     /// Random number generator
@@ -81,13 +87,19 @@ private:
     /// Map of Image pointers to IDs
     std::map<std::string, std::shared_ptr<wxImage>> mImages;
 
+    /// 2D Map of the Virtual Board State
     int mSolution[9][9] = {0};
 
+    /// Bool Value to determine whether game is starting up or not
     bool mStartUp = true;
 
+    /// Int value for level playing currently
     int mCurrentLevel;
 
+    /// Tile Width of the Game
     int mTileWidth;
+
+    /// Tile Height of the Game
     int mTileHeight;
 
     /// True if level is lost
@@ -116,24 +128,29 @@ public:
 
     void Clear();
 
-    /**
-     * Get the random number generator
-     * @return Pointer to the random number generator
-     */
-    std::mt19937 &GetRandom() { return mRandom; }
-
     void Save(const wxString &filename);
 
     bool WithinWidth(double x);
 
     bool WithinHeight(double y);
 
+    /**
+     * Get the random number generator
+     * @return Pointer to the random number generator
+     */
+    std::mt19937 &GetRandom() { return mRandom; }
+
+    /**
+     * Return the Pixel Width
+     * @return mPixelWidth
+     */
     double GetWidth() const { return mPixelWidth; }
 
+    /**
+     * Return the Pixel Width
+     * @return mPixelHeight
+     */
     double GetHeight() const { return mPixelHeight; }
-
-    std::wstring DetermineStartupText();
-
 
     /**
      * Getter for items.
@@ -147,30 +164,43 @@ public:
      */
     std::map<std::string, wxXmlNode*> GetDec() const { return mDeclarations; }
 
+    /**
+     * Get the Tile Width
+     * @return mTileWidth
+     */
     int GetTileWidth() const { return mTileWidth; }
+
+    /**
+     * Get the Tile Height
+     * @return mTileHeight
+     */
     int GetTileHeight() const { return mTileHeight; }
 
     void XmlDeclare(wxXmlNode *node);
+
     void XmlItem(wxXmlNode *node);
+
     void SetLevel(std::wstring filename);
+
     void OnKeyDown(wxKeyEvent &event);
+
     void TutorialPrompt(std::shared_ptr<wxGraphicsContext> graphics);
 
     std::shared_ptr<wxImage> GetImage(const std::string& id);
 
-    /**
-     * Game accepts visitor to view mItems list
-     * @param visitor
-     */
     void Accept(Visitor* visitor);
 
     std::shared_ptr<Clock> GetClock() { return mClock; };
 
     void UpdateBoard();
+
     void CheckSolution();
 
     void Solve();
+
     void DrawEndScreen(std::shared_ptr<wxGraphicsContext> graphics, wxString EndText);
+
+    std::wstring DetermineStartupText();
 };
 
 #endif //ARES_GAMELIB_GAME_H

@@ -1,6 +1,6 @@
 /**
  * @file Game.cpp
- * @author Daniel Flanagan, Tyler Przybylo, and Jason Lin
+ * @author Daniel Flanagan, Tyler Przybylo, Jason Lin, Jaden Cabansag, and Jerry Hoskins
  */
 
 #include "pch.h"
@@ -28,13 +28,15 @@
 using namespace std;
 
 /// Path to Background Image (Hard Coded)
-std::wstring const backgroundFileName = L"images/background.png";
+std::wstring const BackgroundFileName = L"images/background.png";
 
 /// Level 1
-std::wstring const level1 = L"LevelFiles/level1.xml";
+std::wstring const Level1 = L"LevelFiles/Level1.xml";
 
-/// Hard Coded Level 1 Attributes
+/// Hard Coded Game Width
 double gameWidth = 0;
+
+/// Hard Coded Game Height
 double gameHeight = 0;
 
 /// Text displayed when the player wins the game
@@ -47,14 +49,15 @@ const wxString LoseText("Incorrect!");
 const wxColour GreenColour(77, 167, 57);
 
 /// Offset for number keys, to make 0 in ACII, zero
-const int numberKeyOffset = 48;
+/// ASCII offset for numbers
+const int NumberKeyOffset = 48;
 
 /**
- * Constructor for the game object
- */
+* Constructor for the game object
+*/
 Game::Game()
 {
-    mBackgroundImage = std::make_shared<wxImage>(backgroundFileName, wxBITMAP_TYPE_ANY);
+    mBackgroundImage = std::make_shared<wxImage>(BackgroundFileName, wxBITMAP_TYPE_ANY);
     mGameSolution = std::make_shared<Solution>(this);
     mClock = std::make_shared<Clock>(this);
     mClock->Reset();
@@ -169,7 +172,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
         TutorialPrompt(graphics);
 
         if (mItems.empty())
-            Load(level1);
+            Load(Level1);
 
         // After 3 seconds, remove tutorial and start game
         if(mClock->GetSeconds() == "03")
@@ -204,7 +207,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, double width, dou
                     SetLevel(L"LevelFiles/level2.xml");
                     mCurrentLevel = 2;
                 }
-                else {SetLevel(L"LevelFiles/level1.xml");}
+                else {SetLevel(L"LevelFiles/Level1.xml");}
             }
 
             else if (mCurrentLevel == 2)
@@ -261,6 +264,10 @@ void Game::OnUpdate(double elapsed)
     }
 }
 
+/**
+ * Move the Spotlight Item when the mouse is moved
+ * @param event The Mouse move event
+ */
 void Game::OnMouseMove(wxMouseEvent &event)
 {
     double virtualX = ( event.GetX() - mXOffset ) / mScale;
@@ -274,6 +281,10 @@ void Game::OnMouseMove(wxMouseEvent &event)
 
 }
 
+/**
+ * Move Sparty on a left mouse click
+ * @param event The Mouse click event
+ */
 void Game::OnLeftDown(wxMouseEvent &event)
 {
     // First 3 seconds of the game, don't do anything
@@ -296,7 +307,6 @@ void Game::OnLeftDown(wxMouseEvent &event)
  */
 void Game::Save(const wxString &filename)
 {
-
 }
 
 /**
@@ -613,7 +623,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
             int col = dest.x * mTileWidth;
             int row = dest.y * mTileHeight;
 
-            auto item = mXRay->Find(keyCode - numberKeyOffset);
+            auto item = mXRay->Find(keyCode - NumberKeyOffset);
             if (item != nullptr)
             {
                 VisitorNumbers numVisitor;

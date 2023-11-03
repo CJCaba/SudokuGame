@@ -18,13 +18,22 @@
 class VisitorNumbers : public Visitor
 {
 private:
+    /// Vector of Number pointers
     std::vector<Number*> mFoundItems;
 public:
 
+    /**
+     * Visit an InteractNumber item
+     * @param interact Pointer to an InteractNumber
+     */
     void VisitInteract(InteractNumber* interact) override{
         mFoundItems.push_back(interact);
     }
 
+    /**
+     * Visit a GivenNumber pointer
+     * @param given Pointer to a GivenNumber
+     */
     void VisitGiven(GivenNumber* given) override{
         mFoundItems.push_back(given);
     }

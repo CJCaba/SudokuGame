@@ -119,6 +119,10 @@ public:
                     y < (mY + GetHeight()));
      }
 
+     /**
+      * Abstract function for items to accept visitors
+      * @param visitor The visitor going through the items
+      */
      virtual void Accept(Visitor* visitor) = 0;
 };
 

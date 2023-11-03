@@ -30,6 +30,10 @@ void XRay::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     Item::Draw(graphics);
 }
 
+/**
+ * Add an InteractNumber to our XRay "stomach"
+ * @param interact Pointer to the InteractNumber to add
+ */
 void XRay::Add(InteractNumber* interact)
 {
     if (mStomachItems.size() >= mCapacity)
@@ -82,6 +86,11 @@ void XRay::Add(InteractNumber* interact)
     interact->SetXRayFlag(true);
 }
 
+/**
+ * Check to determine if the given Item is in our list of StomachItems
+ * @param item Pointer to the InteractNumber to check
+ * @return Bool whether an item is in the list or not
+ */
 bool XRay::Check(InteractNumber* item)
 {
     auto loc = find(begin(mStomachItems), end(mStomachItems), item);
@@ -95,6 +104,10 @@ bool XRay::Check(InteractNumber* item)
     }
 }
 
+/**
+ * Remove the Given InteractNumber from the "stomach"
+ * @param item Pointer to the InteractNumber to remove
+ */
 void XRay::Remove(InteractNumber* item)
 {
     auto loc = find(begin(mStomachItems), end(mStomachItems), item);
@@ -105,6 +118,11 @@ void XRay::Remove(InteractNumber* item)
     }
 }
 
+/**
+ * Find an InteractNumber with the same value as the given value
+ * @param value The int value to search for in our "stomach"
+ * @return Pointer to InteractNumber with a value equal to the given
+ */
 InteractNumber* XRay::Find(int value)
 {
     for (auto item : mStomachItems)
