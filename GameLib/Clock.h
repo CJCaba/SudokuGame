@@ -26,6 +26,9 @@ private:
     /// Seconds that have past since level start
     double mSeconds = 0;
 
+    /// The final score of the game
+    std::string mFinalScore;
+
 public:
     /// Default constructor (disabled)
     Clock() = delete;
@@ -46,7 +49,9 @@ public:
     void SetTime(long time);
     void AddTime(double elapsed);
     void Reset();
-    void Draw(std::shared_ptr<wxGraphicsContext> graphics);
+    void Draw(std::shared_ptr<wxGraphicsContext> graphics, bool final = false);
+    void SetScore();
+    std::string GetScore();
 };
 
 #endif //ARES_GAMELIB_CLOCK_H
