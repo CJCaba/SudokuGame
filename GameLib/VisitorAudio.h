@@ -26,15 +26,6 @@ public:
     void VisitAudioPlayer(AudioPlayer* audio) { mAudio = audio; }
 
     /**
-     * Visit an AudioPlayer item
-     * @param audio Pointer to an AudioPlayer
-     */
-    void VisitAudioPlayer(AudioPlayer* audio)
-    {
-        mAudio = audio;
-    }
-
-    /**
      * Return AudioPlayer pointer
      * @return mAudio
      */
