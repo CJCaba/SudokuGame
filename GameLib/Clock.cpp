@@ -17,7 +17,7 @@ const wxPoint ScoreboardTopLeft = wxPoint(10, 10);
 
 /**
  * Constructor
- * @param gameView The window this clock is a member of
+ * @param game The game this clock is a member of
  */
 Clock::Clock(Game *game) : mGame(game)
 {
@@ -32,7 +32,7 @@ Clock::~Clock()
 
 /**
  * Set the analog time based on current stopwatch elapse
- * @param elapsed time since stopwatch started
+ * @param time time since stopwatch started
  */
 void Clock::SetTime(long time)
 {
