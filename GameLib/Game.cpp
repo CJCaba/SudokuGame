@@ -19,7 +19,6 @@
 
 #include "InteractiveItems.h"
 #include "VisitorNumbers.h"
-#include "XRayVisitor.h"
 #include "ContainerVisitor.h"
 #include "VisitorAudio.h"
 

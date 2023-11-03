@@ -1,6 +1,7 @@
 /**
  * @file Sparty.cpp
  * @author Tyler Przybylo
+ * @author Jason Lin
  */
 
 #include "pch.h"

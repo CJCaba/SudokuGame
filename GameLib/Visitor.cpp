@@ -1,6 +1,6 @@
 /**
  * @file Visitor.cpp
- * @author linja
+ * @author Jason Lin
  */
 
 #include "pch.h"

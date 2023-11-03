@@ -16,8 +16,10 @@
 class Solution
 {
 private:
+    /// The game this solution is a part of
     Game *mGame;
 
+    /// Point to store the starting row and column for the game's board
     wxPoint mPoint = wxPoint(0,0);
 
     /// A collection of Numbers that represents the game's solution
@@ -41,6 +43,7 @@ public:
 
     /**
      * Getter for mSolutionNumbers
+     * @return array of numbers representing the solution
      */
     int (*GetSolutionNumbers())[9]
     {
@@ -55,12 +58,6 @@ public:
     {
         return mPoint;
     }
-
-    /**
-     * Determine whether a point on our virtual board is equal to the solution
-     * @return bool of integer comparison
-     */
-    bool IsEqual(int num, int row, int col){ return mSolutionNumbers[row][col] == num; }
 
     /**
      * Return a particular value from the solution

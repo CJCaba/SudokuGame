@@ -1,6 +1,7 @@
 /**
  * @file VisitorAudio.h
  * @author Tyler Przybylo
+ * @author Jason Lin
  *
  * Visitor for Audio Player
  */
