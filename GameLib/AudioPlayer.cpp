@@ -17,6 +17,9 @@ AudioPlayer::AudioPlayer(Game *game, wxXmlNode * dec, wxXmlNode* item) : Item(ga
 {
     std::wstring filename = L"audio/" + dec->GetAttribute("file", "").ToStdWstring();
     mAudio = std::make_shared<wxSound>(filename);
+    dec->GetAttribute("length", "0").ToDouble(&mAudioLength);
+
+    mClock = game->GetClock();
 }
 
 /**
@@ -27,9 +30,17 @@ void AudioPlayer::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     if (mAudio->IsOk())
     {
-        if (!mAudio->IsPlaying())
+        if(mStartTime == -1)
         {
+            mStartTime = std::stoi(mClock->GetSeconds());
+            mEndTime = mStartTime + mAudioLength;
             mAudio->Play();
+        }
+
+        int currentTime = std::stoi(mClock->GetSeconds());
+        if (currentTime >= mEndTime)
+        {
+            mStartTime = -1;
         }
     }
 }

@@ -164,6 +164,8 @@ public:
      */
     void Accept(Visitor* visitor);
 
+    std::shared_ptr<Clock> GetClock() { return mClock; };
+
     void UpdateBoard();
     void CheckSolution();
 

@@ -9,6 +9,7 @@
 #define ARES_GAMELIB_AUDIOPLAYER_H
 
 #include "Item.h"
+#include "Clock.h"
 #include <wx/sound.h>
 
 /**
@@ -18,6 +19,11 @@ class AudioPlayer : public Item
 {
 private:
     std::shared_ptr<wxSound> mAudio;
+    double mAudioLength = 0;
+    std::shared_ptr<Clock> mClock;
+
+    int mStartTime = -1;
+    int mEndTime = -1;
 public:
     /// Constructor
     AudioPlayer(Game *game, wxXmlNode * dec, wxXmlNode* item);
